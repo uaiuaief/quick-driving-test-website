@@ -1,7 +1,9 @@
 from django.contrib import admin
-from .models import Customer, TestCenter, AcceptableTimeRange
+from . import models
 
 # Register your models here.
-admin.site.register(Customer)
-admin.site.register(TestCenter)
-admin.site.register(AcceptableTimeRange)
+admin.site.register(models.Customer)
+admin.site.register(models.TestCenter)
+admin.site.register(models.AcceptableTimeRange)
+admin.site.register(models.AvailableDate)
+admin.site.register(models.AvailableTime)
