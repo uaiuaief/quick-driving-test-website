@@ -34,7 +34,9 @@ class ProxyCustomerPairView(View):
         data = self.find_usable_pair()
 
         if not data:
-            return JsonResponse({'error': 'There are no customers or proxies available'}, status=404)
+            return JsonResponse({
+                'error': 'There are no customers or proxies available'
+                }, status=404)
         else:
             return JsonResponse(data)
 
@@ -42,26 +44,26 @@ class ProxyCustomerPairView(View):
         customer = self.find_usable_customer()
         proxy = self.find_usable_proxy()
 
-        if not customer or not proxy:
-            return None
-        else:
+        if customer and proxy:
             return {
                     'customer': serializers.CustomerSerializer(customer).data,
                     'proxy': serializers.ProxySerializer(proxy).data
                     }
+        else:
+            return None
 
 
     def find_usable_customer(self):
         time_limit = datetime.datetime.now() - datetime.timedelta(minutes=5)
         usable_customer = models.Customer.objects.filter(
                 last_crawled__lte=time_limit,
-                info_validation='valid').first()
+                info_validation='valid').order_by('last_crawled').first()
 
         return usable_customer
 
     def find_usable_proxy(self):
         time_limit = datetime.datetime.now() - datetime.timedelta(minutes=3)
-        usable_proxy = models.Proxy.objects.filter(
+        usable_proxy = models.Proxy.objects.order_by('last_used').filter(
                 last_used__lte=time_limit,
                 is_banned=False).first()
 

@@ -17,9 +17,6 @@ class TestCenter(BaseModel):
     name = models.CharField(max_length=150)
     customers = models.ManyToManyField('Customer', blank=True)
 
-    created_at = models.DateField(auto_now_add=True)
-    last_modified = models.DateField(auto_now_add=True)
-
     def __str__(self):
         return self.name
 
@@ -44,7 +41,7 @@ class Customer(BaseModel):
     recent_test_failure = models.DateField(null=True, blank=True)
     earliest_test_date = models.DateField(default=timezone.now)
     latest_test_date = models.DateField(null=True, blank=True)
-    last_crawled = models.TimeField(null=True, blank=True)
+    last_crawled = models.TimeField(blank=True, default=timezone.now)
 
     info_validation = models.CharField(
             max_length=20,
@@ -118,7 +115,7 @@ class AvailableTime(BaseModel):
 
 class Proxy(BaseModel):
     ip = models.CharField(max_length=30, unique=True)
-    last_used = models.TimeField(null=True, blank=True)
+    last_used = models.TimeField(default=timezone.now)
     is_banned = models.BooleanField(default=False)
 
     def __str__(self):
