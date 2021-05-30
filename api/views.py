@@ -1,9 +1,11 @@
 import json
 import datetime
 from django.views.decorators.csrf import csrf_exempt
+from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
+from rest_framework.renderers import JSONRenderer
 from . import models, serializers
 
 
@@ -17,16 +19,58 @@ class TestCenterViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.TestCenterSerializer
 
 
+class TimeRangeViewSet(viewsets.ModelViewSet):
+    queryset = models.AcceptableTimeRange.objects.all()
+    serializer_class = serializers.TimeRangeSerializer
 
 
+class ProxyViewSet(viewsets.ModelViewSet):
+    queryset = models.Proxy.objects.all()
+    serializer_class = serializers.ProxySerializer
 
 
+class ProxyCustomerPairView(View):
+    def get(self, request):
+        data = self.find_usable_pair()
+
+        if not data:
+            return JsonResponse({'error': 'There are no customers or proxies available'}, status=404)
+        else:
+            return JsonResponse(data)
+
+    def find_usable_pair(self):
+        customer = self.find_usable_customer()
+        proxy = self.find_usable_proxy()
+
+        if not customer or not proxy:
+            return None
+        else:
+            return {
+                    'customer': serializers.CustomerSerializer(customer).data,
+                    'proxy': serializers.ProxySerializer(proxy).data
+                    }
 
 
+    def find_usable_customer(self):
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=5)
+        usable_customer = models.Customer.objects.filter(
+                last_crawled__lte=time_limit,
+                info_validation='valid').first()
+
+        return usable_customer
+
+    def find_usable_proxy(self):
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=3)
+        usable_proxy = models.Proxy.objects.filter(
+                last_used__lte=time_limit,
+                is_banned=False).first()
+
+        return usable_proxy
 
 
 def test_view(request):
     return HttpResponse('hello world')
+
 
 @csrf_exempt
 def add_available_date_view(request, test_center_name):

@@ -26,6 +26,7 @@ class TestCenter(BaseModel):
 
 class Customer(BaseModel):
     driving_licence_number = models.CharField(
+            primary_key=True,
             max_length=16, 
             validators=[MinLengthValidator(16)]
     )
@@ -43,6 +44,7 @@ class Customer(BaseModel):
     recent_test_failure = models.DateField(null=True, blank=True)
     earliest_test_date = models.DateField(default=timezone.now)
     latest_test_date = models.DateField(null=True, blank=True)
+    last_crawled = models.TimeField(null=True, blank=True)
 
     info_validation = models.CharField(
             max_length=20,
@@ -58,10 +60,11 @@ class Customer(BaseModel):
         errors = []
         if self.recent_test_failure and self.recent_test_failure > datetime.date.today():
             errors.append("Recent failure date can't be after the current day") 
-        if self.latest_test_date < datetime.date.today():
-            errors.append("Latest test date can't be before the current day") 
-        if self.latest_test_date < self.earliest_test_date:
-            errors.append("Latest test date can't be before the earlist test date") 
+        if self.latest_test_date:
+            if self.latest_test_date < datetime.date.today():
+                errors.append("Latest test date can't be before the current day") 
+            if self.latest_test_date < self.earliest_test_date:
+                errors.append("Latest test date can't be before the earlist test date") 
 
         if errors:
             raise ValidationError(errors)
@@ -111,3 +114,12 @@ class AvailableTime(BaseModel):
 
     def __str__(self):
         return f"{self.date} - {self.time}"
+
+
+class Proxy(BaseModel):
+    ip = models.CharField(max_length=30, unique=True)
+    last_used = models.TimeField(null=True, blank=True)
+    is_banned = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.ip} - {self.last_used}"
