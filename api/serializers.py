@@ -35,6 +35,8 @@ class TimeRangeSerializer(serializers.ModelSerializer):
 
 
 class ProxySerializer(serializers.ModelSerializer):
+    last_used = serializers.TimeField(format="%H:%M:%S")
+
     class Meta:
         model = models.Proxy
         fields = ['ip', 'last_used', 'is_banned']

@@ -45,6 +45,11 @@ class ProxyCustomerPairView(View):
         proxy = self.find_usable_proxy()
 
         if customer and proxy:
+            customer.last_crawled = datetime.datetime.now().time()
+            proxy.last_used = datetime.datetime.now().time()
+            customer.save()
+            proxy.save()
+
             return {
                     'customer': serializers.CustomerSerializer(customer).data,
                     'proxy': serializers.ProxySerializer(proxy).data

@@ -41,7 +41,7 @@ class Customer(BaseModel):
     recent_test_failure = models.DateField(null=True, blank=True)
     earliest_test_date = models.DateField(default=timezone.now)
     latest_test_date = models.DateField(null=True, blank=True)
-    last_crawled = models.TimeField(blank=True, default=timezone.now)
+    last_crawled = models.DateTimeField(blank=True, default=datetime.datetime.now)
 
     info_validation = models.CharField(
             max_length=20,
@@ -115,7 +115,7 @@ class AvailableTime(BaseModel):
 
 class Proxy(BaseModel):
     ip = models.CharField(max_length=30, unique=True)
-    last_used = models.TimeField(default=timezone.now)
+    last_used = models.DateTimeField(default=datetime.datetime.now)
     is_banned = models.BooleanField(default=False)
 
     def __str__(self):
