@@ -35,7 +35,7 @@ class TimeRangeSerializer(serializers.ModelSerializer):
 
 
 class ProxySerializer(serializers.ModelSerializer):
-    last_used = serializers.TimeField(format="%H:%M:%S")
+    last_used = serializers.DateTimeField()
 
     class Meta:
         model = models.Proxy

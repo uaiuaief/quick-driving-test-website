@@ -45,8 +45,9 @@ class ProxyCustomerPairView(View):
         proxy = self.find_usable_proxy()
 
         if customer and proxy:
-            customer.last_crawled = datetime.datetime.now().time()
-            proxy.last_used = datetime.datetime.now().time()
+            customer.last_crawled = datetime.datetime.now()
+            proxy.last_used = datetime.datetime.now()
+
             customer.save()
             proxy.save()
 
