@@ -32,7 +32,7 @@ class TestCenterSerializer(serializers.ModelSerializer):
 class TimeRangeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.AcceptableTimeRange
-        fields = ['start_time', 'end_time']
+        fields = ['start_time', 'end_time', 'customer']
 
 
 class ProxySerializer(serializers.ModelSerializer):
