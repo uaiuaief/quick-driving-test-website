@@ -17,7 +17,8 @@ class CustomerSerializer(serializers.ModelSerializer):
                 'latest_test_date',
                 'info_validation',
                 'acceptable_time_ranges',
-                'last_crawled'
+                'last_crawled',
+                'automatic_booking'
                 ]
 
 

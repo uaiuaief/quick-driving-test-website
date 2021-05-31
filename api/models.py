@@ -42,6 +42,7 @@ class Customer(BaseModel):
     earliest_test_date = models.DateField(default=timezone.now)
     latest_test_date = models.DateField(null=True, blank=True)
     last_crawled = models.DateTimeField(blank=True, default=datetime.datetime.now)
+    automatic_booking = models.BooleanField(default=False)
 
     info_validation = models.CharField(
             max_length=20,
