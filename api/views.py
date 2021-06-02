@@ -60,7 +60,7 @@ class ProxyCustomerPairView(View):
 
 
     def find_usable_customer(self):
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=5)
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
         usable_customer = models.Customer.objects.filter(
                 last_crawled__lte=time_limit,
                 info_validation='valid').order_by('last_crawled').first()

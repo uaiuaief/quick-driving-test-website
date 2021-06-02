@@ -115,7 +115,7 @@ class AvailableTime(BaseModel):
 
 
 class Proxy(BaseModel):
-    ip = models.CharField(max_length=30, unique=True)
+    ip = models.CharField(max_length=80, unique=True)
     last_used = models.DateTimeField(default=datetime.datetime.now)
     is_banned = models.BooleanField(default=False)
 
