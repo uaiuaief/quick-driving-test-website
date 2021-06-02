@@ -1,14 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Passion+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fresca&display=swap');
+
 :root {
-  --dark: #1F2A3F;
+  /* COLOR */
   --light: #E4F1F3;
+  --dark-color-1: #1F2A3F;
   --primary-color: #E8B500;
   --secondary-color: #A89D6C;
-
+  
+  --light-bg-1: #E4F1F3;
   --light-bg-2: #fbfbfb;
-
+  
   --light-text: #fff;
-  --light-gray-text: #c7c7c7;
-  --dark-gray-text: #7b7b7b;
+  --gray-text-1: #c7c7c7;
+  --gray-text-2: #7b7b7b;
+  --dark-text-1: #333D50;
+
+  /* TEXT */
+  --md-1: 22px;
+  --md-2: 24px;
+  --md-3: 26px;
+  
+  --lg-1: 28px;
+  --lg-2: 36px;
+  --lg-3: 40px;
+
+  --xl-1: 45px;
+  --xl-2: 65px;
+
+
+  /* OTHER */
+  --max-inner-width: 1250px;
+
 }
 
 * {
@@ -18,4 +42,89 @@
 }
 
 body {
+  font-family: 'Catamaran';
+  font-weight: 300;
+  font-size: var(--md-1);
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+
+/* COMMON CLASSES */
+.inner-container {
+  max-width: var(--max-inner-width);
+  margin: auto;
+}
+
+
+/* END COMMON CLASSES */
+/*--------------------*/
+
+
+
+/* NAVBAR */
+
+#navbar {
+  background-color: var(--dark-color-1);
+}
+
+#navbar .inner-container {
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: var(--light-text);
+  
+  height: 42px;
+  padding: 1.95rem 0;
+}
+
+#navbar-buttons li {
+  padding: 0 1em;
+  display: inline;
+
+  align-items: center;
+  text-align: center;
+}
+
+/* END NAVBAR */
+/*--------------------*/
+
+
+
+/* CTA */
+#CTA {
+  background-color: var(--light-bg-1);
+  text-align: center;
+}
+
+#CTA-inner {
+  padding-top: 3.0rem;
+}
+
+#CTA-inner h1 {
+  color: var(--dark-color-1);
+  font-size: var(--xl-1);
+}
+
+#CTA-inner h2 {
+  margin-top: 2.0rem;
+  color: var(--dark-color-1);
+  font-size: var(--md-3);
+  font-weight: 400;
+  line-height: 35px;
+}
+
+#cards {
+  margin-top: 3.5rem;
+  height: 600px;
+  background-color: white;
+}
+
+/* END CTA */
+/*--------------------*/

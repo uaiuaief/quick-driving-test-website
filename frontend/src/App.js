@@ -1,4 +1,5 @@
 import {Navbar} from "./Components/Navbar"
+import {CTA} from "./Components/CTA"
 
 function App() {
   return (
@@ -6,6 +7,7 @@ function App() {
       <header className="App-header">
       </header>
       <Navbar />
+      <CTA />
       <body>Hello World</body>
     </div>
   );
