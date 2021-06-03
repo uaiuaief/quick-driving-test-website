@@ -6,7 +6,9 @@ class Navbar extends Component {
             <div id="navbar">
                 <div className="inner-container">
                     <div id="logo-container">
-                        <img alt="logo"></img>
+                        <a href="#">
+                        <img id="logo" src="images/logo.png" alt="logo"></img>
+                        </a>
                     </div>
                     <ul id="navbar-buttons">
                         <li><a href="#">How it Works</a></li>

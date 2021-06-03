@@ -1,5 +1,6 @@
 import { Navbar } from "./Components/Navbar"
 import { CTA } from "./Components/CTA"
+import { Tutorial } from "./Components/Tutorial"
 
 function App() {
   return (
@@ -9,7 +10,8 @@ function App() {
       <body>
         <Navbar />
         <CTA />
-        <div style={{'height': '600px', 'background-color': '#1f2a3f'}}></div>
+        <Tutorial />
+        <div style={{'height': '600px', 'background-color': '#222'}}></div>
       </body>
     </div>
   );

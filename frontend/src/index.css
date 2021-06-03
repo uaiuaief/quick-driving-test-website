@@ -18,16 +18,19 @@
   --dark-text-1: #333D50;
 
   /* TEXT */
-  --md-1: 22px;
-  --md-2: 24px;
-  --md-3: 26px;
+  --sm-3: 22px;
   
-  --lg-1: 28px;
+  --md-1: 24px;
+  --md-2: 26px;
+  --md-3: 28px;
+  
+  --lg-1: 30px;
   --lg-2: 36px;
   --lg-3: 40px;
 
   --xl-1: 45px;
-  --xl-2: 65px;
+  --xl-2: 60px;
+  --xl-3: 65px;
 
 
   /* OTHER */
@@ -44,7 +47,7 @@
 body {
   font-family: 'Catamaran';
   font-weight: 300;
-  font-size: var(--md-1);
+  font-size: var(--sm-3);
 }
 
 a {
@@ -64,7 +67,7 @@ a {
   color: var(--light-text);
   background-color: var(--primary-color);
   border: none;
-  padding: .5rem 5rem;
+  padding: .4rem 5rem;
   font-size: var(--lg-2);
   box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 12px;
@@ -88,7 +91,6 @@ a {
 }
 
 #navbar .inner-container {
-  
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -100,11 +102,16 @@ a {
 }
 
 #navbar-buttons li {
-  padding: 0 1em;
+  padding-left: 2em;
   display: inline;
 
   align-items: center;
   text-align: center;
+}
+
+#logo {
+  display: flex;
+  align-items: center;
 }
 
 /* END NAVBAR */
@@ -131,7 +138,7 @@ a {
 #CTA-text h2 {
   margin-top: 2.0rem;
   color: var(--dark-text-1);
-  font-size: var(--md-3);
+  font-size: var(--md-2);
   font-weight: 400;
   line-height: 35px;
 }
@@ -152,7 +159,6 @@ a {
   }
 
 .cta-card .img-wrapper {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -165,13 +171,13 @@ a {
 
 .cta-card h1 {
   color: var(--dark-color-1);
-  font-size: var(--xl-2);
+  font-size: var(--xl-3);
   font-weight: 500;
 }
 
 .cta-card h2 {
   color: var(--dark-text-1);
-  font-size: var(--md-2);
+  font-size: var(--md-1);
   font-weight: 400;
 }
 
@@ -181,3 +187,109 @@ a {
 
 /* END CTA */
 /*--------------------*/
+
+
+
+/* TUTORIAL */
+#tutorial {
+  background-color: var(--dark-color-1);
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+#title-wrapper h1 {
+  position: relative;
+  font-size: var(--lg-3);
+  font-weight: 400;
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 3rem;
+}
+
+#title-wrapper h1::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 2px;
+  width: 150px;
+  background-color: var(--primary-color);
+}
+
+.tutorial-step {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  /* margin: 3rem auto; */
+}
+
+.tutorial-step:nth-child(odd) {
+  flex-direction: row-reverse;
+}
+
+.tutorial-text {
+  padding-top: 2.3rem;
+  width: 525px;
+  text-align: left;
+  /* border-bottom: 12px dotted var(--secondary-color); */
+}
+
+.tutorial-text .dotted-line {
+  margin-top: 1rem;
+  margin-left: -5px; 
+  width: 480px;
+  height: 20px;
+  border-bottom: 12px dotted var(--secondary-color);
+}
+
+.tutorial-text h1 {
+  font-size: var(--lg-3);
+  font-weight: 400;
+  color: var(--primary-color);  
+}
+
+.tutorial-text p {
+  font-size: var(--md-1);
+  color: var(--light-text);  
+  font-weight: 300;
+  
+}
+
+.tutorial-delimiter h1{
+  color: var(--light-text);
+  font-size: var(--xl-2);
+  font-family: "Passion One";
+  font-weight: 400;
+  line-height: 40px;
+}
+
+.tutorial-delimiter h2{
+  color: var(--light-text);
+  font-size: var(--lg-1);
+  font-weight: 400;
+  font-family: "Fresca";
+  line-height: 40px;
+}
+
+.tutorial-delimiter .dotted-line {
+  margin: 1.0rem auto;
+  width: 12px;
+  height: 270px;
+  border-left: 12px dotted var(--secondary-color);
+}
+
+.tutorial-image {
+  width: 525px;
+  padding-top: 3.6rem;
+}
+
+/* END TUTORIAL */
+/*--------------------*/
+
+
+#test {
+  color: #fff;
+  border-bottom: 12px dotted #A89D6C;
+}

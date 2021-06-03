@@ -30,7 +30,7 @@ class CTA extends Component {
                     </div>
                     <MainButton
                         id="cta-button"
-                        text="Get Cancellations Now!"
+                        text="Get Cancellations NOW!"
                     />
                 </div>
             </section>
