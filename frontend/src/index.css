@@ -60,6 +60,21 @@ a {
   margin: auto;
 }
 
+.main-button {
+  color: var(--light-text);
+  background-color: var(--primary-color);
+  border: none;
+  padding: .5rem 5rem;
+  font-size: var(--lg-2);
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  line-height: 60px;
+}
+
+.main-button:hover {
+  cursor: pointer;
+}
+
 
 /* END COMMON CLASSES */
 /*--------------------*/
@@ -99,31 +114,69 @@ a {
 
 /* CTA */
 #CTA {
-  background-color: var(--light-bg-1);
+  background: url("assets/cta-bg.png") no-repeat;
   text-align: center;
 }
 
 #CTA-inner {
   padding-top: 3.0rem;
+  padding-bottom: 3.0rem;
 }
 
-#CTA-inner h1 {
+#CTA-text h1 {
   color: var(--dark-color-1);
   font-size: var(--xl-1);
 }
 
-#CTA-inner h2 {
+#CTA-text h2 {
   margin-top: 2.0rem;
-  color: var(--dark-color-1);
+  color: var(--dark-text-1);
   font-size: var(--md-3);
   font-weight: 400;
   line-height: 35px;
 }
 
 #cards {
+  display: flex;
+  justify-content: space-between;
   margin-top: 3.5rem;
-  height: 600px;
+}
+
+.cta-card {
   background-color: white;
+  padding: 1.2rem 3rem;
+  height: 370px;
+  width: 410px;
+  border-radius: 14px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+  }
+
+.cta-card .img-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  height: 140px;
+}
+.cta-card .img-wrapper img {
+  object-fit: contain;
+}
+
+.cta-card h1 {
+  color: var(--dark-color-1);
+  font-size: var(--xl-2);
+  font-weight: 500;
+}
+
+.cta-card h2 {
+  color: var(--dark-text-1);
+  font-size: var(--md-2);
+  font-weight: 400;
+}
+
+#cta-button {
+  margin-top: 100px;
 }
 
 /* END CTA */

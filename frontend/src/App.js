@@ -1,14 +1,16 @@
-import {Navbar} from "./Components/Navbar"
-import {CTA} from "./Components/CTA"
+import { Navbar } from "./Components/Navbar"
+import { CTA } from "./Components/CTA"
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
       </header>
-      <Navbar />
-      <CTA />
-      <body>Hello World</body>
+      <body>
+        <Navbar />
+        <CTA />
+        <div style={{'height': '600px', 'background-color': '#1f2a3f'}}></div>
+      </body>
     </div>
   );
 }
