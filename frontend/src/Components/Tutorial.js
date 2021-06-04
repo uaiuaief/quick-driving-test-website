@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Step} from "./SmallerComponents/Step"
+import MainButton from './Buttons/MainButton'
 
 class Tutorial extends Component {
     render() {
@@ -12,8 +13,11 @@ class Tutorial extends Component {
                     <Step step="01"/>
                     <Step step="02"/>
                     <Step step="03"/>
-                    {/* <h1 id='test'>Lorem ipsum dolor swit amt consecte adipsisc</h1> */}
-
+                    <MainButton
+                        id="tutorial-button"
+                        text="Get Cancellations NOW!"
+                    />
+                  
                 </div>
             </section>
         );
