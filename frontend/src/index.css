@@ -80,6 +80,26 @@ a {
   cursor: pointer;
 }
 
+.buy-button {
+  font-family: "Fresca";
+  font-size: var(--md-3);
+  color: var(--primary-color);
+  background-color: var(--light-bg-3);
+  border: 1px solid var(--primary-color);
+  border-radius: 30px;
+  padding: .67rem 2.45em;
+}
+
+.recommended .buy-button {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  color: var(--light-text);
+  background-color: var(--primary-color);
+  border: none;
+}
+
+.buy-button:hover {
+  cursor: pointer;
+}
 
 /* END COMMON CLASSES */
 /*--------------------*/
@@ -307,17 +327,22 @@ a {
 
 /* PRICING SECTION */
 #pricing {
-  height: 900px;
+  /* height: 900px; */
   background-color: var(--light-bg-3);
   text-align: center;
+  padding-top: 4rem;
+  padding-bottom: 9rem;
 }
 
 #pricing h1 {
-  margin-top: 3.5rem;
   font-family: "Catamaran";
   font-weight: 400;
   font-size: var(--lg-3);
   color: var(--dark-text-2);
+}
+
+h1#pricing-title {
+  /* margin-top: 4rem; */
 }
 
 #pricing h2 {
@@ -329,25 +354,50 @@ a {
 }
 
 #price-cards {
-  margin-top: 5.5rem;
+  margin-top: 4.5rem;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 #pricing .price-card {
-  padding: 1.5rem 7rem;
+  padding-top: 2.0rem;
+  padding-bottom: 2.0rem;
+  padding-left: 6.6rem;
+  padding-right: 6.6rem;
   border: 1px solid #d6d6d6;
   border-radius: 17px;
   background-color: #fff;
+  max-height: 620px
+}
+
+#pricing .price-card.recommended {
+  padding-top: 3.2rem;
+  padding-bottom: 3.2rem;
+  max-height: 650px;
+  border-radius: 20px;
+  position: relative;
+}
+
+#pricing .price-card.recommended::after {
+  font-family: "Fresca";
+  font-weight: 400;
+  color: var(--primary-color);
+  content:"RECOMMENDED";
+  position: absolute;
+  top: -38px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #pricing .price-card:nth-child(2) {
-  margin-left: -5px;
+  margin-left: -3px;
   border: 3px solid var(--primary-color);
   box-shadow: -3px 4px 7px 5px rgba(0, 0, 0, 0.25);
 }
 
 #pricing .price-card h2 {
+  margin: 0;
   font-family: "Fresca";
   font-weight: 400;
   font-size: var(--md-3);
@@ -355,6 +405,8 @@ a {
 }
 
 #pricing .price-card h1 {
+  margin-top: 1.8rem;
+  margin-bottom: 1.8rem;
   font-family: "Fresca";
   font-weight: 400;
   color: var(--primary-color);
@@ -362,13 +414,17 @@ a {
 }
 
 #pricing .price-card li {
-  margin-top: 1rem;
+  margin-top: .9rem;
   list-style-type: none;
   font-family: "Fresca";
   font-weight: 400;
   font-size: var(--md-1);
   color: var(--dark-text-1);
 
+}
+
+.price-card button {
+  margin-top: 2.2rem;
 }
 
 /* END PRICING SECTION */

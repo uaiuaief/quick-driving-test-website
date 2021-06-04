@@ -5,7 +5,7 @@ class Pricing extends Component {
     render() {
         return (
             <section id="pricing">
-                <h1>PRICING</h1>
+                <h1 id="pricing-title">PRICING</h1>
                 <h2>We’ll find you a cancellation within three days! Sit tight - We’ve got this!</h2>
                 <div id="price-cards">
                     <PricingCard
@@ -21,6 +21,7 @@ class Pricing extends Component {
                         ]}
                     />
                     <PricingCard
+                        recommended={true}
                         title="Plan II"
                         price="€ 49.00"
                         features={[
