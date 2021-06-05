@@ -5,16 +5,16 @@ class Navbar extends Component {
         return (
             <div id="navbar">
                 <div className="inner-container">
-                    <div id="logo-container">
+                    <div className="logo-container">
                         <a href="#">
-                        <img id="logo" src="images/logo.png" alt="logo"></img>
+                            <img className="logo" src="images/logo.png" alt="logo"></img>
                         </a>
                     </div>
                     <ul id="navbar-buttons">
                         <li><a href="#tutorial">How it Works</a></li>
                         <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#contact-us">Contact Us</a></li>
                         <li><a href="#">Login</a></li>
                     </ul>
                 </div>

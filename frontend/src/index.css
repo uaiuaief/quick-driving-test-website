@@ -20,7 +20,8 @@
   --dark-text-2: #1f2a3f;
 
   /* TEXT */
-  --sm-2: 18px;
+  --sm-1: 18px;
+  --sm-2: 20px;
   --sm-3: 22px;
   
   --md-1: 24px;
@@ -28,6 +29,7 @@
   --md-3: 28px;
   
   --lg-1: 30px;
+  --lg-1b: 32px;
   --lg-2: 36px;
   --lg-3: 40px;
 
@@ -153,7 +155,7 @@ a {
   text-align: center;
 }
 
-#logo {
+.logo {
   display: flex;
   align-items: center;
 }
@@ -167,6 +169,7 @@ a {
 #CTA {
   padding-top: 63px;
   background: url("assets/cta-bg.png") no-repeat;
+  background-size: 100% 80%;
   text-align: center;
 }
 
@@ -535,8 +538,8 @@ h1#pricing-title {
   margin: .7rem .5rem .7rem 3.4rem;
   font-family: "Catamaran";
   font-weight: 400;
-  font-size: var(--sm-2) ;
-  color: var(--dark-text-1)
+  font-size: var(--sm-1);
+  /* color: var(--dark-text-2) */
 }
 
 .question-dropdown.open p {
@@ -618,4 +621,47 @@ h1#pricing-title {
 
 
 /* END CONTACT US SECTION */
+/*--------------------*/
+
+
+
+/* FOOTER */
+footer {
+  background-color: var(--dark-color-1);
+}
+
+footer .inner-container {
+  display: flex;
+  padding: 3rem 3rem 1.8rem 3rem;
+}
+
+footer .footer-logo-block p {
+  font-size: var(--sm-1);
+  color: var(--light-text);
+  width: 390px;
+  margin-top: 2rem;
+  margin-right: 6em;
+  text-align: justify;
+}
+
+footer .footer-column {
+  /* padding: 0 3rem; */
+  width: 450px;
+}
+
+footer .footer-column h1 {
+  margin-bottom: .4rem;
+  font-family: "Catamaran";
+  font-weight: 400;
+  font-size: var(--lg-1b);
+  color: var(--primary-color);
+}
+
+footer .footer-column li {
+  list-style-type: none;
+  font-size: var(--sm-2);
+  color: var(--light-text);
+}
+
+/* END FOOTER */
 /*--------------------*/
