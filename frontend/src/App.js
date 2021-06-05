@@ -13,7 +13,7 @@ function App() {
         <Pricing />
         <FAQ />
 
-        <div style={{'height': '600px', 'background-color': '#222'}}></div>
+        <div style={{'height': '600px', 'backgroundColor': '#fff'}}></div>
     </>
   );
 }

@@ -4,7 +4,7 @@ import BuyButton from '../Buttons/BuyButton'
 class PricingCard extends Component {
     render() {
         let cls = this.props.recommended ? "price-card recommended" : "price-card"
-        
+
         return (
             <div className={cls}>
                 <div className="inner-container">
