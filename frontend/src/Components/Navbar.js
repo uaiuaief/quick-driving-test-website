@@ -12,8 +12,8 @@ class Navbar extends Component {
                     </div>
                     <ul id="navbar-buttons">
                         <li><a href="#tutorial">How it Works</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                         <li><a href="#">Contact Us</a></li>
                         <li><a href="#">Login</a></li>
                     </ul>

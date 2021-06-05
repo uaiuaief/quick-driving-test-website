@@ -112,6 +112,11 @@ a {
 
 #navbar {
   background-color: var(--dark-color-1);
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
 }
 
 #navbar .inner-container {
@@ -145,6 +150,7 @@ a {
 
 /* CTA */
 #CTA {
+  padding-top: 63px;
   background: url("assets/cta-bg.png") no-repeat;
   text-align: center;
 }
@@ -523,4 +529,37 @@ h1#pricing-title {
 }
 
 /* END FAQ SECTION */
+/*--------------------*/
+
+
+
+/* CONTACT US SECTION */
+#contact {
+  /* height: 900px; */
+  background-color: var(--light-bg-3);
+  text-align: center;
+  padding-top: 4rem;
+  padding-bottom: 9rem;
+}
+
+#contact h1 {
+  font-family: "Catamaran";
+  font-weight: 400;
+  font-size: var(--lg-3);
+  color: var(--dark-text-2);
+}
+
+h1#contact-title {
+  /* margin-top: 4rem; */
+}
+
+#contact h2 {
+  margin-top: 1.5rem;
+  font-family: "Catamaran";
+  font-weight: 400;
+  font-size: var(--md-2);
+  color: var(--dark-text-1);
+}
+
+/* END CONTACT US SECTION */
 /*--------------------*/
