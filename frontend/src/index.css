@@ -103,6 +103,21 @@ a {
   cursor: pointer;
 }
 
+.blue-button-1 {
+  font-family: "Catamaran";
+  font-size: 400;
+  background-color: var(--dark-color-1);
+  color: var(--light-text);
+  border: none;
+  border-radius: 11px;
+  padding: .34rem 2.2rem;
+  font-size: var(--md-3);
+}
+
+.blue-button-1:hover {
+  cursor: pointer;
+}
+
 /* END COMMON CLASSES */
 /*--------------------*/
 
@@ -534,32 +549,73 @@ h1#pricing-title {
 
 
 /* CONTACT US SECTION */
-#contact {
+#contact-us {
   /* height: 900px; */
   background-color: var(--light-bg-3);
   text-align: center;
-  padding-top: 4rem;
+  padding-top: 2rem;
   padding-bottom: 9rem;
 }
 
-#contact h1 {
+#contact-us h1 {
   font-family: "Catamaran";
   font-weight: 400;
   font-size: var(--lg-3);
-  color: var(--dark-text-2);
+  color: var(--dark-text-1);
 }
 
-h1#contact-title {
-  /* margin-top: 4rem; */
-}
-
-#contact h2 {
-  margin-top: 1.5rem;
+#contact-us h2 {
+  margin-top: 2.9rem;
+  margin-bottom: 3.4rem;
   font-family: "Catamaran";
   font-weight: 400;
   font-size: var(--md-2);
   color: var(--dark-text-1);
 }
+
+#contact-form .inner-container{
+  background-color: var(--dark-color-1);
+  border-radius: 15px;
+  padding: 1.45rem;
+  width: fit-content;
+  margin: auto;
+}
+
+#contact-form .inner-container div:nth-child(1){
+  margin-bottom: 1.3rem;
+}
+
+#contact-form input{
+  border: none;
+  padding: .6rem 1rem;
+  border-radius: 15px;
+  font-family: "Catamaran";
+  font-weight: 400;
+  font-size: var(--md-1);
+  color: var(--dark-text-1);
+  width: 435px;
+}
+
+#contact-form input:nth-child(1){
+  margin-right: 1rem;
+}
+
+#contact-form textarea{
+  border: none;
+  padding: .6rem 1rem;
+  border-radius: 15px;
+  font-family: "Catamaran";
+  font-weight: 400;
+  font-size: var(--md-1);
+  color: var(--dark-text-1);
+  min-width: 100%;
+  min-height: 220px;
+}
+
+#contact-form button {
+  margin-top: 2.5rem;
+}
+
 
 /* END CONTACT US SECTION */
 /*--------------------*/
