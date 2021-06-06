@@ -6,7 +6,7 @@
   /* COLOR */
   --light: #E4F1F3;
   --dark-color-1: #1F2A3F;
-  --primary-color: #E8B500;
+  --primary-color: #FFC700;;
   --secondary-color: #A89D6C;
   
   --light-bg-1: #E4F1F3;
@@ -16,10 +16,15 @@
   --light-text: #fff;
   --gray-text-1: #c7c7c7;
   --gray-text-2: #7b7b7b;
+  --gray-text-3: #c1c1c1;
   --dark-text-1: #333D50;
   --dark-text-2: #1f2a3f;
 
   /* TEXT */
+  --very-sm-1: 12px;
+  --very-sm-2: 14px;
+  --very-sm-3: 16px;
+
   --sm-1: 18px;
   --sm-2: 20px;
   --sm-3: 22px;
@@ -107,7 +112,7 @@ a {
 
 .blue-button-1 {
   font-family: "Catamaran";
-  font-size: 400;
+  font-weight: 400;
   background-color: var(--dark-color-1);
   color: var(--light-text);
   border: none;
@@ -118,6 +123,70 @@ a {
 
 .blue-button-1:hover {
   cursor: pointer;
+}
+
+.blue-button-2 {
+  font-family: "Catamaran";
+  font-weight: 600;
+  background-color: var(--dark-color-1);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 7px;
+  padding: .24rem 1.4rem;
+  font-size: var(--sm-2);
+}
+
+.blue-button-2:hover {
+  cursor: pointer;
+}
+
+.auth-box {
+  text-align: center;
+  margin: auto;
+  margin-top: 185px;
+  width: 445px;
+  height: 476px;
+  background-color: var(--light-bg-3);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.auth-box h1 {
+  font-family: "Catamaran";
+  font-weight: 600;
+  font-size: var(--lg-1);
+  color: var(--dark-text-2)
+}
+
+.auth-box input[type="email"],
+.auth-box input[type="password"] {
+  width: 340px;
+  height: 47px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  border: none;
+  padding: 1rem;
+  font-family: "Catamaran";
+  font-weight: 400;
+  font-size: var(--very-sm-3);
+  line-height: 26px;
+  background-color: var(--light-bg-3);
+}
+
+.auth-box input[type="email"]::placeholder,
+.auth-box input[type="password"]::placeholder {
+  color: var(--gray-text-1);
+  font-weight: 600;
+}
+
+.auth-box span {
+  font-size: var(--very-sm-2);
+  font-family: "Catamaran";
+  font-weight: 600;
+  line-height: 23px;
+  color: var(--gray-text-3)
+}
+
+.auth-box span a{
+  color: var(--primary-color)
 }
 
 /* END COMMON CLASSES */
@@ -661,4 +730,68 @@ footer .footer-column li {
 }
 
 /* END FOOTER */
+/*--------------------*/
+
+
+
+/* LOGIN PAGE */
+#login-page {
+  height: 940px;
+  background: url("assets/cta-bg.png") no-repeat;
+  background-size: 100% 80%;
+  padding-top: 63px;
+}
+
+#login-box {
+  padding-top: 3.3rem;
+}
+
+#login-box h1 {
+  margin-bottom: 2.3rem;
+}
+
+#login-box input[type="email"] {
+  margin-bottom: 1rem;
+}
+
+#login-box input[type="checkbox"] {
+  margin-right: .3rem;
+}
+
+#login-box label {
+  font-size: var(--very-sm-1);
+}
+
+#login-box .form-row-2 {
+  margin: auto;
+  margin-top: .5rem;
+  width: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#login-box .form-row-2 div:nth-child(1) {
+  display: flex;
+  /* align-items: center; */
+}
+
+#login-box .form-row-2 a {
+  text-decoration: underline;
+  color: var(--primary-color);
+  font-family: "Catamaran";
+  font-weight: 600;
+  font-size: var(--very-sm-1);
+}
+
+#login-button {
+  margin-top: 2.3rem;
+}
+
+#login-box span {
+  display: block;
+  margin-top: 4rem;
+}
+
+/* END LOGIN PAGE */
 /*--------------------*/
