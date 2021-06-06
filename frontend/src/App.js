@@ -9,15 +9,15 @@ import Footer from "./Components/Footer"
 function App() {
   return (
     <>
-        <Navbar />
-        <CTA />
-        <Tutorial />
-        <Pricing />
-        <FAQ />
-        <ContactUs />
-        <Footer />
+      <Navbar />
+      <CTA />
+      <Tutorial />
+      <Pricing />
+      <FAQ />
+      <ContactUs />
+      <Footer />
 
-        {/* <div style={{'height': '600px', 'backgroundColor': '#333'}}></div> */}
+      {/* <div style={{'height': '600px', 'backgroundColor': '#333'}}></div> */}
     </>
   );
 }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import FooterBlock from './SmallerComponents/FooterBlock';
+import logo from "../assets/logo.png"
+
 
 class Footer extends Component {
     render() {
@@ -9,7 +11,7 @@ class Footer extends Component {
                     <div className="footer-logo-block">
                         <div className="logo-container">
                             <a href="#">
-                                <img className="logo" src="images/logo.png" alt="logo"></img>
+                                <img className="logo" src={logo} alt="logo"></img>
                             </a>
                         </div>
                         <p>

@@ -539,7 +539,6 @@ h1#pricing-title {
   font-family: "Catamaran";
   font-weight: 400;
   font-size: var(--sm-1);
-  /* color: var(--dark-text-2) */
 }
 
 .question-dropdown.open p {
@@ -553,7 +552,6 @@ h1#pricing-title {
 
 /* CONTACT US SECTION */
 #contact-us {
-  /* height: 900px; */
   background-color: var(--light-bg-3);
   text-align: center;
   padding-top: 2rem;
@@ -645,7 +643,6 @@ footer .footer-logo-block p {
 }
 
 footer .footer-column {
-  /* padding: 0 3rem; */
   width: 450px;
 }
 

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import SquareCard from './Cards/SquareCard';
 import MainButton from './Buttons/MainButton'
+import clockIcon from "../assets/clock-icon.png"
+import moneyIcon from "../assets/money-icon.png"
+import testIcon from "../assets/test-icon.png"
 
 class CTA extends Component {
     render() {
@@ -15,17 +18,17 @@ class CTA extends Component {
                         <SquareCard
                             title="€ 100.00"
                             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                            image="images/money-icon.png"
+                            image={moneyIcon}
                         />
                         <SquareCard
                             title="10 weeks"
                             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                            image="/images/clock-icon.png"
+                            image={clockIcon}
                             />
                         <SquareCard
                             title="50 tests"
                             description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                            image="/images/test-icon.png"
+                            image={testIcon}
                         />
                     </div>
                     <MainButton

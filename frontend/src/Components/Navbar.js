@@ -1,4 +1,5 @@
 import { Component } from "react";
+import logo from "../assets/logo.png"
 
 class Navbar extends Component {
     render() {
@@ -7,7 +8,8 @@ class Navbar extends Component {
                 <div className="inner-container">
                     <div className="logo-container">
                         <a href="#">
-                            <img className="logo" src="images/logo.png" alt="logo"></img>
+                            {/* <img className="logo" src="images/logo.png" alt="logo"></img> */}
+                            <img className="logo" src={logo} alt="logo"></img>
                         </a>
                     </div>
                     <ul id="navbar-buttons">

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import downArrow from "../../assets/down-arrow.png"
+import upArrow from "../../assets/up-arrow.png"
 
 class QuestionDropdown extends Component {
     state = {
@@ -13,7 +15,7 @@ class QuestionDropdown extends Component {
 
     render() {
         let cls = this.state.open ? "question-dropdown open" : "question-dropdown"
-        let icon = this.state.open ? "images/up-arrow.png" : "images/down-arrow.png"
+        let icon = this.state.open ? upArrow : downArrow
 
         return (
             <div className={cls}
