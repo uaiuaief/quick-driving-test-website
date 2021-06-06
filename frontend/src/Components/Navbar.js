@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from 'react-router-dom';
 import logo from "../assets/logo.png"
 
 class Navbar extends Component {
@@ -7,17 +8,16 @@ class Navbar extends Component {
             <div id="navbar">
                 <div className="inner-container">
                     <div className="logo-container">
-                        <a href="#">
-                            {/* <img className="logo" src="images/logo.png" alt="logo"></img> */}
+                        <Link to="/#">
                             <img className="logo" src={logo} alt="logo"></img>
-                        </a>
+                        </Link>
                     </div>
                     <ul id="navbar-buttons">
-                        <li><a href="#tutorial">How it Works</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#faq">FAQ</a></li>
-                        <li><a href="#contact-us">Contact Us</a></li>
-                        <li><a href="#">Login</a></li>
+                        <li><Link to="/#tutorial">How it Works</Link></li>
+                        <li><Link to="/#pricing">Pricing</Link></li>
+                        <li><Link to="/#faq">FAQ</Link></li>
+                        <li><Link to="/#contact-us">Contact Us</Link></li>
+                        <li><Link to="/login">Login</Link></li>
                     </ul>
                 </div>
             </div>
@@ -26,4 +26,4 @@ class Navbar extends Component {
     }
 }
 
-export { Navbar };
+export default Navbar;

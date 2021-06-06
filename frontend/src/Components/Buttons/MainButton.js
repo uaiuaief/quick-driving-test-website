@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class MainButton extends Component {
     render() {
         return (
-            <button id={this.props.id} class="main-button">
+            <button id={this.props.id} className="main-button">
                 {this.props.text}
             </button>
         );

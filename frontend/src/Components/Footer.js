@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FooterBlock from './SmallerComponents/FooterBlock';
 import logo from "../assets/logo.png"
+import { Link } from 'react-router-dom';
 
 
 class Footer extends Component {
@@ -10,9 +11,9 @@ class Footer extends Component {
                 <div className="inner-container">
                     <div className="footer-logo-block">
                         <div className="logo-container">
-                            <a href="#">
+                            <Link to="/">
                                 <img className="logo" src={logo} alt="logo"></img>
-                            </a>
+                            </Link>
                         </div>
                         <p>
                             Lorem ipsum dolor sit amet,
@@ -28,23 +29,23 @@ class Footer extends Component {
                         items={[
                             {
                                 text: "Home",
-                                url: "#"
+                                url: "/#"
                             },
                             {
                                 text: "How it Works?",
-                                url: "#tutorial"
+                                url: "/#tutorial"
                             },
                             {
                                 text: "Pricing",
-                                url: "#pricing"
+                                url: "/#pricing"
                             },
                             {
                                 text: "FAQ",
-                                url: "#faq"
+                                url: "/#faq"
                             },
                             {
                                 text: "Contact Us",
-                                url: "#contact-us"
+                                url: "/#contact-us"
                             },
                         ]}
                     />
@@ -61,7 +62,7 @@ class Footer extends Component {
                             },
                             {
                                 text: "Reset Password",
-                                url: "/reset-password"
+                                url: "/password-reset"
                             }
                         ]}
                     />

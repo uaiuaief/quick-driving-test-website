@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import LoginBox from "./LoginBox"
+import PasswordResetBox from "../PasswordResetBox"
 
-class LoginPage extends Component {
+class PasswordResetPage extends Component {
     render() {
         return (
             <section id="login-page">
                 <div className="inner-container">
-                    <LoginBox/>
+                    <PasswordResetBox/>
                 </div>
             </section>
         );
     }
 }
 
-export default LoginPage;
+export default PasswordResetPage;

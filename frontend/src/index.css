@@ -150,6 +150,10 @@ a {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+.auth-box {
+  padding-top: 3.3rem;
+}
+
 .auth-box h1 {
   font-family: "Catamaran";
   font-weight: 600;
@@ -742,10 +746,6 @@ footer .footer-column li {
   padding-top: 63px;
 }
 
-#login-box {
-  padding-top: 3.3rem;
-}
-
 #login-box h1 {
   margin-bottom: 2.3rem;
 }
@@ -788,10 +788,33 @@ footer .footer-column li {
   margin-top: 2.3rem;
 }
 
-#login-box span {
+.auth-box .auth-footer {
   display: block;
   margin-top: 4rem;
 }
 
 /* END LOGIN PAGE */
+/*--------------------*/
+
+
+
+/* RESET PASSWORD PAGE */
+#password-reset-box input[type="password"]:nth-child(1) {
+  margin-bottom: 1rem;
+}
+
+#password-reset-box h1 {
+  margin-bottom: 2.3rem;
+}
+
+#password-reset-button {
+  margin-top: 4.0rem;
+}
+
+#login-box span {
+  display: block;
+  margin-top: 4rem;
+}
+
+/* END RESET PASSWORD PAGE */
 /*--------------------*/

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import BlueButton2 from "./Buttons/BlueButton2"
+import BlueButton2 from "./Buttons/BlueButton2";
+import { Link } from 'react-router-dom';
 
 
 class LoginBox extends Component {
@@ -28,13 +29,13 @@ class LoginBox extends Component {
                                 />
                             <label for="keep-me-logged-in">Keep me logged in</label>
                         </div>
-                        <a href="#">Forgot password?</a>
+                        <Link to="/password-reset">Forgot password?</Link>
                     </div>
                     <BlueButton2
                         id="login-button"
                         text="Login"/>
                 </form>
-                <span>Don't have an account? <a href="#">Sign up</a></span>
+                <span className="auth-footer">Don't have an account? <Link to="/signup">Sign up</Link></span>
             </div>
         );
     }

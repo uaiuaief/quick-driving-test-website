@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class FooterBlock extends Component {
     render() {
@@ -9,9 +10,9 @@ class FooterBlock extends Component {
                     {this.props.items.map(each => {
                         return (
                             <li>
-                                <a href={each.url}>
+                                <Link to={each.url}>
                                     {each.text}
-                                </a>
+                                </Link>
                             </li>
                         )
                     })}

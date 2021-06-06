@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class BuyButton extends Component {
     render() {
         return (
-            <button class="buy-button">
+            <button className="buy-button">
                 {this.props.text}
             </button>
         );
