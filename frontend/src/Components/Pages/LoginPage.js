@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 
 
 class LoginPage extends Component {
+    componentDidMount() {
+        document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
     render() {
         return (
             <section id="login-page">

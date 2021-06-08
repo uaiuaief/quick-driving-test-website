@@ -8,9 +8,14 @@ class FooterBlock extends Component {
                 <h1>{this.props.title}</h1>
                 <ul>
                     {this.props.items.map(each => {
+                        let {url, hash} = each;
+                        let destination = hash ? url + "#" + hash : url
+
                         return (
                             <li>
-                                <Link to={each.url}>
+                                <Link 
+                                onClick={() => window.smoothScroll(hash)} 
+                                to={destination}>
                                     {each.text}
                                 </Link>
                             </li>

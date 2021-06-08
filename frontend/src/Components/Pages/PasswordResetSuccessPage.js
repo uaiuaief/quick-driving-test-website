@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 
 
 class PasswordResetSuccessPage extends Component {
+    componentDidMount() {
+        document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
     render() {
         return (
             <section id="password-reset-success-page">

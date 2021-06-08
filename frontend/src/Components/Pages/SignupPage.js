@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import TestCenterOptions from '../SmallerComponents/TestCenterOptions';
 import BlueButton2 from "../Buttons/BlueButton2"
 import { Link } from 'react-router-dom';
 
 class StepOne extends Component {
+    componentDidMount() {
+        document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     render() {
         const { handleChange } = this.props;
         let { driving_licence_number, theory_test_number,
@@ -134,12 +139,13 @@ class StepOne extends Component {
                         </div>
                         <div className="form-item">
                             <label htmlFor="desired-test-center-field">Desired test centre</label>
-                            <input
+                            <select
                                 id="desired-test-center-field"
                                 type="text"
                                 defaultValue={desired_test_center}
                                 onChange={(e) => handleChange(e, 'desired_test_center')}>
-                            </input>
+                                <TestCenterOptions/>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -149,6 +155,10 @@ class StepOne extends Component {
 }
 
 class StepTwo extends Component {
+    componentDidMount() {
+        document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
     render() {
         const { handleChange } = this.props;
         let { first_name, last_name,

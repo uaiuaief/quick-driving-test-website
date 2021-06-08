@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Step extends Component {
     render() {
         return (
-            <div class="tutorial-step">
+            <div className="tutorial-step">
                 <div className="tutorial-text">
                     <h1>Lorem Ipsum Adore</h1>
                     <p>

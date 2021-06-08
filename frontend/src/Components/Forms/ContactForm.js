@@ -5,7 +5,7 @@ class ContactForm extends Component {
     render() {
         return (
             <form id="contact-form">
-                <div class="inner-container">
+                <div className="inner-container">
                     <div>
                         <input
                             id="name-field"

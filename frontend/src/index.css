@@ -435,10 +435,9 @@ a {
 
 /* PRICING SECTION */
 #pricing {
-  /* height: 900px; */
   background-color: var(--light-bg-3);
   text-align: center;
-  padding-top: 4rem;
+  padding-top: 5rem;
   padding-bottom: 9rem;
 }
 
@@ -632,8 +631,9 @@ a {
 #contact-us {
   background-color: var(--light-bg-3);
   text-align: center;
-  padding-top: 2rem;
+  padding-top: 5rem;
   padding-bottom: 9rem;
+  min-height: 100vh;
 }
 
 #contact-us h1 {
@@ -958,7 +958,7 @@ footer .footer-column li {
 }
 
 #signup-form select {
-  padding: 0 1rem;
+  padding: 0.5rem .7rem;
 }
 
 #signup-page .form-buttons{

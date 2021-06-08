@@ -11,7 +11,9 @@ class Footer extends Component {
                 <div className="inner-container">
                     <div className="footer-logo-block">
                         <div className="logo-container">
-                            <Link to="/">
+                            <Link 
+                            onClick={() => window.smoothScroll("CTA")} 
+                            to="/">
                                 <img className="logo" src={logo} alt="logo"></img>
                             </Link>
                         </div>
@@ -29,23 +31,28 @@ class Footer extends Component {
                         items={[
                             {
                                 text: "Home",
-                                url: "/#"
+                                url: "/",
+                                hash: ""
                             },
                             {
                                 text: "How it Works?",
-                                url: "/#tutorial"
+                                url: "/",
+                                hash: "tutorial"
                             },
                             {
                                 text: "Pricing",
-                                url: "/#pricing"
+                                url: "/",
+                                hash: "pricing"
                             },
                             {
                                 text: "FAQ",
-                                url: "/#faq"
+                                url: "/",
+                                hash: "faq"
                             },
                             {
                                 text: "Contact Us",
-                                url: "/#contact-us"
+                                url: "/",
+                                hash: "contact-us"
                             },
                         ]}
                     />
@@ -71,15 +78,15 @@ class Footer extends Component {
                         items={[
                             {
                                 text: "Instagram",
-                                url: "#"
+                                url: "/"
                             },
                             {
                                 text: "Facebook",
-                                url: "#"
+                                url: "/"
                             },
                             {
                                 text: "Youtube",
-                                url: "#"
+                                url: "/"
                             }
                         ]}
                     />

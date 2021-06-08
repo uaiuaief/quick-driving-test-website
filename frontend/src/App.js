@@ -8,6 +8,19 @@ import PasswordResetPage from './Components/Pages/PasswordResetPage';
 import PasswordResetSuccessPage from './Components/Pages/PasswordResetSuccessPage';
 import SignupPage from './Components/Pages/SignupPage';
 
+window.smoothScroll = (element_id) => {
+  if (window.location.pathname !== '/') return;
+  try {
+    if(element_id === ""){
+      element_id = "CTA"
+    }
+    
+    document.getElementById(element_id).scrollIntoView({ behavior: 'smooth', block: 'start' })
+  } catch (TypeError) {
+    console.log(window.location.pathname);
+    console.log(element_id);
+  }
+}
 
 function App() {
   return (
