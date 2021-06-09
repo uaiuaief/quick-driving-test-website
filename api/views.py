@@ -7,11 +7,80 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
 from . import models, serializers
+from django.db.utils import IntegrityError
 
 
 class CustomerViewSet(viewsets.ModelViewSet):
     queryset = models.Customer.objects.all()
     serializer_class = serializers.CustomerSerializer
+
+    def create_customer(self, data):
+        main_test_center = self.create_test_center(data)
+
+        driving_licence_number = data.get('driving_licence_number')
+        test_ref = data.get('test_ref')
+        theory_test_number = data.get('theory_test_number')
+        email = data.get('email')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        mobile_number = data.get('mobile_number')
+        earliest_test_date  = data.get('test_after')
+        latest_test_date  = data.get('test_before')
+        mobile_number = data.get('mobile_number')
+
+        new_customer = models.Customer(
+                driving_licence_number=driving_licence_number,
+                test_ref=test_ref,
+                theory_test_number=theory_test_number,
+                main_test_center=main_test_center,
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                mobile_number=mobile_number,
+                earliest_test_date=earliest_test_date,
+                latest_test_date=latest_test_date
+        )
+
+        new_customer.save()
+        
+        self.create_acceptable_time_range(new_customer, data)
+
+        return new_customer
+
+    def create_test_center(self, data):
+        desired_test_center = data.get('desired_test_center')
+        test_center =  models.TestCenter.objects.filter(name=desired_test_center).first()
+
+        if test_center:
+            main_test_center = test_center
+        else:
+            main_test_center = models.TestCenter(name=desired_test_center)
+            main_test_center.save()
+
+        return main_test_center
+
+
+    def create_acceptable_time_range(self, customer, data):
+        earliest_time = data.get('earliest_time')
+        latest_time = data.get('latest_time')
+
+        time_range = models.AcceptableTimeRange(
+                customer=customer,
+                start_time=earliest_time,
+                end_time=latest_time
+        )
+
+        time_range.save()
+
+    def create(self, request):
+        try:
+            new_customer = self.create_customer(request.data)
+        except IntegrityError as e:
+            return JsonResponse({"error": str(e)}, status=400)
+
+        return HttpResponse(status=201)
+
+        
 
 
 class TestCenterViewSet(viewsets.ModelViewSet):

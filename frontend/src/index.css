@@ -973,3 +973,17 @@ footer .footer-column li {
 }
 /* END SIGN UP PAGE */
 /*--------------------*/
+
+#signup-form .input-error{
+  font-size: var(--very-sm-2);
+  margin: 0;
+  color: red;
+  margin-top: -.8rem;
+  margin-bottom: 0rem;
+}
+
+#signup-form input,
+#signup-form select{
+  /* margin-top: 1rem; */
+  margin-bottom: 1rem;
+}

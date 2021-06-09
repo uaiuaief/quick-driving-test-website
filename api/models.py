@@ -24,13 +24,19 @@ class TestCenter(BaseModel):
 class Customer(BaseModel):
     driving_licence_number = models.CharField(
             primary_key=True,
-            max_length=16, 
-            validators=[MinLengthValidator(16)]
+            max_length=30, 
+            #validators=[MinLengthValidator(16)]
     )
 
     test_ref = models.CharField(
             max_length=8,
             validators=[MinLengthValidator(8)]
+    )
+
+    theory_test_number = models.CharField(
+            null=True,
+            blank=True,
+            max_length=16, 
     )
 
     main_test_center = models.ForeignKey(
@@ -52,6 +58,23 @@ class Customer(BaseModel):
                 ('invalid', 'invalid')
             ],
             default='unchecked'
+    )
+
+    first_name = models.CharField(
+            max_length=30, 
+            validators=[MinLengthValidator(1)]
+    )
+
+    last_name = models.CharField(
+            max_length=30, 
+            validators=[MinLengthValidator(1)]
+    )
+
+    email = models.EmailField()
+
+    mobile_number = models.CharField(
+            max_length=30, 
+            validators=[MinLengthValidator(8)]
     )
 
     def clean(self):

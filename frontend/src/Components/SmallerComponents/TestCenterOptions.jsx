@@ -1,5 +1,5 @@
 const TestCenterOptions = () => <>
-  <option >---------</option>
+  <option value="">---------</option>
   <option >Aberdeen North</option>
   <option >Aberdeen South (Cove)</option>
   <option >Aberfeldy</option>

@@ -10,6 +10,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         depth = 1
         fields = [
                 'driving_licence_number',
+                'theory_test_number',
                 'test_ref',
                 'main_test_center',
                 'recent_test_failure',
@@ -18,7 +19,11 @@ class CustomerSerializer(serializers.ModelSerializer):
                 'info_validation',
                 'acceptable_time_ranges',
                 'last_crawled',
-                'automatic_booking'
+                'automatic_booking',
+                'first_name',
+                'last_name',
+                'email',
+                'mobile_number',
                 ]
 
 
