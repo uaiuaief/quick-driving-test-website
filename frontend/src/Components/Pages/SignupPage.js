@@ -391,8 +391,8 @@ class SignupPage extends Component {
 
 class TestForm extends Component {
     state = {
-        stepOneInitialState: true,
-        stepTwoInitialState: true,
+        stepOneValid: false,
+        stepTwoValid: false,
         step: 1
     }
 
@@ -432,6 +432,14 @@ class TestForm extends Component {
             }
 
         }
+
+        if (window.isEmpty(errors)){
+            this.setState({stepOneValid: true})
+        }
+        else{
+            this.setState({stepOneValid: false})
+        }
+
 
         return errors
     }
@@ -481,6 +489,14 @@ class TestForm extends Component {
             errors.confirm_password = 'Passwords don\'t match';
         }
 
+        if (window.isEmpty(errors)){
+            this.setState({stepTwoValid: true})
+        }
+        else{
+            this.setState({stepTwoValid: false})
+        }
+
+
         return errors
     }
 
@@ -509,7 +525,7 @@ class TestForm extends Component {
 
 
     render() {
-        console.log(this.state.step);
+        console.log(this.state);
         return (
             <Formik
                 initialValues={{
@@ -581,8 +597,7 @@ class TestForm extends Component {
                                         id=""
                                         text="Next"
                                         type="button"
-                                        disabled={this.state.stepOneInitialState || 
-                                            !window.isEmpty(props.errors) ? true : false}
+                                        disabled={!this.state.stepOneValid ? true : false}
                                     />
                                 </div>
                             </>
@@ -608,8 +623,7 @@ class TestForm extends Component {
                                         id=""
                                         text="Next"
                                         type="submit"
-                                        disabled={this.state.stepTwoInitialState || 
-                                            !window.isEmpty(props.errors) ? true : false}
+                                        disabled={!this.state.stepTwoValid ? true : false}
                                     />
                                 </div>
                             </>
