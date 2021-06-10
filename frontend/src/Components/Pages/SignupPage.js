@@ -419,7 +419,7 @@ class TestForm extends Component {
             let before = new Date(values.test_before)
             let after = new Date(values.test_after)
 
-            if (after > before) {
+            if (after >= before) {
                 errors.test_after = `Date must be before ${values.test_before}`;
                 errors.test_before = `Date must be after ${values.test_after}`;
             }

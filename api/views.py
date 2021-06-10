@@ -26,6 +26,8 @@ class CustomerViewSet(viewsets.ModelViewSet):
         mobile_number = data.get('mobile_number')
         earliest_test_date  = data.get('test_after')
         latest_test_date  = data.get('test_before')
+        earliest_time = data.get('earliest_time')
+        latest_time = data.get('latest_time')
         mobile_number = data.get('mobile_number')
 
         new_customer = models.Customer(
@@ -38,7 +40,9 @@ class CustomerViewSet(viewsets.ModelViewSet):
                 last_name=last_name,
                 mobile_number=mobile_number,
                 earliest_test_date=earliest_test_date,
-                latest_test_date=latest_test_date
+                latest_test_date=latest_test_date,
+                earliest_time=earliest_time,
+                latest_time=latest_time
         )
 
         new_customer.save()
@@ -88,9 +92,9 @@ class TestCenterViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.TestCenterSerializer
 
 
-class TimeRangeViewSet(viewsets.ModelViewSet):
-    queryset = models.AcceptableTimeRange.objects.all()
-    serializer_class = serializers.TimeRangeSerializer
+#class TimeRangeViewSet(viewsets.ModelViewSet):
+#    queryset = models.AcceptableTimeRange.objects.all()
+#    serializer_class = serializers.TimeRangeSerializer
 
 
 class ProxyViewSet(viewsets.ModelViewSet):

@@ -16,6 +16,8 @@ class CustomerSerializer(serializers.ModelSerializer):
                 'recent_test_failure',
                 'earliest_test_date',
                 'latest_test_date',
+                'earliest_time',
+                'latest_time',
                 'info_validation',
                 'acceptable_time_ranges',
                 'last_crawled',
@@ -34,10 +36,10 @@ class TestCenterSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class TimeRangeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.AcceptableTimeRange
-        fields = ['start_time', 'end_time', 'customer']
+#class TimeRangeSerializer(serializers.ModelSerializer):
+#    class Meta:
+#        model = models.AcceptableTimeRange
+#        fields = ['start_time', 'end_time', 'customer']
 
 
 class ProxySerializer(serializers.ModelSerializer):

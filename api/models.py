@@ -45,8 +45,15 @@ class Customer(BaseModel):
     )
 
     recent_test_failure = models.DateField(null=True, blank=True)
-    earliest_test_date = models.DateField(default=timezone.now)
+
+    earliest_test_date = models.DateField(default=timezone.now, blank=True)
     latest_test_date = models.DateField(null=True, blank=True)
+
+    earliest_time = models.TimeField(
+            blank=True, default=datetime.datetime.strptime("07:00", "%H:%M"))
+    latest_time = models.TimeField(
+            blank=True, default=datetime.datetime.strptime("18:00", "%H:%M"))
+
     last_crawled = models.DateTimeField(blank=True, default=datetime.datetime.now)
     automatic_booking = models.BooleanField(default=False)
 
@@ -87,6 +94,10 @@ class Customer(BaseModel):
             if self.latest_test_date < self.earliest_test_date:
                 errors.append("Latest test date can't be before the earlist test date") 
 
+        if self.earliest_time and self.latest_time:
+            if self.earliest_time > self.latest_time:
+                errors.append("Start time can't be after end time") 
+
         if errors:
             raise ValidationError(errors)
 
@@ -94,23 +105,23 @@ class Customer(BaseModel):
         return self.driving_licence_number
 
 
-class AcceptableTimeRange(BaseModel):
-    start_time = models.TimeField()
-    end_time = models.TimeField()
-    customer = models.ForeignKey(
-            'Customer',
-            on_delete=models.CASCADE,
-            related_name='acceptable_time_ranges'
-    )
-
-    def clean(self):
-        if not (self.start_time or self.end_time):
-            return
-        if self.start_time > self.end_time:
-            raise ValidationError("Start time can't be after end time")
-
-    def __str__(self):
-        return f"{self.customer} -> {self.start_time} ~ {self.end_time}"
+#class AcceptableTimeRange(BaseModel):
+#    start_time = models.TimeField()
+#    end_time = models.TimeField()
+#    customer = models.ForeignKey(
+#            'Customer',
+#            on_delete=models.CASCADE,
+#            related_name='acceptable_time_ranges'
+#    )
+#
+#    def clean(self):
+#        if not (self.start_time or self.end_time):
+#            return
+#        if self.start_time > self.end_time:
+#            raise ValidationError("Start time can't be after end time")
+#
+#    def __str__(self):
+#        return f"{self.customer} -> {self.start_time} ~ {self.end_time}"
 
 
 class AvailableDate(BaseModel):
@@ -143,4 +154,4 @@ class Proxy(BaseModel):
     is_banned = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.ip} - {self.last_used}"
+        return f"{self.ip} - {self.last_used} {'- Banned' if self.is_banned else ''}"

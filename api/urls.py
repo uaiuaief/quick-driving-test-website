@@ -6,7 +6,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'customers', views.CustomerViewSet)
 router.register(r'test-centers', views.TestCenterViewSet)
-router.register(r'time-ranges', views.TimeRangeViewSet)
+#router.register(r'time-ranges', views.TimeRangeViewSet)
 router.register(r'proxies', views.ProxyViewSet)
 
 urlpatterns = [
