@@ -142,6 +142,11 @@ a {
   cursor: pointer;
 }
 
+.blue-button-2:disabled {
+  background-color: #888;
+  color: var(--light-text);
+}
+
 .auth-box {
   text-align: center;
   margin: auto;
@@ -957,6 +962,19 @@ footer .footer-column li {
   font-family: 'Catamaran', sans-serif;
 }
 
+#signup-form .form-item {
+  position: relative;
+}
+
+#signup-form .input-error{
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 300;
+  font-size: var(--very-sm-2);
+  position: absolute;
+  bottom: -28px;
+  color: red;
+}
+
 #signup-form select {
   padding: 0.5rem .7rem;
 }
@@ -974,16 +992,3 @@ footer .footer-column li {
 /* END SIGN UP PAGE */
 /*--------------------*/
 
-#signup-form .input-error{
-  font-size: var(--very-sm-2);
-  margin: 0;
-  color: red;
-  margin-top: -.8rem;
-  margin-bottom: 0rem;
-}
-
-#signup-form input,
-#signup-form select{
-  /* margin-top: 1rem; */
-  margin-bottom: 1rem;
-}

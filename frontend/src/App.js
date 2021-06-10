@@ -8,13 +8,20 @@ import PasswordResetPage from './Components/Pages/PasswordResetPage';
 import PasswordResetSuccessPage from './Components/Pages/PasswordResetSuccessPage';
 import SignupPage from './Components/Pages/SignupPage';
 
+
+window.isEmpty = (obj) => {
+  if(obj === null) return true;
+
+  return (Object.entries(obj).length === 0)
+}
+
 window.smoothScroll = (element_id) => {
   if (window.location.pathname !== '/') return;
   try {
-    if(element_id === ""){
+    if (element_id === "") {
       element_id = "CTA"
     }
-    
+
     document.getElementById(element_id).scrollIntoView({ behavior: 'smooth', block: 'start' })
   } catch (TypeError) {
     console.log(window.location.pathname);
@@ -25,15 +32,15 @@ window.smoothScroll = (element_id) => {
 window.getCookie = (name) => {
   let cookieValue = null;
   if (document.cookie && document.cookie != '') {
-      let cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-          let cookie = cookies[i].trim();
-          // Does this cookie string begin with the name we want?
-          if (cookie.substring(0, name.length + 1) == (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
+    let cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) == (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
       }
+    }
   }
   return cookieValue;
 }

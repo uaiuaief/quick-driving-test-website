@@ -1,160 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import TestCenterOptions from '../SmallerComponents/TestCenterOptions';
 import BlueButton2 from "../Buttons/BlueButton2"
 import { Link } from 'react-router-dom';
-import { useFormik, Formik } from 'formik'
+import { useFormik, Formik, isEmptyArray } from 'formik'
 
-class _StepOne extends Component {
-    componentDidMount() {
-        document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    render() {
-        const { handleChange } = this.props;
-        let { driving_licence_number, theory_test_number,
-            test_ref, test_after,
-            test_before, earliest_time,
-            latest_time, recent_failure,
-            desired_test_center } = this.props.parentState
-
-        return (
-            <>
-                <h1>Signup it's very quick</h1>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    nisi ut aliquip ex ea commodo consequat.
-                </p>
-                <div className="form-inputs">
-                    <div className="form-row form-row-1">
-                        <div className="form-item">
-                            <label htmlFor="driving-license-number-field">Driving License Number *</label>
-                            <input
-                                required
-                                id="driving-license-number-field"
-                                type="text"
-                                defaultValue={driving_licence_number}
-                                onChange={(e) => handleChange(e, 'driving_licence_number')}>
-                            </input>
-                        </div>
-                        <div className="form-item">
-                            <label htmlFor="theory-test-number-field">Theory Test Number</label>
-                            <input
-                                id="theory-test-number-field"
-                                type="text"
-                                defaultValue={theory_test_number}
-                                onChange={(e) => handleChange(e, 'theory_test_number')}>
-                            </input>
-                        </div>
-                    </div>
-                    <div className="form-row form-row-2">
-                        <div className="form-item">
-                            <label htmlFor="driving-test-reference-number-field">Driving Test Reference Number</label>
-                            <input
-                                required
-                                id="driving-test-reference-number-field"
-                                type="text"
-                                defaultValue={test_ref}
-                                onChange={(e) => handleChange(e, 'test_ref')}>
-                            </input>
-                        </div>
-                    </div>
-                    <div className="form-row form-row-3">
-                        <div className="form-item">
-                            <label htmlFor="test-after-field">Test after</label>
-                            <input
-                                id="test-after-field"
-                                type="date"
-                                defaultValue={test_after}
-                                onChange={(e) => handleChange(e, 'test_after')}>
-                            </input>
-                        </div>
-
-                        <div className="form-item">
-                            <label htmlFor="test-before-field">Test before</label>
-                            <input
-                                id="test-before-field"
-                                type="date"
-                                defaultValue={test_before}
-                                onChange={(e) => handleChange(e, 'test_before')}>
-                            </input>
-                        </div>
-                    </div>
-                    <div className="form-row form-row-4">
-                        <div className="form-item">
-                            <label htmlFor="earliest-time-field">Earliest time</label>
-                            <select
-                                id="earliest-time-field"
-                                type="time"
-                                defaultValue={earliest_time}
-                                onChange={(e) => handleChange(e, 'earliest_time')}>
-                                <option value="">Select</option>
-                                <option>07:00am</option>
-                                <option>08:00am</option>
-                                <option>09:00am</option>
-                                <option>10:00am</option>
-                                <option>11:00am</option>
-                                <option>12:00pm</option>
-                                <option>01:00pm</option>
-                                <option>02:00pm</option>
-                                <option>03:00pm</option>
-                                <option>04:00pm</option>
-                                <option>05:00pm</option>
-                                <option>06:00pm</option>
-                            </select>
-                        </div>
-
-                        <div className="form-item">
-                            <label htmlFor="latest-time-field">Latest time</label>
-                            <select
-                                id="latest-time-field"
-                                type="time"
-                                defaultValue={latest_time}
-                                onChange={(e) => handleChange(e, 'latest_time')}>
-                                <option value="">Select</option>
-                                <option>07:00am</option>
-                                <option>08:00am</option>
-                                <option>09:00am</option>
-                                <option>10:00am</option>
-                                <option>11:00am</option>
-                                <option>12:00pm</option>
-                                <option>01:00pm</option>
-                                <option>02:00pm</option>
-                                <option>03:00pm</option>
-                                <option>04:00pm</option>
-                                <option>05:00pm</option>
-                                <option>06:00pm</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="form-row form-row-5">
-                        <div className="form-item">
-                            <label htmlFor="recent-failure-field">Date of most recent failure (if any)</label>
-                            <input
-                                id="recent-failure-field"
-                                type="date"
-                                defaultValue={recent_failure}
-                                onChange={(e) => handleChange(e, 'recent_failure')}>
-                            </input>
-                        </div>
-                        <div className="form-item">
-                            <label htmlFor="desired-test-center-field">Desired test centre *</label>
-                            <select
-                                required
-                                id="desired-test-center-field"
-                                type="text"
-                                defaultValue={desired_test_center}
-                                onChange={(e) => handleChange(e, 'desired_test_center')}>
-                                <TestCenterOptions />
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </>
-        );
-    }
-}
 
 class StepOne extends Component {
     componentDidMount() {
@@ -211,7 +60,7 @@ class StepOne extends Component {
                     </div>
                     <div className="form-row form-row-2">
                         <div className="form-item">
-                            <label htmlFor="test_ref">Driving Test Reference Number</label>
+                            <label htmlFor="test_ref">Driving Test Reference Number *</label>
                             <input
                                 required
                                 id="test_ref"
@@ -416,7 +265,6 @@ class StepTwo extends Component {
                         <div className="form-item">
                             <label htmlFor="mobile_number">Mobile number</label>
                             <input
-                                required
                                 id="mobile_number"
                                 name="mobile_number"
                                 type=""
@@ -490,26 +338,6 @@ class SignupPage extends Component {
         confirm_password: "",
     }
 
-    nextStep = () => {
-        const { step } = this.state;
-
-        if (step >= 2) return
-
-        this.setState({
-            step: step + 1
-        })
-    }
-
-    prevStep = () => {
-        const { step } = this.state;
-
-        if (step <= 1) return
-
-        this.setState({
-            step: step - 1
-        })
-    }
-
     // handleSubmit = async e => {
     //     e.preventDefault();
     //     this.validateStep1();
@@ -536,8 +364,12 @@ class SignupPage extends Component {
         return (
             <section id="signup-page">
                 <div className="inner-container">
-                    <TestForm step={this.state.step} />
-                    <div className="form-buttons">
+                    <TestForm
+                        step={this.state.step}
+                        nextStep={this.nextStep}
+                        prevStep={this.prevStep}
+                    />
+                    {/* <div className="form-buttons">
                         <BlueButton2
                             onClick={e => this.prevStep()}
                             id=""
@@ -548,18 +380,24 @@ class SignupPage extends Component {
                             id=""
                             text="Next"
                         />
-                    </div>
+                    </div> */}
                 </div>
             </section >
         );
     }
 }
 
-const TestForm = (props) => {
-    const step = props.step;
 
-    const validateStepOne = (values) => {
-        if (step !== 1) return null
+
+class TestForm extends Component {
+    state = {
+        stepOneInitialState: true,
+        stepTwoInitialState: true,
+        step: 1
+    }
+
+    validateStepOne = (values) => {
+        if (this.state.step !== 1) return null
         let errors = {}
 
         if (!values.driving_licence_number) {
@@ -577,30 +415,29 @@ const TestForm = (props) => {
             errors.test_ref = 'This field is required';
         }
 
-        if (values.test_after && values.test_before){
+        if (values.test_after && values.test_before) {
             let before = new Date(values.test_before)
             let after = new Date(values.test_after)
 
-            if (after > before){
+            if (after > before) {
                 errors.test_after = `Date must be before ${values.test_before}`;
                 errors.test_before = `Date must be after ${values.test_after}`;
             }
         }
 
-        if (values.earliest_time && values.latest_time){
-            if (Date.parse(`01/01/1970 ${values.earliest_time}`) >= Date.parse(`01/01/1970 ${values.latest_time}`)){
+        if (values.earliest_time && values.latest_time) {
+            if (Date.parse(`01/01/1970 ${values.earliest_time}`) >= Date.parse(`01/01/1970 ${values.latest_time}`)) {
                 errors.earliest_time = `Time must be before ${values.latest_time}`;
                 errors.latest_time = `Time must be after ${values.earliest_time}`;
             }
-            
+
         }
-        
 
         return errors
     }
 
-    const validateStepTwo = (values) => {
-       let errors = {}
+    validateStepTwo = (values) => {
+        let errors = {}
 
         if (!values.first_name) {
             errors.first_name = 'This field is required';
@@ -647,82 +484,141 @@ const TestForm = (props) => {
         return errors
     }
 
-    return (
-        <Formik
-            initialValues={{
-                // Step 1
-                driving_licence_number: "",
-                test_ref: "",
-                theory_test_number: "",
-                test_after: "",
-                test_before: "",
-                earliest_time: "",
-                latest_time: "",
-                recent_failure: "",
-                desired_test_center: "",
+    nextStep = (handleSubmit) => {
+        // e.preventDefault();
 
-                // Step 2
-                first_name: "",
-                last_name: "",
-                email: "",
-                mobile_number: "",
-                password: "",
-                confirm_password: "",
-            }}
+        if (this.state.step >= 2) {
+            return
+        }
 
-            onSubmit={(values, actions) => {
-                alert(JSON.stringify(values, null, 2));
-            }}
+        this.setState({
+            step: this.state.step + 1
+        })
+    }
 
-            validate={values => {
-                // let errors = {};
-                let errors = validateStepOne(values);
+    prevStep = () => {
+        // e.preventDefault();
+        // console.log(step);
 
-                console.log(errors);
-                if (errors) return errors
+        if (this.state.step <= 1) return
 
-                errors = validateStepTwo(values);
+        this.setState({
+            step: this.state.step - 1
+        }, () => console.log(this.state))
+    }
 
-                console.log(errors);
-                return errors;
-            }}
-        >
-            {props => (
-                <form
-                    id="signup-form"
-                    onSubmit={props.handleSubmit}
-                >
-                    {step === 1 ?
-                        <StepOne
-                            handleSubmit={props.handleSubmit}
-                            handleChange={props.handleChange}
-                            handleBlur={props.handleBlur}
-                            values={props.values}
-                            errors={props.errors}
-                            touched={props.touched}
-                        />
 
-                        :
+    render() {
+        console.log(this.state.step);
+        return (
+            <Formik
+                initialValues={{
+                    // Step 1
+                    driving_licence_number: "",
+                    test_ref: "",
+                    theory_test_number: "",
+                    test_after: "",
+                    test_before: "",
+                    earliest_time: "",
+                    latest_time: "",
+                    recent_failure: "",
+                    desired_test_center: "",
 
-                        <StepTwo
-                            handleSubmit={props.handleSubmit}
-                            handleChange={props.handleChange}
-                            handleBlur={props.handleBlur}
-                            values={props.values}
-                            errors={props.errors}
-                            touched={props.touched}
-                        />
+                    // Step 2
+                    first_name: "",
+                    last_name: "",
+                    email: "",
+                    mobile_number: "",
+                    password: "",
+                    confirm_password: "",
+                }}
+
+                onSubmit={(values, actions) => {
+                    alert(JSON.stringify(values, null, 2));
+                }}
+
+                validate={values => {
+                    if (this.state.stepOneInitialState){
+                        this.setState({stepOneInitialState: false})
+                    }
+                    let errors = this.validateStepOne(values);
+
+                    if (!window.isEmpty(errors) || this.state.step === 1) {
+                        console.log(errors);
+
+                        return errors
+                    }
+                    if (this.state.stepTwoInitialState){
+                        this.setState({stepTwoInitialState: false})
                     }
 
+                    errors = this.validateStepTwo(values);
+                    console.log(errors);
 
-                    <button type="submit" style={{ "marginTop": "4rem" }}>Submit</button>
-                    {/* <pre>
-                        {JSON.stringify(props.values, null, 2)}
-                    </pre> */}
-                </form>
-            )}
-        </Formik>
-    )
+                    return errors;
+                }}
+            >
+                {props => (
+                    <form
+                        id="signup-form"
+                        onSubmit={props.handleSubmit}
+                    >
+                        {this.state.step === 1 ?
+                            <>
+                                <StepOne
+                                    handleSubmit={props.handleSubmit}
+                                    handleChange={props.handleChange}
+                                    handleBlur={props.handleBlur}
+                                    values={props.values}
+                                    errors={props.errors}
+                                    touched={props.touched}
+                                />
+                                <div className="form-buttons">
+                                    <BlueButton2
+                                        onClick={e => {
+                                            this.nextStep()
+                                        }}
+                                        id=""
+                                        text="Next"
+                                        type="button"
+                                        disabled={this.state.stepOneInitialState || 
+                                            !window.isEmpty(props.errors) ? true : false}
+                                    />
+                                </div>
+                            </>
+                            :
+                            <>
+                                <StepTwo
+                                    handleSubmit={props.handleSubmit}
+                                    handleChange={props.handleChange}
+                                    handleBlur={props.handleBlur}
+                                    values={props.values}
+                                    errors={props.errors}
+                                    touched={props.touched}
+                                />
+                                <div className="form-buttons">
+                                    <BlueButton2
+                                        onClick={e => this.prevStep()}
+                                        id=""
+                                        text="Back"
+                                        type="button"
+                                    />
+                                    <BlueButton2
+                                        onClick={e => this.nextStep()}
+                                        id=""
+                                        text="Next"
+                                        type="submit"
+                                        disabled={this.state.stepTwoInitialState || 
+                                            !window.isEmpty(props.errors) ? true : false}
+                                    />
+                                </div>
+                            </>
+                        }
+                    </form>
+                )}
+            </Formik>
+        )
+    }
 }
 
 export default SignupPage;
