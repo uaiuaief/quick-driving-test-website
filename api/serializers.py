@@ -2,31 +2,32 @@ from . import models
 from rest_framework import serializers
 
 
-class CustomerSerializer(serializers.ModelSerializer):
-    acceptable_time_ranges = serializers.TimeField
-
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Customer
+        model = models.User
         depth = 1
         fields = [
-                'driving_licence_number',
-                'theory_test_number',
-                'test_ref',
-                'main_test_center',
-                'recent_test_failure',
-                'earliest_test_date',
-                'latest_test_date',
-                'earliest_time',
-                'latest_time',
-                'info_validation',
-                'acceptable_time_ranges',
-                'last_crawled',
-                'automatic_booking',
-                'first_name',
-                'last_name',
                 'email',
-                'mobile_number',
+                'profile',
                 ]
+
+        #        'driving_licence_number',
+        #        'theory_test_number',
+        #        'test_ref',
+        #        'main_test_center',
+        #        'recent_test_failure',
+        #        'earliest_test_date',
+        #        'latest_test_date',
+        #        'earliest_time',
+        #        'latest_time',
+        #        'info_validation',
+        #        'acceptable_time_ranges',
+        #        'last_crawled',
+        #        'automatic_booking',
+        #        'first_name',
+        #        'last_name',
+        #        'mobile_number',
+        #        ]
 
 
 class TestCenterSerializer(serializers.ModelSerializer):
@@ -36,12 +37,6 @@ class TestCenterSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-#class TimeRangeSerializer(serializers.ModelSerializer):
-#    class Meta:
-#        model = models.AcceptableTimeRange
-#        fields = ['start_time', 'end_time', 'customer']
-
-
 class ProxySerializer(serializers.ModelSerializer):
     last_used = serializers.DateTimeField()
 
@@ -49,11 +44,3 @@ class ProxySerializer(serializers.ModelSerializer):
         model = models.Proxy
         fields = ['ip', 'last_used', 'is_banned']
 
-
-
-#class TestCenterSerializer(serializers.ModelSerializer):
-#    class Meta:
-#        model = models.TestCenter
-#        fields = '__all__'
-#        depth = 1
-#

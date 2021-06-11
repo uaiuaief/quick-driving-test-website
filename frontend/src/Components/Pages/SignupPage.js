@@ -549,8 +549,20 @@ class TestForm extends Component {
                     confirm_password: "",
                 }}
 
-                onSubmit={(values, actions) => {
-                    alert(JSON.stringify(values, null, 2));
+                onSubmit={async (values, actions) => {
+                    // alert(JSON.stringify(values, null, 2));
+                    
+                    const URL = "/api/users/"
+
+                    let res = await fetch(URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': window.getCookie('csrftoken')
+                        },
+                        body: JSON.stringify(values)
+                    })
+
                 }}
 
                 validate={values => {
