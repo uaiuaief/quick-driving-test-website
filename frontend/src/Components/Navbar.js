@@ -5,7 +5,8 @@ import logo from "../assets/logo.png"
 
 class Navbar extends Component {
     state = {
-        user: false
+        user: false,
+        isLoading: true
     }
 
     componentDidMount() {
@@ -15,11 +16,17 @@ class Navbar extends Component {
                     user: true
                 })
             }
+
+            this.setState({isLoading: false})
         })
     }
 
     render() {
         return (
+            this.state.isLoading
+            ?
+            <></>
+            :
             <div id="navbar">
                 <div className="inner-container">
                     <div className="logo-container">
@@ -58,24 +65,35 @@ class Navbar extends Component {
                                 Contact Us
                             </Link>
                         </li>
-                        <li>
-                            {this.state.user
-                                ?
-                                <Link
-                                    to="/account">
-                                    Account
-                                </Link>
-                                :
+                        {this.state.user
+                            ?
+                            <>
+                                <li>
+                                    <Link
+                                        to="/account">
+                                        My Account
+                                    </Link>
+                                </li>
+
+                                <li>
+                                    <Link
+                                        to="/logout">
+                                        Logout
+                                    </Link>
+                                </li>
+                            </>
+                            :
+                            <li>
                                 <Link
                                     to="/login">
                                     Login
                                 </Link>
-                                
-                            }
-                        </li>
+                            </li>
+
+                        }   
                     </ul>
-                </div>
             </div>
+            </div >
 
         )
     }

@@ -201,6 +201,16 @@ def get_user_view(request):
     return JsonResponse({'user': str(request.user)})
 
 
+class UserProfileView(APIView):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return JsonResponse({
+            'error': "Please provide your credentials"
+            }, status=401)
+
+        return JsonResponse(serializers.UserSerializer(request.user).data)
+
+
 class LoginView(APIView):
     def post(self, request):
         email = request.data.get('email')

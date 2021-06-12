@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import TestCenterOptions from '../SmallerComponents/TestCenterOptions';
 import BlueButton2 from "../Buttons/BlueButton2"
 import { Link } from 'react-router-dom';
-import { useFormik, Formik, isEmptyArray } from 'formik'
+import { Formik } from 'formik'
 
 
 class StepOne extends Component {

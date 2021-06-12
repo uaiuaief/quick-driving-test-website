@@ -992,3 +992,135 @@ footer .footer-column li {
 /* END SIGN UP PAGE */
 /*--------------------*/
 
+
+
+/* PROFILE PAGE */
+#profile-page {
+  padding-top: 62px;
+  /* padding-bottom: 3rem; */
+}
+
+#profile-page .inner-container {
+  display: flex;
+}
+
+#profile-page .form-inputs {
+  margin-top: 1.2rem;
+  padding: 2.0rem 0;
+  height: 550px;
+  /* position: relative; */
+}
+
+#profile-page .form-inputs::before {
+  content: "";
+  background-color: var(--light-bg-2);
+  /* background-color: #7b7b7b; */
+  z-index: -1;
+  position: absolute;
+  top: 290px;
+  left: 0;
+  width: 99vw;
+  height: 550px;
+  overflow: hidden;
+}
+
+#profile-page label {
+  display: block;
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 600;
+  font-size: var(--very-sm-3);
+  color: var(--gray-text-2);
+}
+
+#profile-page .form-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+#profile-page .form-row-5{
+  margin-bottom: 0rem;
+}
+
+#profile-page input,
+#profile-page select {
+  width: 430px;
+  height: 46px;
+  border: none;
+  background: #FFFFFF;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  padding: 1rem;
+  font-size: var(--very-sm-3);
+  font-family: 'Catamaran', sans-serif;
+}
+
+#profile-page .form-item {
+  position: relative;
+}
+
+#profile-page .input-error{
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 300;
+  font-size: var(--very-sm-2);
+  position: absolute;
+  bottom: -28px;
+  color: red;
+}
+
+#profile-page select {
+  padding: 0.5rem .7rem;
+}
+
+#profile-page #current-menu {
+  margin-left: 2rem;
+}
+
+/* SIDEBAR */
+#sidebar {
+  background-color: var(--dark-color-1);
+  height: 900px;
+  flex-basis: 270px;
+}
+
+#sidebar .inner-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2.5rem;
+}
+
+#sidebar .sidebar-button .img-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  margin-left: 2rem;
+  margin-right: 1.3rem;
+  width: 30px;
+}
+
+#sidebar .sidebar-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: none;
+  background-color: transparent;
+  color: var(--light-text);
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 400;
+  font-size: var(--sm-3);
+  /* margin: auto; */
+  width: 100%;
+  margin: .9rem 0;
+  cursor: pointer;
+}
+
+#sidebar .sidebar-button.highlighted {
+  color: var(--primary-color)
+}
+
+#sidebar .sidebar-button.highlighted img{
+filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) contrast(101%);
+}
+
+/* END PROFILE PAGE */
+/*--------------------*/

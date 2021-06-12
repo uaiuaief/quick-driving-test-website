@@ -156,24 +156,6 @@ class TestCenter(BaseModel):
     def __str__(self):
         return self.name
 
-#class AcceptableTimeRange(BaseModel):
-#    start_time = models.TimeField()
-#    end_time = models.TimeField()
-#    customer = models.ForeignKey(
-#            'Customer',
-#            on_delete=models.CASCADE,
-#            related_name='acceptable_time_ranges'
-#    )
-#
-#    def clean(self):
-#        if not (self.start_time or self.end_time):
-#            return
-#        if self.start_time > self.end_time:
-#            raise ValidationError("Start time can't be after end time")
-#
-#    def __str__(self):
-#        return f"{self.customer} -> {self.start_time} ~ {self.end_time}"
-
 
 class AvailableDate(BaseModel):
     date = models.DateField()

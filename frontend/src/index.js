@@ -52,6 +52,26 @@ window.getUser = async () => {
   return data.user;
 }
 
+window.fetchUserProfile = async () => {
+  let res = await fetch("/api/get_profile/", {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  
+  if (res.status === 401){
+
+    return null;
+  }
+
+  let data = await res.json();
+
+  return data;
+}
+
+// window.fetchUserProfile();
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
