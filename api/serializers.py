@@ -7,6 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = models.User
         depth = 1
         fields = [
+                'id',
                 'email',
                 'profile',
                 ]

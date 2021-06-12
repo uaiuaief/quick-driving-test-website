@@ -1,10 +1,12 @@
 import json
 import datetime
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login
 from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from rest_framework.renderers import JSONRenderer
 from . import models, serializers
 from django.db.utils import IntegrityError
@@ -13,6 +15,9 @@ from django.db.utils import IntegrityError
 class UserViewSet(viewsets.ModelViewSet):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
+
+    def retrieve(self, request, pk):
+        return HttpResponse(request.user.email)
 
     def create(self, request):
         normalized_data = self.normalize_data(request.data)
@@ -190,3 +195,21 @@ def customer_view(request, pk):
             }
 
     return JsonResponse(dict_)
+
+
+def get_user_view(request):
+    return JsonResponse({'user': str(request.user)})
+
+
+class LoginView(APIView):
+    def post(self, request):
+        email = request.data.get('email')
+        password = request.data.get('password')
+
+        user = authenticate(username=email, password=password)
+
+        if user:
+            login(request, user)
+            return JsonResponse({'user': str(user)})
+        else:
+            return JsonResponse({'error': 'user does not exist'}, status=401)

@@ -4,14 +4,27 @@ import { Link } from 'react-router-dom';
 import logo from "../assets/logo.png"
 
 class Navbar extends Component {
+    state = {
+        user: false
+    }
+
+    componentDidMount() {
+        window.getUser().then(user => {
+            if (user !== 'AnonymousUser') {
+                this.setState({
+                    user: true
+                })
+            }
+        })
+    }
+
     render() {
-        console.log(window.location);
         return (
             <div id="navbar">
                 <div className="inner-container">
                     <div className="logo-container">
                         <Link
-                            onClick={() => window.smoothScroll("CTA")} 
+                            onClick={() => window.smoothScroll("CTA")}
                             to="/">
                             <img className="logo" src={logo} alt="logo"></img>
                         </Link>
@@ -46,10 +59,19 @@ class Navbar extends Component {
                             </Link>
                         </li>
                         <li>
-                            <Link
-                                to="/login">
-                                Login
-                            </Link>
+                            {this.state.user
+                                ?
+                                <Link
+                                    to="/account">
+                                    Account
+                                </Link>
+                                :
+                                <Link
+                                    to="/login">
+                                    Login
+                                </Link>
+                                
+                            }
                         </li>
                     </ul>
                 </div>
