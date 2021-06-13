@@ -1,7 +1,7 @@
 import json
 import datetime
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
@@ -17,6 +17,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
 
     def retrieve(self, request, pk):
+
         return HttpResponse(request.user.email)
 
     def create(self, request):
@@ -29,7 +30,6 @@ class UserViewSet(viewsets.ModelViewSet):
                 }}, status=400)
 
         return HttpResponse(status=201)
-
 
     def create_user(self, data):
         email = data.pop('email')
@@ -209,6 +209,82 @@ class UserProfileView(APIView):
             }, status=401)
 
         return JsonResponse(serializers.UserSerializer(request.user).data)
+
+    def patch(self, request):
+        user = request.user
+        if not user.is_authenticated:
+            return JsonResponse({
+            'error': "Please provide your credentials"
+            }, status=401)
+
+        data = self._translate_request_data(request.data)
+        #data, errors = self.validate_data(request.data)
+#        if errors:
+#            return JsonResponse({
+#                'error': errors
+#                }, status=400)
+#
+        
+        self._update_profile(user, data)
+
+        return JsonResponse({
+            'message': 'User updated successfully'
+            }, status=200)
+
+    def _validate_data(self, data):
+        pass
+
+    def _update_profile(self, user, data):
+        profile = models.Profile.objects.get(user=user)
+        for attr in data:
+            if hasattr(profile, attr):
+                setattr(profile, attr, data[attr])
+            else:
+                raise KeyError(f'Profile has no attribute {attr}')
+        
+        profile.save()
+
+    def _create_test_center(self, test_center_name):
+        try:
+            main_test_center =  models.TestCenter.objects.get(name=test_center_name)
+
+        except models.TestCenter.DoesNotExist as e:
+            main_test_center = models.TestCenter(name=test_center_name)
+            main_test_center.save()
+            
+        return main_test_center
+
+    def _translate_request_data(self, data):
+        translated_data = {}
+
+        for k in data:
+            if data[k] == '':
+                continue
+            elif k == 'confirm_password':
+                continue
+            elif k == 'password':
+                continue
+            elif k == 'email':
+                continue
+            elif k == 'phone_number':
+                translated_data['mobile_number'] = data[k]
+            elif k == 'test_after':
+                translated_data['earliest_test_date'] = data[k]
+            elif k == 'test_before':
+                translated_data['latest_test_date'] = data[k]
+            elif k == 'desired_test_center':
+                translated_data['main_test_center'] = self._create_test_center(data[k])
+            else:
+                translated_data[k] = data[k]
+
+        return translated_data
+
+
+class LogoutView(APIView):
+    def get(self, request):
+        logout(request)
+
+        return HttpResponse(status=200)
 
 
 class LoginView(APIView):

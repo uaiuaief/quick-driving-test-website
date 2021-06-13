@@ -76,8 +76,14 @@ class Navbar extends Component {
                                 </li>
 
                                 <li>
-                                    <Link
-                                        to="/logout">
+                                    <Link 
+                                        onClick={(e) => {
+                                            fetch('/api/logout')
+                                            .then(() => {
+                                                window.location.href = '/'
+                                            })
+                                        }}
+                                    >
                                         Logout
                                     </Link>
                                 </li>

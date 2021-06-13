@@ -115,18 +115,18 @@ class StepOne extends Component {
                                 onBlur={handleBlur}
                             >
                                 <option value="">Select</option>
-                                <option value="07:00">07:00am</option>
-                                <option value="08:00">08:00am</option>
-                                <option value="09:00">09:00am</option>
-                                <option value="10:00">10:00am</option>
-                                <option value="11:00">11:00am</option>
-                                <option value="12:00">12:00pm</option>
-                                <option value="13:00">01:00pm</option>
-                                <option value="14:00">02:00pm</option>
-                                <option value="15:00">03:00pm</option>
-                                <option value="16:00">04:00pm</option>
-                                <option value="17:00">05:00pm</option>
-                                <option value="18:00">06:00pm</option>
+                                <option value="07:00">07:00</option>
+                                <option value="08:00">08:00</option>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                                <option value="17:00">17:00</option>
+                                <option value="18:00">18:00</option>
                             </select>
                             {touched.earliest_time && errors.earliest_time ? <div className="input-error">{errors.earliest_time}</div> : null}
                         </div>
@@ -142,18 +142,18 @@ class StepOne extends Component {
                                 onBlur={handleBlur}
                             >
                                 <option value="">Select</option>
-                                <option value="07:00">07:00am</option>
-                                <option value="08:00">08:00am</option>
-                                <option value="09:00">09:00am</option>
-                                <option value="10:00">10:00am</option>
-                                <option value="11:00">11:00am</option>
-                                <option value="12:00">12:00pm</option>
-                                <option value="13:00">01:00pm</option>
-                                <option value="14:00">02:00pm</option>
-                                <option value="15:00">03:00pm</option>
-                                <option value="16:00">04:00pm</option>
-                                <option value="17:00">05:00pm</option>
-                                <option value="18:00">06:00pm</option>
+                                <option value="07:00">07:00</option>
+                                <option value="08:00">08:00</option>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                                <option value="17:00">17:00</option>
+                                <option value="18:00">18:00</option>
                             </select>
                             {touched.latest_time && errors.latest_time ? <div className="input-error">{errors.latest_time}</div> : null}
 
@@ -433,11 +433,11 @@ class TestForm extends Component {
 
         }
 
-        if (window.isEmpty(errors)){
-            this.setState({stepOneValid: true})
+        if (window.isEmpty(errors)) {
+            this.setState({ stepOneValid: true })
         }
-        else{
-            this.setState({stepOneValid: false})
+        else {
+            this.setState({ stepOneValid: false })
         }
 
 
@@ -489,11 +489,11 @@ class TestForm extends Component {
             errors.confirm_password = 'Passwords don\'t match';
         }
 
-        if (window.isEmpty(errors)){
-            this.setState({stepTwoValid: true})
+        if (window.isEmpty(errors)) {
+            this.setState({ stepTwoValid: true })
         }
-        else{
-            this.setState({stepTwoValid: false})
+        else {
+            this.setState({ stepTwoValid: false })
         }
 
 
@@ -551,10 +551,10 @@ class TestForm extends Component {
 
                 onSubmit={async (values, actions) => {
                     // alert(JSON.stringify(values, null, 2));
-                    
-                    const URL = "/api/users/"
 
-                    let res = await fetch(URL, {
+                    const ENDPOINT = "/api/users/"
+
+                    let res = await fetch(ENDPOINT, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -566,8 +566,8 @@ class TestForm extends Component {
                 }}
 
                 validate={values => {
-                    if (this.state.stepOneInitialState){
-                        this.setState({stepOneInitialState: false})
+                    if (this.state.stepOneInitialState) {
+                        this.setState({ stepOneInitialState: false })
                     }
                     let errors = this.validateStepOne(values);
 
@@ -576,8 +576,8 @@ class TestForm extends Component {
 
                         return errors
                     }
-                    if (this.state.stepTwoInitialState){
-                        this.setState({stepTwoInitialState: false})
+                    if (this.state.stepTwoInitialState) {
+                        this.setState({ stepTwoInitialState: false })
                     }
 
                     errors = this.validateStepTwo(values);

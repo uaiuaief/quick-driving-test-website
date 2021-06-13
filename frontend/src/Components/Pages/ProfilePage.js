@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Formik } from 'formik';
 import TestCenterOptions from '../SmallerComponents/TestCenterOptions';
 import BlueButton2 from "../Buttons/BlueButton2"
@@ -7,7 +8,7 @@ import Sidebar from "../Sidebar"
 
 class DashBoard extends Component {
     render() {
-        const parentState = this.props.parentState;
+        const { parentState, fetchUserData } = this.props;
 
         return (
             parentState.isLoading
@@ -27,8 +28,23 @@ class DashBoard extends Component {
                         desired_test_center: parentState.desired_test_center
                     }}
 
-                    onSubmit={(values, actions) => {
-                        alert(JSON.stringify(values))
+                    onSubmit={async (values, actions) => {
+                        const ENDPOINT = "/api/user-profile/"
+
+                        let res = await fetch(ENDPOINT, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': window.getCookie('csrftoken')
+                            },
+                            body: JSON.stringify(values)
+                        })
+
+                        if (String(res.status).slice(0, 1) == 2) {
+                            fetchUserData()
+                        }
+                        else {
+                        }
                     }}
                 >
                     {props => {
@@ -120,18 +136,18 @@ class DashBoard extends Component {
                                                 onBlur={props.handleBlur}
                                             >
                                                 <option value="">Select</option>
-                                                <option value="07:00">07:00am</option>
-                                                <option value="08:00">08:00am</option>
-                                                <option value="09:00">09:00am</option>
-                                                <option value="10:00">10:00am</option>
-                                                <option value="11:00">11:00am</option>
-                                                <option value="12:00">12:00pm</option>
-                                                <option value="13:00">01:00pm</option>
-                                                <option value="14:00">02:00pm</option>
-                                                <option value="15:00">03:00pm</option>
-                                                <option value="16:00">04:00pm</option>
-                                                <option value="17:00">05:00pm</option>
-                                                <option value="18:00">06:00pm</option>
+                                                <option value="07:00">07:00</option>
+                                                <option value="08:00">08:00</option>
+                                                <option value="09:00">09:00</option>
+                                                <option value="10:00">10:00</option>
+                                                <option value="11:00">11:00</option>
+                                                <option value="12:00">12:00</option>
+                                                <option value="13:00">13:00</option>
+                                                <option value="14:00">14:00</option>
+                                                <option value="15:00">15:00</option>
+                                                <option value="16:00">16:00</option>
+                                                <option value="17:00">17:00</option>
+                                                <option value="18:00">18:00</option>
                                             </select>
                                             {/* {touched.earliest_time && errors.earliest_time ? <div className="input-error">{errors.earliest_time}</div> : null} */}
                                         </div>
@@ -147,18 +163,18 @@ class DashBoard extends Component {
                                                 onBlur={props.handleBlur}
                                             >
                                                 <option value="">Select</option>
-                                                <option value="07:00">07:00am</option>
-                                                <option value="08:00">08:00am</option>
-                                                <option value="09:00">09:00am</option>
-                                                <option value="10:00">10:00am</option>
-                                                <option value="11:00">11:00am</option>
-                                                <option value="12:00">12:00pm</option>
-                                                <option value="13:00">01:00pm</option>
-                                                <option value="14:00">02:00pm</option>
-                                                <option value="15:00">03:00pm</option>
-                                                <option value="16:00">04:00pm</option>
-                                                <option value="17:00">05:00pm</option>
-                                                <option value="18:00">06:00pm</option>
+                                                <option value="07:00">07:00</option>
+                                                <option value="08:00">08:00</option>
+                                                <option value="09:00">09:00</option>
+                                                <option value="10:00">10:00</option>
+                                                <option value="11:00">11:00</option>
+                                                <option value="12:00">12:00</option>
+                                                <option value="13:00">13:00</option>
+                                                <option value="14:00">14:00</option>
+                                                <option value="15:00">15:00</option>
+                                                <option value="16:00">16:00</option>
+                                                <option value="17:00">17:00</option>
+                                                <option value="18:00">18:00</option>
                                             </select>
                                             {/* {touched.latest_time && errors.latest_time ? <div className="input-error">{errors.latest_time}</div> : null} */}
 
@@ -209,7 +225,7 @@ class DashBoard extends Component {
 
 class Account extends Component {
     render() {
-        const parentState = this.props.parentState;
+        const { parentState, fetchUserData } = this.props;
 
         return (
             parentState.isLoading
@@ -225,13 +241,28 @@ class Account extends Component {
                         password: "*********"
                     }}
 
-                    onSubmit={(values, actions) => {
-                        alert(JSON.stringify(values))
+                    onSubmit={async (values, actions) => {
+                        const ENDPOINT = "/api/user-profile/"
+
+                        let res = await fetch(ENDPOINT, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': window.getCookie('csrftoken')
+                            },
+                            body: JSON.stringify(values)
+                        })
+
+                        if (String(res.status).slice(0, 1) == 2) {
+                            fetchUserData()
+                        }
+                        else {
+                        }
                     }}
                 >
                     {props => {
                         return (
-                            <form>
+                            <form onSubmit={props.handleSubmit}>
                                 <div className="form-inputs">
                                     <div className="form-row form-row-1">
                                         <div className="form-item">
@@ -264,12 +295,12 @@ class Account extends Component {
                                     <div className="form-row form-row-2">
 
                                         <div className="form-item">
-                                            <label htmlFor="mobile_number">Mobile number</label>
+                                            <label htmlFor="phone_number">Mobile number</label>
                                             <input
-                                                id="mobile_number"
-                                                name="mobile_number"
+                                                id="phone_number"
+                                                name="phone_number"
                                                 type=""
-                                                value={props.values.mobile_number}
+                                                value={props.values.phone_number}
                                                 onChange={props.handleChange}
                                                 onBlur={props.handleBlur}
                                             >
@@ -344,6 +375,7 @@ class Support extends Component {
 class ProfilePage extends Component {
     state = {
         // highlighted: 'dashboard',
+        redirect: false,
         highlighted: 'account',
         isLoading: true,
 
@@ -363,9 +395,12 @@ class ProfilePage extends Component {
         desired_test_center: "",
     }
 
-    componentDidMount() {
+    fetchUserData() {
         window.fetchUserProfile().then(data => {
-            if (data === null) return;
+            if (data === null) {
+                this.setState({ redirect: true })
+                return
+            }
 
             const email = data.email;
             const {
@@ -399,13 +434,17 @@ class ProfilePage extends Component {
                 theory_test_number: theory_test_number,
                 test_after: earliest_test_date ? earliest_test_date : "",
                 test_before: latest_test_date ? latest_test_date : "",
-                earliest_time: earliest_time ? earliest_time : "",
-                latest_time: latest_time ? latest_time : "",
+                earliest_time: earliest_time ? earliest_time.slice(0, 5) : "",
+                latest_time: latest_time ? latest_time.slice(0, 5) : "",
                 recent_failure: recent_failure ? recent_failure : "",
                 desired_test_center: main_test_center.name,
             });
         })
+    }
 
+    componentDidMount() {
+        document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.fetchUserData()
     }
 
     render() {
@@ -414,32 +453,38 @@ class ProfilePage extends Component {
             case 'dashboard':
                 component = <DashBoard
                     parentState={this.state}
+                    fetchUserData={() => this.fetchUserData()}
                 />
                 break;
             case 'account':
                 component = <Account
                     parentState={this.state}
+                    fetchUserData={() => this.fetchUserData()}
                 />
                 break;
 
         }
 
         return (
-            <section id="profile-page">
-                <div className="inner-container">
-                    <Sidebar
-                        highlighted={this.state.highlighted}
-                        setParentState={(e) => this.setState(e)}
-                    />
-                    <div id="current-menu">
-                        <h1>My Driving Test DashBoard</h1>
-                        {component}
-                        {/* <DashBoard
+            this.state.redirect
+                ?
+                <Redirect to="/" />
+                :
+                <section id="profile-page">
+                    <div className="inner-container">
+                        <Sidebar
+                            highlighted={this.state.highlighted}
+                            setParentState={(e) => this.setState(e)}
+                        />
+                        <div id="current-menu">
+                            <h1>My Driving Test Dashboard</h1>
+                            {component}
+                            {/* <DashBoard
                             parentState={this.state}
                         /> */}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
         );
     }
 }

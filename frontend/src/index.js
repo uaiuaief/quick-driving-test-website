@@ -53,7 +53,7 @@ window.getUser = async () => {
 }
 
 window.fetchUserProfile = async () => {
-  let res = await fetch("/api/get_profile/", {
+  let res = await fetch("/api/user-profile/", {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'

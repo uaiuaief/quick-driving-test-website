@@ -1004,6 +1004,20 @@ footer .footer-column li {
   display: flex;
 }
 
+#profile-page h1 {
+  color: var(--dark-text-2);
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 500;
+  line-height: 49px;
+  font-size: var(--lg-1);
+  margin-top: 2rem;
+  border-bottom: 5px solid #f0f0f0;
+  
+  display: flex;
+  align-items: center;
+
+}
+
 #profile-page .form-inputs {
   margin-top: 1.2rem;
   padding: 2.0rem 0;
@@ -1011,18 +1025,6 @@ footer .footer-column li {
   /* position: relative; */
 }
 
-#profile-page .form-inputs::before {
-  content: "";
-  background-color: var(--light-bg-2);
-  /* background-color: #7b7b7b; */
-  z-index: -1;
-  position: absolute;
-  top: 290px;
-  left: 0;
-  width: 99vw;
-  height: 550px;
-  overflow: hidden;
-}
 
 #profile-page label {
   display: block;
@@ -1038,10 +1040,6 @@ footer .footer-column li {
   margin-bottom: 2rem;
 }
 
-#profile-page .form-row-5{
-  margin-bottom: 0rem;
-}
-
 #profile-page input,
 #profile-page select {
   width: 430px;
@@ -1052,6 +1050,7 @@ footer .footer-column li {
   padding: 1rem;
   font-size: var(--very-sm-3);
   font-family: 'Catamaran', sans-serif;
+  margin-right: 3rem;
 }
 
 #profile-page .form-item {
