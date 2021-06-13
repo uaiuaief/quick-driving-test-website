@@ -338,28 +338,6 @@ class SignupPage extends Component {
         confirm_password: "",
     }
 
-    // handleSubmit = async e => {
-    //     e.preventDefault();
-    //     this.validateStep1();
-    //     // let element = document.getElementById("driving-license-number-field")
-    //     let element = document.getElementById("desired-test-center-field")
-    //     // element.setCustomValidity("as");
-    //     element.setAttribute("invalid", "true");
-
-
-    // const URL = "/api/customers/"
-
-    // let res = await fetch(URL, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'X-CSRFToken': window.getCookie('csrftoken')
-    //     },
-    //     body: JSON.stringify(this.state)
-    // })
-
-    // }
-
     render() {
         return (
             <section id="signup-page">
@@ -369,18 +347,6 @@ class SignupPage extends Component {
                         nextStep={this.nextStep}
                         prevStep={this.prevStep}
                     />
-                    {/* <div className="form-buttons">
-                        <BlueButton2
-                            onClick={e => this.prevStep()}
-                            id=""
-                            text="Back"
-                        />
-                        <BlueButton2
-                            onClick={e => this.nextStep()}
-                            id=""
-                            text="Next"
-                        />
-                    </div> */}
                 </div>
             </section >
         );

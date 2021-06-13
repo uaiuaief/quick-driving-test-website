@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Formik } from 'formik';
+import { Transition } from 'react-transition-group';
 import TestCenterOptions from '../SmallerComponents/TestCenterOptions';
 import BlueButton2 from "../Buttons/BlueButton2"
 import Sidebar from "../Sidebar"
@@ -45,6 +46,45 @@ class DashBoard extends Component {
                         }
                         else {
                         }
+                    }}
+
+                    validate={values => {
+                        let errors = {}
+
+                        if (!values.driving_licence_number) {
+                            errors.driving_licence_number = 'This field is required';
+                        }
+                        else if (values.driving_licence_number.length > 30) {
+                            errors.driving_licence_number = 'Must 30 be characters or less';
+                        }
+
+                        if (!values.desired_test_center) {
+                            errors.desired_test_center = 'This field is required';
+                        }
+
+                        if (!values.test_ref) {
+                            errors.test_ref = 'This field is required';
+                        }
+
+                        if (values.test_after && values.test_before) {
+                            let before = new Date(values.test_before)
+                            let after = new Date(values.test_after)
+
+                            if (after >= before) {
+                                errors.test_after = `Date must be before ${values.test_before}`;
+                                errors.test_before = `Date must be after ${values.test_after}`;
+                            }
+                        }
+
+                        if (values.earliest_time && values.latest_time) {
+                            if (Date.parse(`01/01/1970 ${values.earliest_time}`) >= Date.parse(`01/01/1970 ${values.latest_time}`)) {
+                                errors.earliest_time = `Time must be before ${values.latest_time}`;
+                                errors.latest_time = `Time must be after ${values.earliest_time}`;
+                            }
+
+                        }
+
+                        return errors
                     }}
                 >
                     {props => {
@@ -197,6 +237,7 @@ class DashBoard extends Component {
                                         <div className="form-item">
                                             <label htmlFor="desired_test_center">Desired test centre</label>
                                             <select
+                                                required
                                                 id="desired_test_center"
                                                 name="desired_test_center"
                                                 type="text"
@@ -213,6 +254,7 @@ class DashBoard extends Component {
                                         id=""
                                         text="Save"
                                         type="submit"
+                                        disabled={!props.isValid || !props.dirty}
                                     />
                                 </div>
                             </form>
@@ -258,6 +300,26 @@ class Account extends Component {
                         }
                         else {
                         }
+                    }}
+
+                    validate={values => {
+                        let errors = {};
+
+                        if (!values.first_name) {
+                            errors.first_name = 'This field is required';
+                        }
+                        else if (values.first_name.length > 20) {
+                            errors.first_name = 'Must be 20 characters or less';
+                        }
+                
+                        if (!values.last_name) {
+                            errors.last_name = 'This field is required';
+                        }
+                        else if (values.last_name.length > 20) {
+                            errors.last_name = 'Must be 20 characters or less';
+                        }
+
+                        return errors;
                     }}
                 >
                     {props => {
@@ -342,6 +404,7 @@ class Account extends Component {
                                         id=""
                                         text="Save"
                                         type="submit"
+                                        disabled={!props.isValid || !props.dirty}
                                     />
                                 </div>
                             </form>
@@ -355,9 +418,14 @@ class Account extends Component {
 class Plan extends Component {
     render() {
         return (
-            <div>
-
-            </div>
+            <>
+                <h2>Plan I</h2>
+                <h2>$ 49.00</h2>
+                <BlueButton2
+                    text="Upgrade"
+                    type="button"
+                />
+            </>
         );
     }
 }
@@ -365,18 +433,31 @@ class Plan extends Component {
 class Support extends Component {
     render() {
         return (
-            <div>
-
-            </div>
+            <>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing
+                    elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna  Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit, sed do eiusmod tempor incididunt ut.
+                </p>
+                <Formik>
+                    <form>
+                        <textarea />
+                        <BlueButton2
+                            text="Submit"
+                            type="submit"
+                        />
+                    </form>
+                </Formik>
+            </>
         );
     }
 }
 
 class ProfilePage extends Component {
     state = {
-        // highlighted: 'dashboard',
+        highlighted: 'dashboard',
         redirect: false,
-        highlighted: 'account',
         isLoading: true,
 
         email: "",
@@ -449,18 +530,44 @@ class ProfilePage extends Component {
 
     render() {
         let component = null;
+
         switch (this.state.highlighted) {
             case 'dashboard':
-                component = <DashBoard
-                    parentState={this.state}
-                    fetchUserData={() => this.fetchUserData()}
-                />
+                component = <>
+                    <h1>My Driving Test Dashboard</h1>
+                    <DashBoard
+                        parentState={this.state}
+                        fetchUserData={() => this.fetchUserData()}
+                    />
+
+                </>
                 break;
             case 'account':
-                component = <Account
-                    parentState={this.state}
-                    fetchUserData={() => this.fetchUserData()}
-                />
+                component = <>
+                    <h1>{this.state.first_name} {this.state.last_name}</h1>
+                    <Account
+                        parentState={this.state}
+                        fetchUserData={() => this.fetchUserData()}
+                    />
+                </>
+                break;
+            case 'plan':
+                component = <>
+                    <h1>My Plan</h1>
+                    <Plan
+                        parentState={this.state}
+                        fetchUserData={() => this.fetchUserData()}
+                    />
+                </>
+                break;
+            case 'support':
+                component = <>
+                    <h1>Support</h1>
+                    <Support
+                        parentState={this.state}
+                        fetchUserData={() => this.fetchUserData()}
+                    />
+                </>
                 break;
 
         }
@@ -477,7 +584,6 @@ class ProfilePage extends Component {
                             setParentState={(e) => this.setState(e)}
                         />
                         <div id="current-menu">
-                            <h1>My Driving Test Dashboard</h1>
                             {component}
                             {/* <DashBoard
                             parentState={this.state}
