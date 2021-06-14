@@ -26,9 +26,9 @@ class UserViewSet(viewsets.ModelViewSet):
         try:
             user = self.create_user(normalized_data)
         except IntegrityError as e:
-            return JsonResponse({"error": {
-                "email": "An user with that email already exists"
-                }}, status=400)
+            return JsonResponse({
+                "error":  "An user with that email already exists"
+                }, status=403)
 
         return HttpResponse(status=201)
 
@@ -301,23 +301,36 @@ class ChangeEmailView(APIView):
 
         if not user.is_authenticated:
             return JsonResponse({
-                'error': "You must be logged in to view this page"
+                'error': "You must be logged in to view this page",
+                'code': 0
                 }, status=401)
 
         if not data.get('password'):
             return JsonResponse({
-                'error': "Please provide your credentials"
+                'error': "Please provide your credentials",
+                'code': 1
                 }, status=401)
 
         if not data.get('new_email'):
             return JsonResponse({
-                'error': "Please provide your new email"
+                'error': "Please provide your new email",
+                'code': 2
                 }, status=400)
 
         if not user.check_password(data.get('password', user.password)):
             return JsonResponse({
-                'error': "Wrong password"
+                'error': "Wrong password",
+                'code': 3
                 }, status=401)
+        try:
+            models.User.objects.get(email=data.get('new_email'))
+            return JsonResponse({
+                'error': "A user with that email already exists",
+                'code': 4
+                }, status=403)
+        except models.User.DoesNotExist:
+            pass
+
 
         return None
 
@@ -381,4 +394,4 @@ class LoginView(APIView):
             login(request, user)
             return JsonResponse({'user': str(user)})
         else:
-            return JsonResponse({'error': 'user does not exist'}, status=401)
+            return JsonResponse({'error': 'Invalid credentials'}, status=401)

@@ -59,6 +59,9 @@ class LoginPage extends Component {
                         >
                             {props => (
                                 <form onSubmit={props.handleSubmit}>
+                                    <div id="login-error">
+                                        Incorrect username or password.
+                                    </div>
                                     <input
                                         id="email"
                                         name="email"

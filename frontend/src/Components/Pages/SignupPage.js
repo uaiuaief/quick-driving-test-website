@@ -524,7 +524,6 @@ class TestForm extends Component {
 
 
     render() {
-        console.log(this.state);
         return (
             <Formik
                 initialValues={{
@@ -561,7 +560,18 @@ class TestForm extends Component {
                         },
                         body: JSON.stringify(values)
                     })
-
+                    
+                    if (String(res.status).slice(0, 1) == 2) {
+                        alert('User was created successfully')
+                    }
+                    else if (String(res.status).slice(0, 1) == 4) {
+                        let data = await res.json()
+                        if (data.error) {
+                            actions.setErrors({
+                                email: data.error
+                            })
+                        }
+                    }
                 }}
 
                 validate={values => {
@@ -571,7 +581,6 @@ class TestForm extends Component {
                     let errors = this.validateStepOne(values);
 
                     if (!window.isEmpty(errors) || this.state.step === 1) {
-                        console.log(errors);
 
                         return errors
                     }
@@ -580,7 +589,6 @@ class TestForm extends Component {
                     }
 
                     errors = this.validateStepTwo(values);
-                    console.log(errors);
 
                     return errors;
                 }}

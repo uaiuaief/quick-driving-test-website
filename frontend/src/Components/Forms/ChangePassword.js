@@ -31,6 +31,7 @@ class ChangePassword extends Component {
                         setParentState({ highlighted: 'success-password' })
                     }
                     else {
+
                     }
                 }}
 

@@ -781,6 +781,15 @@ footer .footer-column li {
   margin-bottom: 2.3rem;
 }
 
+#login-page #login-error {
+  /* display: none; */
+  color: red;
+  font-size: var(--very-sm-2);
+  font-family: 'Catamaran', sans-serif;
+  margin-top: -20px;
+  margin-bottom: 10px;
+}
+
 #login-box input[type="email"] {
   margin-bottom: 1rem;
 }

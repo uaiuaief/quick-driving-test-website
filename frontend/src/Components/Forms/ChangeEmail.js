@@ -31,7 +31,14 @@ class ChangeEmail extends Component {
                         fetchUserData()
                         setParentState({ highlighted: 'success-email' })
                     }
-                    else {
+                    else if (String(res.status).slice(0, 1) == 4) {
+                        let data = await res.json()
+                        if (data.code === 4) {
+                            actions.setErrors({
+                                new_email: data.error
+                            })
+                        }
+
                     }
                 }}
 
@@ -66,6 +73,7 @@ class ChangeEmail extends Component {
                 }}
             >
                 {props => {
+
                     return (
                         <form onSubmit={props.handleSubmit}>
                             <div className="form-inputs">
