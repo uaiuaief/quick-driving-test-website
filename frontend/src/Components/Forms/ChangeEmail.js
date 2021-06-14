@@ -5,18 +5,34 @@ import BlueButton2 from "../Buttons/BlueButton2"
 
 class ChangeEmail extends Component {
     render() {
-        const {parentState, setParentState } = this.props
+        const { parentState, setParentState, fetchUserData } = this.props
 
         return (
             <Formik
                 initialValues={{
                     new_email: "",
                     confirm_email: "",
-                    password: "",          
+                    password: "",
                 }}
 
                 onSubmit={async (values, actions) => {
-                    alert(JSON.stringify(values))
+                    const ENDPOINT = "/api/change-email/"
+
+                    let res = await fetch(ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': window.getCookie('csrftoken')
+                        },
+                        body: JSON.stringify(values)
+                    })
+
+                    if (String(res.status).slice(0, 1) == 2) {
+                        fetchUserData()
+                        setParentState({ highlighted: 'success-email' })
+                    }
+                    else {
+                    }
                 }}
 
                 validate={values => {
@@ -38,7 +54,7 @@ class ChangeEmail extends Component {
                     else if (values.new_email != values.confirm_email) {
                         errors.confirm_email = "Fields don't match";
                     }
-            
+
                     if (!values.password) {
                         errors.password = 'This field is required';
                     }

@@ -18,8 +18,10 @@ urlpatterns = [
     path('test', views.test_view, name='testview'),
     
 
-    path('login/', views.LoginView.as_view(), name='login-view'),
-    path('logout/', views.LogoutView.as_view(), name='logout-view'),
+    path('login/', views.LoginView.as_view(), name='login_view'),
+    path('logout/', views.LogoutView.as_view(), name='logout_view'),
     path('user-profile/', views.UserProfileView.as_view(), name='user_profile'),
     path('get_user/', views.get_user_view, name='get_user'),
+    path('change-email/', views.ChangeEmailView.as_view(), name='change_email'),
+    path('change-password/', views.ChangePasswordView.as_view(), name='change_password'),
 ]

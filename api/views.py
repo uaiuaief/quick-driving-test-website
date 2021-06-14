@@ -2,6 +2,7 @@ import json
 import datetime
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password
 from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
@@ -214,8 +215,8 @@ class UserProfileView(APIView):
         user = request.user
         if not user.is_authenticated:
             return JsonResponse({
-            'error': "Please provide your credentials"
-            }, status=401)
+                'error': "You must be logged in to view this page"
+                }, status=401)
 
         data = self._translate_request_data(request.data)
         #data, errors = self.validate_data(request.data)
@@ -278,6 +279,88 @@ class UserProfileView(APIView):
                 translated_data[k] = data[k]
 
         return translated_data
+
+
+class ChangeEmailView(APIView):
+    def post(self, request):
+        data = request.data
+        user = request.user
+
+        error = self.get_request_errors(request)
+        if error:
+            return error
+
+        user.email = data.get('new_email')
+        user.save()
+
+        return JsonResponse({}, status=204)
+
+    def get_request_errors(self, request):
+        data = request.data
+        user = request.user
+
+        if not user.is_authenticated:
+            return JsonResponse({
+                'error': "You must be logged in to view this page"
+                }, status=401)
+
+        if not data.get('password'):
+            return JsonResponse({
+                'error': "Please provide your credentials"
+                }, status=401)
+
+        if not data.get('new_email'):
+            return JsonResponse({
+                'error': "Please provide your new email"
+                }, status=400)
+
+        if not user.check_password(data.get('password', user.password)):
+            return JsonResponse({
+                'error': "Wrong password"
+                }, status=401)
+
+        return None
+
+
+class ChangePasswordView(APIView):
+    def post(self, request):
+        data = request.data
+        user = request.user
+
+        error = self.get_request_errors(request)
+        if error:
+            return error
+
+        user.password = make_password(data.get('new_password'))
+        user.save()
+
+        return JsonResponse({}, status=204)
+
+    def get_request_errors(self, request):
+        data = request.data
+        user = request.user
+
+        if not user.is_authenticated:
+            return JsonResponse({
+                'error': "You must be logged in to view this page"
+                }, status=401)
+
+        if not data.get('current_password'):
+            return JsonResponse({
+                'error': "Please provide your credentials"
+                }, status=401)
+
+        if not data.get('new_password'):
+            return JsonResponse({
+                'error': "Please provide your new password"
+                }, status=400)
+
+        if not user.check_password(data.get('current_password', user.password)):
+            return JsonResponse({
+                'error': "Wrong password"
+                }, status=401)
+
+        return None
 
 
 class LogoutView(APIView):

@@ -16,7 +16,22 @@ class ChangePassword extends Component {
                 }}
 
                 onSubmit={async (values, actions) => {
-                    alert(JSON.stringify(values))
+                    const ENDPOINT = "/api/change-password/"
+
+                    let res = await fetch(ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': window.getCookie('csrftoken')
+                        },
+                        body: JSON.stringify(values)
+                    })
+
+                    if (String(res.status).slice(0, 1) == 2) {
+                        setParentState({ highlighted: 'success-password' })
+                    }
+                    else {
+                    }
                 }}
 
                 validate={values => {

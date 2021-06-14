@@ -651,7 +651,8 @@ class ProfilePage extends Component {
                     <h1>Change Email</h1>
                     <ChangeEmail
                         setParentState={e => this.setState(e)}
-                        parentState={this.state}
+                        parentState={this.state}          
+                        fetchUserData={() => this.fetchUserData()}
                     />
                 </>
                 break;
