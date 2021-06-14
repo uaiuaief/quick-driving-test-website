@@ -8,6 +8,7 @@ import PasswordResetPage from './Components/Pages/PasswordResetPage';
 import PasswordResetSuccessPage from './Components/Pages/PasswordResetSuccessPage';
 import SignupPage from './Components/Pages/SignupPage';
 import ProfilePage from './Components/Pages/ProfilePage';
+import PageNotFound from './Components/Pages/PageNotFound';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/password-reset-success" exact component={PasswordResetSuccessPage} />
         <Route path="/signup" exact component={SignupPage} />
         <Route path="/account" exact component={ProfilePage} />
+        <Route path="/" component={PageNotFound} />
 
       </Switch>
       <Footer />

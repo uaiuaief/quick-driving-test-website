@@ -147,6 +147,22 @@ a {
   color: var(--light-text);
 }
 
+.sub-input-button {
+  font-family: 'Catamaran', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: var(--very-sm-1);
+  line-height: 20px;
+  text-decoration-line: underline;
+  color: var(--gray-text-2);
+  background-color: transparent;
+  border: none;
+}
+
+.sub-input-button:hover {
+  cursor: pointer;
+}
+
 .auth-box {
   text-align: center;
   margin: auto;
@@ -1058,8 +1074,17 @@ footer .footer-column li {
   margin-right: 3rem;
 }
 
+#profile-page input:disabled,
+#profile-page select:disabled {
+  background-color: #eee;
+}
+
 #profile-page .form-item {
   position: relative;
+}
+
+#profile-page .form-item .sub-input-button {
+  
 }
 
 #profile-page .input-error{
@@ -1078,6 +1103,13 @@ footer .footer-column li {
 #profile-page #current-menu {
   margin-left: 2rem;
   width: 100%;
+}
+#profile-page .form-buttons {
+  margin-top: 3rem;
+}
+
+#profile-page .form-buttons button {
+  margin-right: 1rem;
 }
 
 /* SIDEBAR */

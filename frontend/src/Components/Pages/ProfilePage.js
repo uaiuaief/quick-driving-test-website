@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Formik } from 'formik';
-import { Transition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 import TestCenterOptions from '../SmallerComponents/TestCenterOptions';
 import BlueButton2 from "../Buttons/BlueButton2"
+import SubInputButton from "../Buttons/SubInputButton"
 import Sidebar from "../Sidebar"
+
+import ChangePassword from '../Forms/ChangePassword';
+import ChangeEmail from '../Forms/ChangeEmail';
 
 
 class DashBoard extends Component {
@@ -266,7 +270,7 @@ class DashBoard extends Component {
 
 class Account extends Component {
     render() {
-        const { parentState, fetchUserData } = this.props;
+        const { parentState, setParentState, fetchUserData } = this.props;
 
         return (
             parentState.isLoading
@@ -311,7 +315,7 @@ class Account extends Component {
                         else if (values.first_name.length > 20) {
                             errors.first_name = 'Must be 20 characters or less';
                         }
-                
+
                         if (!values.last_name) {
                             errors.last_name = 'This field is required';
                         }
@@ -383,7 +387,14 @@ class Account extends Component {
                                                 disabled
                                             >
                                             </input>
-                                            {props.touched.email && props.errors.email ? <div className="input-error">{props.errors.email}</div> : null}
+                                            <SubInputButton 
+                                                text="Change email"
+                                                onClick={(e) => {
+                                                    setParentState({
+                                                        highlighted: 'change-email'
+                                                    })
+                                                }}
+                                            />
                                         </div>
                                         <div className="form-item">
                                             <label htmlFor="password">Password *</label>
@@ -397,7 +408,14 @@ class Account extends Component {
                                                 disabled
                                             >
                                             </input>
-                                            {props.touched.password && props.errors.password ? <div className="input-error">{props.errors.password}</div> : null}
+                                            <SubInputButton 
+                                                text="Change password"
+                                                onClick={(e) => {
+                                                    setParentState({
+                                                        highlighted: 'change-password'
+                                                    })
+                                                }}
+                                            />
                                         </div>
                                     </div>
                                     <BlueButton2
@@ -454,9 +472,19 @@ class Support extends Component {
     }
 }
 
+class Success extends Component {
+    render() {
+        return (
+            <div>
+
+            </div>
+        );
+    }
+}
+
 class ProfilePage extends Component {
     state = {
-        highlighted: 'dashboard',
+        highlighted: 'change-password',
         redirect: false,
         isLoading: true,
 
@@ -539,7 +567,7 @@ class ProfilePage extends Component {
                     <DashBoard
                         parentState={this.state}
                         fetchUserData={() => this.fetchUserData()}
-                        
+
                         setParentState={(e) => this.setState(e)}
                     />
 
@@ -549,6 +577,7 @@ class ProfilePage extends Component {
                 component = <>
                     <h1>{this.state.first_name} {this.state.last_name}</h1>
                     <Account
+                        setParentState={e => this.setState(e)}
                         parentState={this.state}
                         fetchUserData={() => this.fetchUserData()}
                     />
@@ -572,6 +601,35 @@ class ProfilePage extends Component {
                     />
                 </>
                 break;
+            case 'change-email':
+                component = <>
+                    <h1>Change Email</h1>
+                    <ChangeEmail
+                        setParentState={e => this.setState(e)}
+                        parentState={this.state}
+                        fetchUserData={() => this.fetchUserData()}
+                    />
+                </>
+                break;
+            case 'change-password':
+                component = <>
+                    <h1>Change Password</h1>
+                    <ChangePassword
+                        setParentState={e => this.setState(e)}
+                        parentState={this.state}
+                        fetchUserData={() => this.fetchUserData()}
+                    />
+                </>
+                break;
+            case 'success':
+                component = <>
+                    <h1>Support</h1>
+                    <Success
+                        parentState={this.state}
+                        fetchUserData={() => this.fetchUserData()}
+                    />
+                </>
+                break;
 
         }
 
@@ -588,9 +646,6 @@ class ProfilePage extends Component {
                         />
                         <div id="current-menu">
                             {component}
-                            {/* <DashBoard
-                            parentState={this.state}
-                        /> */}
                         </div>
                     </div>
                 </section>
