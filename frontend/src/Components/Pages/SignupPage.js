@@ -268,6 +268,7 @@ class StepTwo extends Component {
                                 id="mobile_number"
                                 name="mobile_number"
                                 type=""
+                                placeholder="Eg: 7912345678"
                                 value={mobile_number}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -373,12 +374,29 @@ class TestForm extends Component {
             errors.driving_licence_number = 'Must 30 be characters or less';
         }
 
+        if (values.theory_test_number) {
+            if (!/^[0-9]+$/i.test(values.theory_test_number)) {
+                errors.theory_test_number = 'Theory test number can only have numbers';
+            }
+            else if (values.theory_test_number.length > 30) {
+                errors.theory_test_number = 'Must 30 be characters or less';
+            }
+        }
+
         if (!values.desired_test_center) {
             errors.desired_test_center = 'This field is required';
         }
 
         if (!values.test_ref) {
             errors.test_ref = 'This field is required';
+        }
+        else {
+            if (!/^[0-9]+$/i.test(values.test_ref)) {
+                errors.test_ref = 'Driving test reference number can only have numbers';
+            }
+            else if (values.test_ref.length > 30) {
+                errors.test_ref = 'Must 30 be characters or less';
+            }
         }
 
         if (values.test_after && values.test_before) {
@@ -419,12 +437,18 @@ class TestForm extends Component {
         else if (values.first_name.length > 20) {
             errors.first_name = 'Must be 20 characters or less';
         }
+        else if (!/^[a-zA-Z][a-zA-Z\s\-\'\.]*[^\s\-\.\'\d]$/i.test(values.first_name)) {
+            errors.first_name = "Invalid name";
+        }
 
         if (!values.last_name) {
             errors.last_name = 'This field is required';
         }
         else if (values.last_name.length > 20) {
             errors.last_name = 'Must be 20 characters or less';
+        }
+        else if (!/^[a-zA-Z][a-zA-Z\s\-\'\.]*[^\s\-\.\'\d]$/i.test(values.last_name)) {
+            errors.last_name = "Invalid name";
         }
 
         if (!values.email) {
@@ -437,6 +461,15 @@ class TestForm extends Component {
         // if (!values.mobile_number) {
         //     errors.mobile_number = 'This field is required';
         // }
+
+        if (values.mobile_number) {
+            if (!/^[0-9]+$/i.test(values.mobile_number)) {
+                errors.mobile_number = 'Phone number can only have numbers';
+            }
+            else if (values.mobile_number.length !== 10) {
+                errors.mobile_number = 'Must have exactly 10 digits';
+            }
+        }
 
         if (!values.password) {
             errors.password = 'This field is required';

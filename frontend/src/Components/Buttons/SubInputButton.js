@@ -5,7 +5,7 @@ class SubInputButton extends Component {
         return (
             <button
                 id={this.props.id}
-                type={this.props.type}
+                type="button"
                 className="sub-input-button"
                 onClick={this.props.onClick}
             >

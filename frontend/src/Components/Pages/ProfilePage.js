@@ -68,8 +68,25 @@ class DashBoard extends Component {
                             errors.desired_test_center = 'This field is required';
                         }
 
+                        if (values.theory_test_number) {
+                            if (!/^[0-9]+$/i.test(values.theory_test_number)) {
+                                errors.theory_test_number = 'Theory test number can only have numbers';
+                            }
+                            else if (values.theory_test_number.length > 30) {
+                                errors.theory_test_number = 'Must 30 be characters or less';
+                            }
+                        }
+
                         if (!values.test_ref) {
                             errors.test_ref = 'This field is required';
+                        }
+                        else {
+                            if (!/^[0-9]+$/i.test(values.test_ref)) {
+                                errors.test_ref = 'Driving test reference number can only have numbers';
+                            }
+                            else if (values.test_ref.length > 30) {
+                                errors.test_ref = 'Must 30 be characters or less';
+                            }
                         }
 
                         if (values.test_after && values.test_before) {
@@ -319,12 +336,27 @@ class Account extends Component {
                         else if (values.first_name.length > 20) {
                             errors.first_name = 'Must be 20 characters or less';
                         }
+                        else if (!/^[a-zA-Z][a-zA-Z\s\-\'\.]*[^\s\-\.\'\d]$/i.test(values.first_name)) {
+                            errors.first_name = "Invalid name";
+                        }
 
                         if (!values.last_name) {
                             errors.last_name = 'This field is required';
                         }
                         else if (values.last_name.length > 20) {
                             errors.last_name = 'Must be 20 characters or less';
+                        }
+                        else if (!/^[a-zA-Z][a-zA-Z\s\-\'\.]*[^\s\-\.\'\d]$/i.test(values.last_name)) {
+                            errors.last_name = "Invalid name";
+                        }
+                        
+                        if (values.phone_number){
+                            if (!/^[0-9]+$/i.test(values.phone_number)) {
+                                errors.phone_number = 'Phone number can only have numbers';
+                            }
+                            else if (values.phone_number.length !== 10) {
+                                errors.phone_number = 'Must have exactly 10 digits';
+                            }
                         }
 
                         return errors;
@@ -370,12 +402,13 @@ class Account extends Component {
                                                 id="phone_number"
                                                 name="phone_number"
                                                 type=""
+                                                placeholder="Eg: 7912345678"
                                                 value={props.values.phone_number}
                                                 onChange={props.handleChange}
                                                 onBlur={props.handleBlur}
                                             >
                                             </input>
-                                            {props.touched.mobile_number && props.errors.mobile_number ? <div className="input-error">{props.errors.mobile_number}</div> : null}
+                                            {props.touched.phone_number && props.errors.phone_number ? <div className="input-error">{props.errors.phone_number}</div> : null}
                                         </div>
                                     </div>
                                     <div className="form-row form-row-3">
@@ -497,7 +530,7 @@ class Success extends Component {
 
 class ProfilePage extends Component {
     state = {
-        highlighted: 'success-message',
+        highlighted: 'dashboard',
         redirect: false,
         isLoading: true,
 
@@ -570,10 +603,10 @@ class ProfilePage extends Component {
         this.fetchUserData()
     }
 
-    render() {
+    getMenu(name) {
         let component = null;
 
-        switch (this.state.highlighted) {
+        switch (name) {
             case 'dashboard':
                 component = <>
                     <h1>My Driving Test Dashboard</h1>
@@ -671,8 +704,13 @@ class ProfilePage extends Component {
                     />
                 </>
                 break;
-
         }
+
+        return component
+    }
+
+    render() {
+        let menu = this.getMenu(this.state.highlighted)
 
         return (
             this.state.redirect
@@ -686,7 +724,7 @@ class ProfilePage extends Component {
                             setParentState={(e) => this.setState(e)}
                         />
                         <div id="current-menu">
-                            {component}
+                            {menu}
                         </div>
                     </div>
                 </section>
