@@ -1112,6 +1112,10 @@ footer .footer-column li {
   margin-right: 1rem;
 }
 
+#success-back-button {
+  margin-top: 3.5rem;
+}
+
 /* SIDEBAR */
 #sidebar {
   background-color: var(--dark-color-1);

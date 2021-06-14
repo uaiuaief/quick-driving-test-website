@@ -13,7 +13,7 @@ import ChangeEmail from '../Forms/ChangeEmail';
 
 class DashBoard extends Component {
     render() {
-        const { parentState, fetchUserData } = this.props;
+        const { parentState, setParentState, fetchUserData } = this.props;
 
         return (
             parentState.isLoading
@@ -48,6 +48,7 @@ class DashBoard extends Component {
 
                         if (String(res.status).slice(0, 1) == 2) {
                             fetchUserData()
+                            setParentState({ highlighted: 'success-profile' })
                         }
                         else {
                         }
@@ -301,6 +302,9 @@ class Account extends Component {
 
                         if (String(res.status).slice(0, 1) == 2) {
                             fetchUserData()
+                            setParentState({
+                                highlighted: "success-profile"
+                            })
                         }
                         else {
                         }
@@ -387,7 +391,7 @@ class Account extends Component {
                                                 disabled
                                             >
                                             </input>
-                                            <SubInputButton 
+                                            <SubInputButton
                                                 text="Change email"
                                                 onClick={(e) => {
                                                     setParentState({
@@ -408,7 +412,7 @@ class Account extends Component {
                                                 disabled
                                             >
                                             </input>
-                                            <SubInputButton 
+                                            <SubInputButton
                                                 text="Change password"
                                                 onClick={(e) => {
                                                     setParentState({
@@ -475,16 +479,25 @@ class Support extends Component {
 class Success extends Component {
     render() {
         return (
-            <div>
-
-            </div>
+            <>
+                <h1>{this.props.title}</h1>
+                <BlueButton2
+                    onClick={e => {
+                        this.props.setParentState({
+                            highlighted: this.props.back
+                        })
+                    }}
+                    id="success-back-button"
+                    text="Back"
+                />
+            </>
         );
     }
 }
 
 class ProfilePage extends Component {
     state = {
-        highlighted: 'change-password',
+        highlighted: 'success-message',
         redirect: false,
         isLoading: true,
 
@@ -565,10 +578,9 @@ class ProfilePage extends Component {
                 component = <>
                     <h1>My Driving Test Dashboard</h1>
                     <DashBoard
+                        setParentState={(e) => this.setState(e)}
                         parentState={this.state}
                         fetchUserData={() => this.fetchUserData()}
-
-                        setParentState={(e) => this.setState(e)}
                     />
 
                 </>
@@ -607,7 +619,6 @@ class ProfilePage extends Component {
                     <ChangeEmail
                         setParentState={e => this.setState(e)}
                         parentState={this.state}
-                        fetchUserData={() => this.fetchUserData()}
                     />
                 </>
                 break;
@@ -617,16 +628,46 @@ class ProfilePage extends Component {
                     <ChangePassword
                         setParentState={e => this.setState(e)}
                         parentState={this.state}
-                        fetchUserData={() => this.fetchUserData()}
                     />
                 </>
                 break;
-            case 'success':
+            case 'success-email':
                 component = <>
-                    <h1>Support</h1>
                     <Success
+                        title="Email Changed Successfully!"                 
+                        back="account"
+                        setParentState={e => this.setState(e)}
                         parentState={this.state}
-                        fetchUserData={() => this.fetchUserData()}
+                    />
+                </>
+                break;
+            case 'success-password':
+                component = <>
+                    <Success
+                        title="Password Changed Successfully!"     
+                        back="account"
+                        setParentState={e => this.setState(e)}
+                        parentState={this.state}
+                    />
+                </>
+                break;
+            case 'success-message':
+                component = <>
+                    <Success
+                        title="Message Sent Successfully!"
+                        back="dashboard"
+                        setParentState={e => this.setState(e)}
+                        parentState={this.state}
+                    />
+                </>
+                break;
+            case 'success-profile':
+                component = <>
+                    <Success
+                        title="Profile Updated Successfully"
+                        back="dashboard"
+                        setParentState={e => this.setState(e)}
+                        parentState={this.state}
                     />
                 </>
                 break;
