@@ -1107,10 +1107,6 @@ footer .footer-column li {
   position: relative;
 }
 
-#profile-page .form-item .sub-input-button {
-  
-}
-
 #profile-page .input-error{
   font-family: 'Catamaran', sans-serif;
   font-weight: 300;
@@ -1138,6 +1134,57 @@ footer .footer-column li {
 
 #success-back-button {
   margin-top: 3.5rem;
+}
+
+#profile-page #account-plan h2{
+  color: var(--gray-text-2);
+  font-size: var(--sm-2);
+  margin-top: 2rem;
+}
+
+#profile-page #account-plan h3{
+  color: var(--gray-text-2);
+  font-size: var(--md-1);
+  font-weight: 500;
+  margin-top: .6rem;
+}
+
+#profile-page #account-plan .blue-button-2{
+  margin-top: 2rem;
+}
+
+#profile-page #support-menu {
+  margin-top: 1.8rem;
+}
+
+#profile-page #support-menu p{
+  color: var(--gray-text-2);
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 400;
+  font-size: var(--sm-2);
+  /* padding-right: 2rem; */
+}
+
+#profile-page #support-menu textarea{
+  background: var(--light-bg-3);
+  border: none;
+  margin-top: 1rem;
+  padding: .5rem 1rem;
+  width: 100%;
+  /* height: ; */
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  resize: none;
+  font-size: var(--sm-2);
+  color: var(--dark-text-2);
+  font-family: 'Catamaran', sans-serif;
+}
+
+#profile-page #support-menu textarea::placeholder{
+  color: var(--gray-text-2);
+}
+
+#profile-page #support-menu .blue-button-2{
+  margin-top: 1rem;
 }
 
 /* SIDEBAR */

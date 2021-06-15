@@ -473,14 +473,14 @@ class Account extends Component {
 class Plan extends Component {
     render() {
         return (
-            <>
+            <div id="account-plan">
                 <h2>Plan I</h2>
-                <h2>$ 49.00</h2>
+                <h3>$ 49.00</h3>
                 <BlueButton2
                     text="Upgrade"
                     type="button"
                 />
-            </>
+            </div>
         );
     }
 }
@@ -488,7 +488,7 @@ class Plan extends Component {
 class Support extends Component {
     render() {
         return (
-            <>
+            <div id="support-menu">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing
                     elit, sed do eiusmod tempor incididunt ut labore et
@@ -497,14 +497,18 @@ class Support extends Component {
                 </p>
                 <Formik>
                     <form>
-                        <textarea />
+                        <textarea 
+                            placeholder="Enter your message here..."
+                            rows='8'
+                            maxLength='700'
+                        />
                         <BlueButton2
                             text="Submit"
                             type="submit"
                         />
                     </form>
                 </Formik>
-            </>
+            </div>
         );
     }
 }
