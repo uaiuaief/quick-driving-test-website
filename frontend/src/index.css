@@ -90,6 +90,7 @@ a {
 }
 
 .buy-button {
+  display: block;
   font-family: 'Fresca', sans-serif;
   font-size: var(--md-3);
   color: var(--primary-color);
@@ -552,7 +553,7 @@ a {
 
 }
 
-.price-card button {
+.price-card .buy-button {
   margin-top: 2.2rem;
 }
 

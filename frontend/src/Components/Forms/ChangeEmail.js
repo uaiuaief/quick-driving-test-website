@@ -38,7 +38,11 @@ class ChangeEmail extends Component {
                                 new_email: data.error
                             })
                         }
-
+                        else if (data.code === 3){
+                            actions.setErrors({
+                                password: data.error
+                            })
+                        }
                     }
                 }}
 

@@ -30,8 +30,13 @@ class ChangePassword extends Component {
                     if (String(res.status).slice(0, 1) == 2) {
                         setParentState({ highlighted: 'success-password' })
                     }
-                    else {
-
+                    else if (String(res.status).slice(0, 1) == 4) {
+                        let data = await res.json()
+                        if (data.code === 4){
+                            actions.setErrors({
+                                current_password: data.error
+                            })
+                        }
                     }
                 }}
 

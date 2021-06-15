@@ -37,31 +37,43 @@ class LoginPage extends Component {
                                 password: ""
                             }}
 
-                            onSubmit={(values, actions) => {
-                                // alert(JSON.stringify(values))
+                            onSubmit={async (values, actions) => {
                                 const ENDPOINT = "/api/login/"
-                        
-                                fetch(ENDPOINT, {
+
+                                let res = await fetch(ENDPOINT, {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
                                         'X-CSRFToken': window.getCookie('csrftoken')
                                     },
                                     body: JSON.stringify(values)
-                                }).then(res => {
-                                    return res.json();
-                                }).then(data => {
-                                    if(data.user && data.user !== 'AnonymousUser'){
-                                        window.location.href = '/account'
-                                    }
                                 })
+
+                                if (String(res.status).slice(0, 1) == 2) {
+                                    window.location.href = '/account'
+                                }
+                                else if (String(res.status).slice(0, 1) == 4) {
+                                    let data = await res.json()
+                                    actions.setErrors({
+                                        login: data.error
+                                    })
+                                }
+                            }}
+
+                            validate={(values) => {
+                                let errors = {}
+
+                                return errors
                             }}
                         >
                             {props => (
                                 <form onSubmit={props.handleSubmit}>
-                                    <div id="login-error">
-                                        Incorrect username or password.
-                                    </div>
+                                    {props.errors.login
+                                        ?
+                                        <div id="login-error">Incorrect username or password.</div>
+                                        :
+                                        null
+                                    }
                                     <input
                                         id="email"
                                         name="email"
@@ -92,7 +104,7 @@ class LoginPage extends Component {
                                     </div>
                                     <BlueButton2
                                         id="login-button"
-                                        text="Login" 
+                                        text="Login"
                                         type="submit"
                                     />
                                 </form>

@@ -355,22 +355,26 @@ class ChangePasswordView(APIView):
 
         if not user.is_authenticated:
             return JsonResponse({
-                'error': "You must be logged in to view this page"
+                'error': "You must be logged in to view this page",
+                'code': 1
                 }, status=401)
 
         if not data.get('current_password'):
             return JsonResponse({
-                'error': "Please provide your credentials"
+                'error': "Please provide your credentials",
+                'code': 2
                 }, status=401)
 
         if not data.get('new_password'):
             return JsonResponse({
-                'error': "Please provide your new password"
+                'error': "Please provide your new password",
+                'code': 3
                 }, status=400)
 
         if not user.check_password(data.get('current_password', user.password)):
             return JsonResponse({
-                'error': "Wrong password"
+                'error': "Wrong password",
+                'code': 4
                 }, status=401)
 
         return None
@@ -390,7 +394,7 @@ class LoginView(APIView):
 
         user = authenticate(username=email, password=password)
 
-        if user:
+        if user is not None:
             login(request, user)
             return JsonResponse({'user': str(user)})
         else:
