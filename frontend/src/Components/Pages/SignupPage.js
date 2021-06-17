@@ -572,7 +572,7 @@ class TestForm extends Component {
                         })
 
                         if (result.error) {
-                            alert('error')
+                            alert('error')  
                         }
                     }
                     else if (String(res.status).slice(0, 1) == 4) {

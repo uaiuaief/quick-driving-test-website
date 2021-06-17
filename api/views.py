@@ -16,6 +16,61 @@ from . import models, serializers
 from pprint import pprint
 
 
+class UserCreationMixin():
+    def _create_user(self, data):
+        pprint(data)
+        email = data.pop('email')
+        password = data.pop('password')
+
+        user = models.User.objects.create_user(email=email, password=password)
+        user.save()
+
+        try:
+            profile = models.Profile(
+                    user = user,
+                    **data
+            )
+
+            profile.save()
+        except TypeError as e:
+            user.delete()
+            raise e
+
+        return user
+
+    def _create_test_center(self, test_center_name):
+        test_center =  models.TestCenter.objects.filter(name=test_center_name).first()
+
+        if test_center:
+            main_test_center = test_center
+        else:
+            main_test_center = models.TestCenter(name=test_center_name)
+            main_test_center.save()
+
+        return main_test_center
+
+    def _translate_request_data(self, data):
+        translated_data = {}
+
+        for k in data:
+            if data[k] == '':
+                continue
+            elif k == 'confirm_password':
+                continue
+            elif k == 'phone_number':
+                translated_data['mobile_number'] = data[k]
+            elif k == 'test_after':
+                translated_data['earliest_test_date'] = data[k]
+            elif k == 'test_before':
+                translated_data['latest_test_date'] = data[k]
+            elif k == 'desired_test_center':
+                translated_data['main_test_center'] = self._create_test_center(data[k])
+            else:
+                translated_data[k] = data[k]
+
+        return translated_data
+
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
@@ -87,70 +142,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return normalized_data
 
-
-class _SignupView(APIView):
-    def post(self, request):
-        normalized_data = self._normalize_data(request.data)
-        try:
-            user = self._create_user(normalized_data)
-        except IntegrityError as e:
-            return JsonResponse({
-                "error":  "An user with that email already exists"
-                }, status=403)
-
-        return HttpResponse(status=201)
-
-    def _create_user(self, data):
-        email = data.pop('email')
-        password = data.pop('password')
-
-        user = models.User.objects.create_user(email=email, password=password)
-        user.save()
-
-        main_test_center = self.create_test_center(data)
-
-        try:
-            profile = models.Profile(
-                    user = user,
-                    main_test_center=main_test_center,
-                    **data
-            )
-
-            profile.save()
-        except TypeError as e:
-            user.delete()
-            raise e
-
-        return user
-
-    def create_test_center(self, data):
-        desired_test_center = data.pop('desired_test_center')
-        test_center =  models.TestCenter.objects.filter(name=desired_test_center).first()
-
-        if test_center:
-            main_test_center = test_center
-        else:
-            main_test_center = models.TestCenter(name=desired_test_center)
-            main_test_center.save()
-
-        return main_test_center
-
-    def _normalize_data(self, data):
-        normalized_data = {}
-
-        for k in data:
-            if data[k] == '':
-                continue
-            elif k == 'confirm_password':
-                continue
-            elif k == 'test_after':
-                normalized_data['earliest_test_date'] = data[k]
-            elif k == 'test_before':
-                normalized_data['latest_test_date'] = data[k]
-            else:
-                normalized_data[k] = data[k]
-
-        return normalized_data
 
 class TestCenterViewSet(viewsets.ModelViewSet):
     queryset = models.TestCenter.objects.all()
@@ -512,8 +503,15 @@ class SendMessageView(APIView):
 stripe.api_key = settings.STRIPE_SK
 endpoint_secret = settings.ENDPOINT_SECRET
 
-class SignupView(APIView):
+class SignupView(APIView, UserCreationMixin):
     def post(self, request):
+        try:
+            self._validate_user(request)
+        except IntegrityError:
+            return JsonResponse({
+                "error":  "An user with that email already exists"
+                }, status=403)
+
         try:
             checkout_session = stripe.checkout.Session.create(
                     payment_method_types=['card'],
@@ -539,9 +537,17 @@ class SignupView(APIView):
 
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=403)
+
+    def _validate_user(self, request):
+        translated_data = self._translate_request_data(request.data)
+
+        user = self._create_user(translated_data)
+        user.delete()
+
+
             
 
-class StripeWebhookView(APIView):
+class StripeWebhookView(APIView, UserCreationMixin):
     def post(self, request):
         payload = request.body
         sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
@@ -568,68 +574,5 @@ class StripeWebhookView(APIView):
         return HttpResponse(status=200)
 
     def fulfill_order(self, session):
-        print(session)
-
-################################
-    def ___post(self, request):
-        normalized_data = self._normalize_data(request.data)
-        try:
-            user = self._create_user(normalized_data)
-        except IntegrityError as e:
-            return JsonResponse({
-                "error":  "An user with that email already exists"
-                }, status=403)
-
-        return HttpResponse(status=201)
-
-    def _create_user(self, data):
-        email = data.pop('email')
-        password = data.pop('password')
-
-        user = models.User.objects.create_user(email=email, password=password)
-        user.save()
-
-        main_test_center = self.create_test_center(data)
-
-        try:
-            profile = models.Profile(
-                    user = user,
-                    main_test_center=main_test_center,
-                    **data
-            )
-
-            profile.save()
-        except TypeError as e:
-            user.delete()
-            raise e
-
-        return user
-
-    def create_test_center(self, data):
-        desired_test_center = data.pop('desired_test_center')
-        test_center =  models.TestCenter.objects.filter(name=desired_test_center).first()
-
-        if test_center:
-            main_test_center = test_center
-        else:
-            main_test_center = models.TestCenter(name=desired_test_center)
-            main_test_center.save()
-
-        return main_test_center
-
-    def _normalize_data(self, data):
-        normalized_data = {}
-
-        for k in data:
-            if data[k] == '':
-                continue
-            elif k == 'confirm_password':
-                continue
-            elif k == 'test_after':
-                normalized_data['earliest_test_date'] = data[k]
-            elif k == 'test_before':
-                normalized_data['latest_test_date'] = data[k]
-            else:
-                normalized_data[k] = data[k]
-
-        return normalized_data
+        data = self._translate_request_data(session.get('metadata'))
+        self._create_user(data)
