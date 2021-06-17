@@ -16,7 +16,6 @@ urlpatterns = [
     path('add-available-dates/<str:test_center_name>/', views.add_available_date_view, name='add_dates'),
     path('proxy-customer-pair/', views.ProxyCustomerPairView.as_view(), name='proxy_customer_pair'),
     path('test', views.test_view, name='testview'),
-    
 
     path('login/', views.LoginView.as_view(), name='login_view'),
     path('logout/', views.LogoutView.as_view(), name='logout_view'),
@@ -24,4 +23,11 @@ urlpatterns = [
     path('get_user/', views.get_user_view, name='get_user'),
     path('change-email/', views.ChangeEmailView.as_view(), name='change_email'),
     path('change-password/', views.ChangePasswordView.as_view(), name='change_password'),
+    path('send-message/', views.SendMessageView.as_view(), name='send_message'),
+
+
+    #path('create-checkout-session/', views.StripeCheckoutView.as_view(), name='checkout_session'),
+
+    path('create-account/', views.SignupView.as_view(), name='create_account'),
+    path('stripe-webhook/', views.StripeWebhookView.as_view(), name='stripe_webhook'),
 ]

@@ -550,7 +550,8 @@ class TestForm extends Component {
                 onSubmit={async (values, actions) => {
                     // alert(JSON.stringify(values, null, 2));
 
-                    const ENDPOINT = "/api/users/"
+                    // const ENDPOINT = "/api/users/"
+                    const ENDPOINT = "/api/create-account/"
 
                     let res = await fetch(ENDPOINT, {
                         method: 'POST',
@@ -560,9 +561,19 @@ class TestForm extends Component {
                         },
                         body: JSON.stringify(values)
                     })
-                    
+
                     if (String(res.status).slice(0, 1) == 2) {
-                        alert('User was created successfully')
+                        let session = await res.json();
+
+                        const stripe = await window.stripePromise
+
+                        const result = await stripe.redirectToCheckout({
+                            sessionId: session.id
+                        })
+
+                        if (result.error) {
+                            alert('error')
+                        }
                     }
                     else if (String(res.status).slice(0, 1) == 4) {
                         let data = await res.json()

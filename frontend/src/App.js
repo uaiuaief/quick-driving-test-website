@@ -9,6 +9,8 @@ import PasswordResetSuccessPage from './Components/Pages/PasswordResetSuccessPag
 import SignupPage from './Components/Pages/SignupPage';
 import ProfilePage from './Components/Pages/ProfilePage';
 import PageNotFound from './Components/Pages/PageNotFound';
+import Stripe from 'stripe';
+// import { loadStripe } from "@stripe/stripe-js";
 
 
 function App() {
@@ -23,7 +25,44 @@ function App() {
         <Route path="/password-reset-success" exact component={PasswordResetSuccessPage} />
         <Route path="/signup" exact component={SignupPage} />
         <Route path="/account" exact component={ProfilePage} />
+
+        <Route path="/checkout" exact render={() => {
+          return (
+            <>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <button
+                onClick={async (e) => {
+                  const ENDPOINT = "/api/create-checkout-session/"
+
+                    let res = await fetch(ENDPOINT, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': window.getCookie('csrftoken')
+                        }
+                    })
+
+                    let session = await res.json();
+                    
+                    const stripe = await window.stripePromise
+                    
+                    const result = await stripe.redirectToCheckout({
+                      sessionId: session.id
+                    })
+
+                    if (result.error){
+                      alert('error')
+                    }
+                }}
+              >checkout</button>
+            </>
+          )
+        }} />
         <Route path="/" component={PageNotFound} />
+
 
       </Switch>
       <Footer />

@@ -1,5 +1,7 @@
 import json
 import datetime
+import stripe
+from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
@@ -9,8 +11,9 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.renderers import JSONRenderer
-from . import models, serializers
 from django.db.utils import IntegrityError
+from . import models, serializers
+from pprint import pprint
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -84,6 +87,70 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return normalized_data
 
+
+class _SignupView(APIView):
+    def post(self, request):
+        normalized_data = self._normalize_data(request.data)
+        try:
+            user = self._create_user(normalized_data)
+        except IntegrityError as e:
+            return JsonResponse({
+                "error":  "An user with that email already exists"
+                }, status=403)
+
+        return HttpResponse(status=201)
+
+    def _create_user(self, data):
+        email = data.pop('email')
+        password = data.pop('password')
+
+        user = models.User.objects.create_user(email=email, password=password)
+        user.save()
+
+        main_test_center = self.create_test_center(data)
+
+        try:
+            profile = models.Profile(
+                    user = user,
+                    main_test_center=main_test_center,
+                    **data
+            )
+
+            profile.save()
+        except TypeError as e:
+            user.delete()
+            raise e
+
+        return user
+
+    def create_test_center(self, data):
+        desired_test_center = data.pop('desired_test_center')
+        test_center =  models.TestCenter.objects.filter(name=desired_test_center).first()
+
+        if test_center:
+            main_test_center = test_center
+        else:
+            main_test_center = models.TestCenter(name=desired_test_center)
+            main_test_center.save()
+
+        return main_test_center
+
+    def _normalize_data(self, data):
+        normalized_data = {}
+
+        for k in data:
+            if data[k] == '':
+                continue
+            elif k == 'confirm_password':
+                continue
+            elif k == 'test_after':
+                normalized_data['earliest_test_date'] = data[k]
+            elif k == 'test_before':
+                normalized_data['latest_test_date'] = data[k]
+            else:
+                normalized_data[k] = data[k]
+
+        return normalized_data
 
 class TestCenterViewSet(viewsets.ModelViewSet):
     queryset = models.TestCenter.objects.all()
@@ -293,6 +360,9 @@ class ChangeEmailView(APIView):
         user.email = data.get('new_email')
         user.save()
 
+        logout(request)
+        login(request, user)
+
         return JsonResponse({}, status=204)
 
     def get_request_errors(self, request):
@@ -317,7 +387,7 @@ class ChangeEmailView(APIView):
                 'code': 2
                 }, status=400)
 
-        if not user.check_password(data.get('password', user.password)):
+        if not user.check_password(data.get('password')):
             return JsonResponse({
                 'error': "Wrong password",
                 'code': 3
@@ -347,6 +417,9 @@ class ChangePasswordView(APIView):
         user.password = make_password(data.get('new_password'))
         user.save()
 
+        logout(request)
+        login(request, user)
+
         return JsonResponse({}, status=204)
 
     def get_request_errors(self, request):
@@ -371,7 +444,7 @@ class ChangePasswordView(APIView):
                 'code': 3
                 }, status=400)
 
-        if not user.check_password(data.get('current_password', user.password)):
+        if not user.check_password(data.get('current_password')):
             return JsonResponse({
                 'error': "Wrong password",
                 'code': 4
@@ -399,3 +472,164 @@ class LoginView(APIView):
             return JsonResponse({'user': str(user)})
         else:
             return JsonResponse({'error': 'Invalid credentials'}, status=401)
+
+
+class SendMessageView(APIView):
+    def post(self, request):
+
+        """
+        TO BE IMPLEMENTED SENDING EMAILS
+        """
+
+        error = self.get_request_errors(request)
+        if error:
+            return error
+    
+
+        return JsonResponse({
+            'error': "Feature not yet implemented",
+            'code': 3
+            }, status=503)
+
+    def get_request_errors(self, request):
+        data = request.data
+        user = request.user
+
+        if not user.is_authenticated:
+            return JsonResponse({
+                'error': "You must be logged in to view this page",
+                'code': 1
+                }, status=401)
+
+        if not data.get('message'):
+            return JsonResponse({
+                'error': "Please fill in the forms to send a message",
+                'code': 2
+                }, status=401)
+
+
+
+stripe.api_key = settings.STRIPE_SK
+endpoint_secret = settings.ENDPOINT_SECRET
+
+class SignupView(APIView):
+    def post(self, request):
+        try:
+            checkout_session = stripe.checkout.Session.create(
+                    payment_method_types=['card'],
+                    line_items=[
+                        {
+                            'price_data': {
+                                'currency': 'usd',
+                                'unit_amount': 3000,
+                                'product_data': {
+                                    'name': 'Plan I'
+                                },
+
+                            },
+                            'quantity': 1,
+                        }
+                    ],
+                    mode='payment',
+                    success_url="http://localhost:3000/",
+                    cancel_url="http://localhost:3000/",
+                    metadata=request.data
+            )
+            return JsonResponse({'id': checkout_session.id})
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=403)
+            
+
+class StripeWebhookView(APIView):
+    def post(self, request):
+        payload = request.body
+        sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
+        event = None
+
+        try:
+            event = stripe.Webhook.construct_event(
+                    payload, sig_header, endpoint_secret
+            )
+        except ValueError as e:
+            print('invalid payload')
+            return JsonResponse({'error': 'invalid payload'}, status=400)
+        except stripe.error.SignatureVerificationError as e:
+            print(e)
+            print('invalid signature')
+            return JsonResponse({'error': 'invalid signature'}, status=400)
+
+        
+        if event['type'] == 'checkout.session.completed':
+            session = event['data']['object']
+
+            self.fulfill_order(session)
+
+        return HttpResponse(status=200)
+
+    def fulfill_order(self, session):
+        print(session)
+
+################################
+    def ___post(self, request):
+        normalized_data = self._normalize_data(request.data)
+        try:
+            user = self._create_user(normalized_data)
+        except IntegrityError as e:
+            return JsonResponse({
+                "error":  "An user with that email already exists"
+                }, status=403)
+
+        return HttpResponse(status=201)
+
+    def _create_user(self, data):
+        email = data.pop('email')
+        password = data.pop('password')
+
+        user = models.User.objects.create_user(email=email, password=password)
+        user.save()
+
+        main_test_center = self.create_test_center(data)
+
+        try:
+            profile = models.Profile(
+                    user = user,
+                    main_test_center=main_test_center,
+                    **data
+            )
+
+            profile.save()
+        except TypeError as e:
+            user.delete()
+            raise e
+
+        return user
+
+    def create_test_center(self, data):
+        desired_test_center = data.pop('desired_test_center')
+        test_center =  models.TestCenter.objects.filter(name=desired_test_center).first()
+
+        if test_center:
+            main_test_center = test_center
+        else:
+            main_test_center = models.TestCenter(name=desired_test_center)
+            main_test_center.save()
+
+        return main_test_center
+
+    def _normalize_data(self, data):
+        normalized_data = {}
+
+        for k in data:
+            if data[k] == '':
+                continue
+            elif k == 'confirm_password':
+                continue
+            elif k == 'test_after':
+                normalized_data['earliest_test_date'] = data[k]
+            elif k == 'test_before':
+                normalized_data['latest_test_date'] = data[k]
+            else:
+                normalized_data[k] = data[k]
+
+        return normalized_data

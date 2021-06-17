@@ -349,8 +349,8 @@ class Account extends Component {
                         else if (!/^[a-zA-Z][a-zA-Z\s\-\'\.]*[^\s\-\.\'\d]$/i.test(values.last_name)) {
                             errors.last_name = "Invalid name";
                         }
-                        
-                        if (values.phone_number){
+
+                        if (values.phone_number) {
                             if (!/^[0-9]+$/i.test(values.phone_number)) {
                                 errors.phone_number = 'Phone number can only have numbers';
                             }
@@ -477,6 +477,7 @@ class Plan extends Component {
                 <h2>Plan I</h2>
                 <h3>$ 49.00</h3>
                 <BlueButton2
+                    onClick={e => alert("not working yet")}
                     text="Upgrade"
                     type="button"
                 />
@@ -487,6 +488,8 @@ class Plan extends Component {
 
 class Support extends Component {
     render() {
+        const { parentState, setParentState } = this.props;
+
         return (
             <div id="support-menu">
                 <p>
@@ -495,18 +498,56 @@ class Support extends Component {
                     dolore magna  Lorem ipsum dolor sit amet, consectetur
                     adipiscing elit, sed do eiusmod tempor incididunt ut.
                 </p>
-                <Formik>
-                    <form>
-                        <textarea 
-                            placeholder="Enter your message here..."
-                            rows='8'
-                            maxLength='700'
-                        />
-                        <BlueButton2
-                            text="Submit"
-                            type="submit"
-                        />
-                    </form>
+                <Formik
+                    initialValues={{
+                        message: ""
+                    }}
+
+                    onSubmit={async (values, actions) => {
+                        const ENDPOINT = "/api/send-message/"
+
+                        let res = await fetch(ENDPOINT, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': window.getCookie('csrftoken')
+                            },
+                            body: JSON.stringify(values)
+                        })
+    
+                        if (String(res.status).slice(0, 1) == 2) {
+                            setParentState({ highlighted: 'success-password' })
+                        }
+                        else if (String(res.status).slice(0, 1) == 5) {
+                            let data = await res.json()
+                            alert(data.error)
+                        }
+                    }}
+
+                    // validate={values => {
+
+                    // }}
+                >
+                    {props => {
+                        return (
+                            <form onSubmit={props.handleSubmit}>
+                                <textarea
+                                    name="message"
+                                    values={props.values.message}
+                                    placeholder="Enter your message here..."
+                                    rows='8'
+                                    maxLength='700'
+                                    onChange={props.handleChange}
+                                    onBlur={props.handleBlur}
+                                />
+                                <BlueButton2
+                                    text="Submit"
+                                    type="submit"
+                                    disabled={!props.dirty}
+                                />
+                            </form>
+                        )
+                    }}
                 </Formik>
             </div>
         );
@@ -655,7 +696,7 @@ class ProfilePage extends Component {
                     <h1>Change Email</h1>
                     <ChangeEmail
                         setParentState={e => this.setState(e)}
-                        parentState={this.state}          
+                        parentState={this.state}
                         fetchUserData={() => this.fetchUserData()}
                     />
                 </>
@@ -672,7 +713,7 @@ class ProfilePage extends Component {
             case 'success-email':
                 component = <>
                     <Success
-                        title="Email Changed Successfully!"                 
+                        title="Email Changed Successfully!"
                         back="account"
                         setParentState={e => this.setState(e)}
                         parentState={this.state}
@@ -682,7 +723,7 @@ class ProfilePage extends Component {
             case 'success-password':
                 component = <>
                     <Success
-                        title="Password Changed Successfully!"     
+                        title="Password Changed Successfully!"
                         back="account"
                         setParentState={e => this.setState(e)}
                         parentState={this.state}

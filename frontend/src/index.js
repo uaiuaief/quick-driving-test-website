@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { loadStripe } from "@stripe/stripe-js";
 
 
 window.isEmpty = (obj) => {
@@ -70,6 +71,7 @@ window.fetchUserProfile = async () => {
   return data;
 }
 
+window.stripePromise = loadStripe("pk_test_51J2l6tB7wZYk7wVwRyHPLYOqKIqSrwmJzlnxZDrQgIWMwkuahlMZKhus4mNAUJT4ZwiZ6hCrJNsIIMzBZGlcVLtj00nCUlq5eI")
 // window.fetchUserProfile();
 
 ReactDOM.render(
