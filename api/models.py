@@ -84,11 +84,13 @@ class Profile(BaseModel):
             blank=True,
             max_length=16, 
     )
+    
+    test_centers = models.ManyToManyField('TestCenter', blank=True)
 
-    main_test_center = models.ForeignKey(
-            'TestCenter',
-            on_delete=models.PROTECT
-    )
+    #main_test_center = models.ForeignKey(
+    #        'TestCenter',
+    #        on_delete=models.PROTECT
+    #)
 
     recent_test_failure = models.DateField(null=True, blank=True)
 
@@ -153,7 +155,7 @@ class Profile(BaseModel):
 
 class TestCenter(BaseModel):
     name = models.CharField(max_length=150)
-    customers = models.ManyToManyField('User', blank=True)
+    #customers = models.ManyToManyField('User', blank=True)
 
     def __str__(self):
         return self.name

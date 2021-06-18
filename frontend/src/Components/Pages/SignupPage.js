@@ -17,7 +17,7 @@ class StepOne extends Component {
             test_ref, test_after,
             test_before, earliest_time,
             latest_time, recent_failure,
-            desired_test_center } = values;
+            desired_test_center_1 } = values;
 
         return (
             <>
@@ -174,19 +174,19 @@ class StepOne extends Component {
                             {touched.recent_failure && errors.recent_failure ? <div className="input-error">{errors.recent_failure}</div> : null}
                         </div>
                         <div className="form-item">
-                            <label htmlFor="desired_test_center">Desired test centre *</label>
+                            <label htmlFor="desired_test_center_1">Desired test centre *</label>
                             <select
                                 required
-                                id="desired_test_center"
-                                name="desired_test_center"
+                                id="desired_test_center_1"
+                                name="desired_test_center_1"
                                 type="text"
-                                value={desired_test_center}
+                                value={desired_test_center_1}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             >
                                 <TestCenterOptions />
                             </select>
-                            {touched.desired_test_center && errors.desired_test_center ? <div className="input-error">{errors.desired_test_center}</div> : null}
+                            {touched.desired_test_center_1 && errors.desired_test_center_1 ? <div className="input-error">{errors.desired_test_center_1}</div> : null}
                         </div>
                     </div>
                 </div>
@@ -328,7 +328,7 @@ class SignupPage extends Component {
         earliest_time: "",
         latest_time: "",
         recent_failure: "",
-        desired_test_center: "",
+        desired_test_center_1: "",
 
         // Step 2
         first_name: "",
@@ -383,8 +383,8 @@ class TestForm extends Component {
             }
         }
 
-        if (!values.desired_test_center) {
-            errors.desired_test_center = 'This field is required';
+        if (!values.desired_test_center_1) {
+            errors.desired_test_center_1 = 'This field is required';
         }
 
         if (!values.test_ref) {
@@ -536,7 +536,10 @@ class TestForm extends Component {
                     earliest_time: "",
                     latest_time: "",
                     recent_failure: "",
-                    desired_test_center: "",
+                    desired_test_center_1: "",
+                    desired_test_center_2: "",
+                    desired_test_center_3: "",
+                    desired_test_center_4: "",
 
                     // Step 2
                     first_name: "",
@@ -548,9 +551,6 @@ class TestForm extends Component {
                 }}
 
                 onSubmit={async (values, actions) => {
-                    // alert(JSON.stringify(values, null, 2));
-
-                    // const ENDPOINT = "/api/users/"
                     const ENDPOINT = "/api/create-account/"
 
                     let res = await fetch(ENDPOINT, {

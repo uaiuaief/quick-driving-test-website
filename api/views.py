@@ -26,28 +26,34 @@ class UserCreationMixin():
         user.save()
 
         try:
+            test_centers = data.pop('test_centers')
+
             profile = models.Profile(
                     user = user,
                     **data
             )
 
             profile.save()
-        except TypeError as e:
+
+            for each in test_centers:
+                profile.test_centers.add(each)
+
+        except Exception as e:
             user.delete()
             raise e
 
         return user
 
     def _create_test_center(self, test_center_name):
-        test_center =  models.TestCenter.objects.filter(name=test_center_name).first()
+        try:
+            test_center = models.TestCenter.objects.get(name=test_center_name)
+            
+            return test_center
+        except models.TestCenter.DoesNotExist as e:
+            test_center = models.TestCenter(name=test_center_name)
+            test_center.save()
 
-        if test_center:
-            main_test_center = test_center
-        else:
-            main_test_center = models.TestCenter(name=test_center_name)
-            main_test_center.save()
-
-        return main_test_center
+            return test_center
 
     def _translate_request_data(self, data):
         translated_data = {}
@@ -63,11 +69,18 @@ class UserCreationMixin():
                 translated_data['earliest_test_date'] = data[k]
             elif k == 'test_before':
                 translated_data['latest_test_date'] = data[k]
-            elif k == 'desired_test_center':
-                translated_data['main_test_center'] = self._create_test_center(data[k])
+            elif k == 'desired_test_center_1':
+                translated_data['test_centers'] = [self._create_test_center(data[k])]
+            elif k == 'desired_test_center_2':
+                translated_data['test_centers'].append(self._create_test_center(data[k]))
+            elif k == 'desired_test_center_3':
+                translated_data['test_centers'].append(self._create_test_center(data[k]))
+            elif k == 'desired_test_center_4':
+                translated_data['test_centers'].append(self._create_test_center(data[k]))
             else:
                 translated_data[k] = data[k]
 
+        pprint(translated_data)
         return translated_data
 
 
