@@ -125,7 +125,9 @@ class Profile(BaseModel):
 
     mobile_number = models.CharField(
             max_length=30, 
-            validators=[MinLengthValidator(8)]
+            validators=[MinLengthValidator(8)],
+            blank=True,
+            null=True
     )
 
     def clean(self):

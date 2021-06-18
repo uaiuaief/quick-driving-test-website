@@ -160,39 +160,42 @@ class ProxyCustomerPairView(View):
         if not data:
             return JsonResponse({
                 'error': 'There are no customers or proxies available'
-                }, status=404)
+                }, status=200)
         else:
             return JsonResponse(data)
 
     def find_usable_pair(self):
-        customer = self.find_usable_customer()
+        user = self.find_usable_user()
         proxy = self.find_usable_proxy()
 
-        if customer and proxy:
-            customer.last_crawled = datetime.datetime.now()
+        if user and proxy:
+            user.profile.last_crawled = datetime.datetime.now()
             proxy.last_used = datetime.datetime.now()
 
-            customer.save()
+            user.profile.save()
             proxy.save()
 
             return {
-                    'customer': serializers.UserSerializer(customer).data,
+                    'customer': serializers.UserSerializer(user).data,
                     'proxy': serializers.ProxySerializer(proxy).data
                     }
         else:
             return None
 
 
-    def find_usable_customer(self):
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
-        usable_customer = models.User.objects.filter(
+    def find_usable_user(self):
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=5)
+        profile = models.Profile.objects.filter(
                 last_crawled__lte=time_limit,
                 info_validation='valid').order_by('last_crawled').first()
 
-        return usable_customer
+        if profile:
+            return profile.user
+        else:
+            return None
 
     def find_usable_proxy(self):
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=3)
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
         usable_proxy = models.Proxy.objects.order_by('last_used').filter(
                 last_used__lte=time_limit,
                 is_banned=False).first()
