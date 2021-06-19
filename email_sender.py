@@ -32,8 +32,17 @@ from email.mime.text import MIMEText
 def send_password_recovery_email(receiver, user_name, link):
     subject = 'Reset your password'
     send_email(subject, receiver, 'password_recovery.html', {
+        'header': "Reset Password",
         'name': user_name,
         'link': link
+    })
+
+def profile_update_required_email(receiver, user_name):
+    subject = 'Action required'
+    send_email(subject, receiver, 'profile_update_required.html', {
+        'header': "Please Update your profile!",
+        'name': user_name,
+        'link': "http://localhost:3000/account"
     })
 
 def send_email(subject, receiver, template, params):

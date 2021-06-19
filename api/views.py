@@ -465,10 +465,9 @@ class LoginView(APIView):
 
 class SendMessageView(APIView):
     def get(self, request):
-        email_sender.send_password_recovery_email(
+        email_sender.profile_update_required_email(
                 'receiver',
                 'João da Silva',
-                'http://localhost:3000/choose-new-password?token=12903012938091283'
                 )
         return HttpResponse('asd',status=200)
         """

@@ -853,7 +853,7 @@ class ProfilePage extends Component {
         return (
             this.state.redirect
                 ?
-                <Redirect to="/" />
+                <Redirect to="/login" />
                 :
                 <section id="profile-page">
                     <div className="inner-container">
