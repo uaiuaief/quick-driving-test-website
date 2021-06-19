@@ -1,8 +1,9 @@
 import React, { Component, useState } from 'react';
 import TestCenterOptions from '../SmallerComponents/TestCenterOptions';
 import BlueButton2 from "../Buttons/BlueButton2"
+import RoundButton from "../Buttons/RoundButton"
 import { Link } from 'react-router-dom';
-import { Formik } from 'formik'
+import { Formik, FieldArray } from 'formik'
 
 
 class StepOne extends Component {
@@ -11,13 +12,22 @@ class StepOne extends Component {
     }
 
     render() {
-        const { handleChange, handleBlur, values, touched, errors } = this.props;
+        const {
+            setFieldValue, addTestCenter, 
+            removeTestCenter, handleChange, handleBlur, 
+            values, touched, errors
+        } = this.props;
 
-        let { driving_licence_number, theory_test_number,
+        let { 
+            driving_licence_number, theory_test_number,
             test_ref, test_after,
             test_before, earliest_time,
             latest_time, recent_failure,
-            desired_test_center_1 } = values;
+            desired_test_center_1,
+            desired_test_center_2,
+            desired_test_center_3,
+            desired_test_center_4 
+        } = values;
 
         return (
             <>
@@ -114,7 +124,7 @@ class StepOne extends Component {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             >
-                                <option value="">Select</option>
+                                <option value="">---Select---</option>
                                 <option value="07:00">07:00</option>
                                 <option value="08:00">08:00</option>
                                 <option value="09:00">09:00</option>
@@ -141,7 +151,7 @@ class StepOne extends Component {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             >
-                                <option value="">Select</option>
+                                <option value="">---Select---</option>
                                 <option value="07:00">07:00</option>
                                 <option value="08:00">08:00</option>
                                 <option value="09:00">09:00</option>
@@ -173,20 +183,77 @@ class StepOne extends Component {
                             </input>
                             {touched.recent_failure && errors.recent_failure ? <div className="input-error">{errors.recent_failure}</div> : null}
                         </div>
-                        <div className="form-item">
-                            <label htmlFor="desired_test_center_1">Desired test centre *</label>
-                            <select
-                                required
-                                id="desired_test_center_1"
-                                name="desired_test_center_1"
-                                type="text"
-                                value={desired_test_center_1}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                                <TestCenterOptions />
-                            </select>
-                            {touched.desired_test_center_1 && errors.desired_test_center_1 ? <div className="input-error">{errors.desired_test_center_1}</div> : null}
+                        <div className="test-center-group">
+                            <div className="form-item">
+                                <label htmlFor="desired_test_center_1">Desired test centres *</label>
+                                <div className="test-center-item">
+                                    <select
+                                        required
+                                        id="desired_test_center_1"
+                                        name="desired_test_center_1"
+                                        type="text"
+                                        value={desired_test_center_1}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                    >
+                                        <TestCenterOptions />
+                                    </select>
+                                    <RoundButton
+                                        className="remove-button"
+                                        text="-"
+                                        onClick={e => {
+                                            setFieldValue(`desired_test_center_${this.props.test_center_count}`, "")
+                                            removeTestCenter()
+                                        }}
+                                    />
+                                    <RoundButton
+                                        className="add-button"
+                                        text="+"
+                                        onClick={e => addTestCenter()}
+                                    />
+                                </div>
+
+                                {touched.desired_test_center_1 && errors.desired_test_center_1 ? <div className="input-error">{errors.desired_test_center_1}</div> : null}
+                            </div>
+                            <div className="form-item">
+                                <select
+                                    className={this.props.test_center_count >= 2 ? "" : "select-hidden"}
+                                    id="desired_test_center_2"
+                                    name="desired_test_center_2"
+                                    type="text"
+                                    value={desired_test_center_2}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                >
+                                    <TestCenterOptions />
+                                </select>
+                            </div>
+                            <div className="form-item">
+                                <select
+                                    className={this.props.test_center_count >= 3 ? "" : "select-hidden"}
+                                    id="desired_test_center_3"
+                                    name="desired_test_center_3"
+                                    type="text"
+                                    value={desired_test_center_3}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                >
+                                    <TestCenterOptions />
+                                </select>
+                            </div>
+                            <div className="form-item">
+                                <select
+                                    className={this.props.test_center_count >= 4 ? "" : "select-hidden"}
+                                    id="desired_test_center_4"
+                                    name="desired_test_center_4"
+                                    type="text"
+                                    value={desired_test_center_4}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                >
+                                    <TestCenterOptions />
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -329,6 +396,9 @@ class SignupPage extends Component {
         latest_time: "",
         recent_failure: "",
         desired_test_center_1: "",
+        desired_test_center_2: "",
+        desired_test_center_3: "",
+        desired_test_center_4: "",
 
         // Step 2
         first_name: "",
@@ -360,7 +430,8 @@ class TestForm extends Component {
     state = {
         stepOneValid: false,
         stepTwoValid: false,
-        step: 1
+        step: 1,
+        test_center_count: 1
     }
 
     validateStepOne = (values) => {
@@ -522,6 +593,19 @@ class TestForm extends Component {
         }, () => console.log(this.state))
     }
 
+    addTestCenter = () => {
+        if (this.state.test_center_count >= 4) return
+        this.setState({
+            test_center_count: this.state.test_center_count + 1
+        })
+    }
+
+    removeTestCenter = () => {
+        if (this.state.test_center_count <= 0) return
+        this.setState({
+            test_center_count: this.state.test_center_count - 1
+        })
+    }
 
     render() {
         return (
@@ -551,6 +635,9 @@ class TestForm extends Component {
                 }}
 
                 onSubmit={async (values, actions) => {
+                    // alert(JSON.stringify(values, null, 2))
+                    // return
+
                     const ENDPOINT = "/api/create-account/"
 
                     let res = await fetch(ENDPOINT, {
@@ -572,7 +659,7 @@ class TestForm extends Component {
                         })
 
                         if (result.error) {
-                            alert('error')  
+                            alert('error')
                         }
                     }
                     else if (String(res.status).slice(0, 1) == 4) {
@@ -612,12 +699,16 @@ class TestForm extends Component {
                         {this.state.step === 1 ?
                             <>
                                 <StepOne
+                                    addTestCenter={e => this.addTestCenter()}
+                                    removeTestCenter={e => this.removeTestCenter()}
+                                    setFieldValue={props.setFieldValue}
                                     handleSubmit={props.handleSubmit}
                                     handleChange={props.handleChange}
                                     handleBlur={props.handleBlur}
                                     values={props.values}
                                     errors={props.errors}
                                     touched={props.touched}
+                                    test_center_count={this.state.test_center_count}
                                 />
                                 <div className="form-buttons">
                                     <BlueButton2

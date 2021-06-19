@@ -177,6 +177,23 @@ a {
   cursor: pointer;
 }
 
+.round-button {
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 600;
+  background-color: var(--dark-color-1);
+  color: var(--primary-color);
+  border: none;
+  border-radius: 50%;
+  width: 43px;
+  height: 43px;
+  padding: 0 0 .5rem 0;
+  font-size: var(--md-3);
+}
+
+.round-button {
+  cursor: pointer;
+}
+
 .auth-box {
   text-align: center;
   margin: auto;
@@ -867,6 +884,17 @@ footer .footer-column li {
 #password-reset-button {
   margin-top: 4.0rem;
 }
+
+#choose-new-password-page  .input-error{
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 300;
+  font-size: var(--very-sm-2);
+  position: absolute;
+  top: 260px;
+  left: 3.3rem;
+  /* transform: translate(-50%); */
+  color: red;
+}
 /* END CHOOSE NEW PASSWORD PAGE */
 /*--------------------*/
 
@@ -960,7 +988,7 @@ footer .footer-column li {
 #signup-form .form-inputs {
   margin-top: 1.2rem;
   padding: 2.0rem 0;
-  height: 550px;
+  /* height: 550px; */
   /* position: relative; */
 }
 
@@ -991,8 +1019,30 @@ footer .footer-column li {
   margin-bottom: 2rem;
 }
 
-#signup-page .form-row-5{
+#signup-page .form-row:last-child{
   margin-bottom: 0rem;
+}
+
+#signup-page .test-center-group > div:not(:first-child){
+  margin-top: 2rem;
+}
+
+#signup-page .test-center-item {
+  position: relative;
+}
+
+#signup-page .test-center-item .add-button {
+  position: absolute;
+  right: -125px;
+}
+
+#signup-page .test-center-item .remove-button {
+  position: absolute;
+  right: -65px;
+}
+
+#signup-page .select-hidden {
+  display: none;
 }
 
 #signup-form input,
@@ -1029,11 +1079,12 @@ footer .footer-column li {
   justify-content: center;
 }
 
-#signup-page button{
+#signup-page .blue-button-2 {
   margin-left: 1rem;
   margin-top: 1rem;
   display: block;
 }
+
 /* END SIGN UP PAGE */
 /*--------------------*/
 

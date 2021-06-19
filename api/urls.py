@@ -27,4 +27,7 @@ urlpatterns = [
 
     path('create-account/', views.SignupView.as_view(), name='create_account'),
     path('stripe-webhook/', views.StripeWebhookView.as_view(), name='stripe_webhook'),
+
+    path('recover-password/', views.RecoverPasswordView.as_view(), name='recover_password'),
+    path('unauthenticated-change-password/', views.UnauthenticatedChangePasswordView.as_view(), name='unauthenticated_change_password'),
 ]

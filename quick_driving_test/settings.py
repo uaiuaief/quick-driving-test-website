@@ -155,4 +155,6 @@ REST_FRAMEWORK = {
 
 STRIPE_SK = os.environ.get('STRIPE_SK')
 ENDPOINT_SECRET = os.environ.get('ENDPOINT_SECRET')
+EMAIL = os.environ.get('EMAIL')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 

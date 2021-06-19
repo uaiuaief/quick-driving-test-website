@@ -1,6 +1,8 @@
 import json
 import datetime
 import stripe
+import os
+from django.utils.crypto import get_random_string
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
@@ -14,6 +16,7 @@ from rest_framework.renderers import JSONRenderer
 from django.db.utils import IntegrityError
 from . import models, serializers
 from pprint import pprint
+from email_sender import send_email
 
 
 class UserCreationMixin():
@@ -197,7 +200,7 @@ class ProxyCustomerPairView(View):
 
 
     def find_usable_user(self):
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=5)
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
         profile = models.Profile.objects.filter(
                 last_crawled__lte=time_limit,
                 info_validation='valid').order_by('last_crawled').first()
@@ -515,7 +518,6 @@ class SendMessageView(APIView):
                 }, status=401)
 
 
-
 stripe.api_key = settings.STRIPE_SK
 endpoint_secret = settings.ENDPOINT_SECRET
 
@@ -561,8 +563,6 @@ class SignupView(APIView, UserCreationMixin):
         user.delete()
 
 
-            
-
 class StripeWebhookView(APIView, UserCreationMixin):
     def post(self, request):
         payload = request.body
@@ -592,3 +592,69 @@ class StripeWebhookView(APIView, UserCreationMixin):
     def fulfill_order(self, session):
         data = self._translate_request_data(session.get('metadata'))
         self._create_user(data)
+
+
+class RecoverPasswordView(APIView):
+    def post(self, request):
+        if not request.data.get('email'):
+            return JsonResponse({
+                'error':'email is required'
+                }, status=400)
+
+        try:
+            token_hash = self._generate_url(request.data['email'])
+        except models.User.DoesNotExist:
+            return JsonResponse({
+                'error':'There is no user with that email'
+                }, status=404)
+
+        send_email(
+                to=request.data['email'],
+                subject="Password Recovery",
+                body=f"http://localhost:3000/choose-new-password?token={token_hash}"
+                )
+
+        return JsonResponse({'msg':'success'}, status=200)
+    
+    def _generate_url(self, email):
+        user = models.User.objects.get(email=email)
+        token_hash = get_random_string(length=32)
+
+        token = models.Token(token_hash=token_hash, user=user)
+        token.save()
+
+        return token_hash
+
+
+class UnauthenticatedChangePasswordView(APIView):
+    def post(self, request):
+        if not request.data.get('token'):
+            return JsonResponse({
+                'error':'token is required'
+                }, status=403)
+        
+        if not request.data.get('new_password'):
+            return JsonResponse({
+                'error':'new password is required'
+                }, status=400)
+
+        try:
+            token = models.Token.objects.get(token_hash=request.data['token'])
+        except models.Token.DoesNotExist:
+            return JsonResponse({
+                'error':'invalid token'
+                }, status=403)
+
+        if token.is_expired():
+            return JsonResponse({
+                'error':'token expired'
+                }, status=403)
+
+        user = token.user
+        user.password = make_password(request.data.get('new_password'))
+        user.save()
+            
+        return JsonResponse({}, status=204)
+
+
+
