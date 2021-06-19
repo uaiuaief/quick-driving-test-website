@@ -873,7 +873,8 @@ footer .footer-column li {
   padding-top: 63px;
 }
 
-#choose-new-password-box input[type="password"]:nth-child(1) {
+/* #choose-new-password-box input[type="password"]:nth-child(1) { */
+#choose-new-password-box input {
   margin-bottom: 1rem;
 }
 
@@ -882,10 +883,10 @@ footer .footer-column li {
 }
 
 #password-reset-button {
-  margin-top: 4.0rem;
+  margin-top: 3.0rem;
 }
 
-#choose-new-password-page  .input-error{
+#choose-new-password-page .input-error{
   font-family: 'Catamaran', sans-serif;
   font-weight: 300;
   font-size: var(--very-sm-2);
@@ -893,6 +894,17 @@ footer .footer-column li {
   top: 260px;
   left: 3.3rem;
   /* transform: translate(-50%); */
+  color: red;
+}
+
+#choose-new-password-page .form-error{
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 300;
+  font-size: var(--very-sm-2);
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translate(-50%);
   color: red;
 }
 /* END CHOOSE NEW PASSWORD PAGE */
@@ -956,10 +968,41 @@ footer .footer-column li {
   margin-bottom: 3.3rem;
 }
 
-#send-email-button {
+#password-reset-success-box .blue-button-2 {
   margin-top: 4.0rem;
+  padding: .44rem 1.4rem;
 }
 /* END PASSWORD RESET SUCCESS PAGE */
+/*--------------------*/
+
+
+/* PASSWORD RESET EMAIL SENT PAGE */
+#password-reset-email-sent-page {
+  height: 940px;
+  background: url("assets/cta-bg.png") no-repeat;
+  background-size: 100% 80%;
+  padding-top: 63px;
+}
+
+#password-reset-email-sent-box h1 {
+  margin-top: 4.7rem;
+  margin-bottom: 1.85rem;
+}
+
+#password-reset-email-sent-box p {
+  width: 260px;
+  font-size: var(--very-sm-3);
+  margin: auto;
+  margin-bottom: 3.3rem;
+}
+
+#password-reset-email-sent-box .blue-button-2 {
+  /* margin: auto;
+  margin-top: 4.0rem; */
+  padding: .44rem 1.4rem;
+  /* display: block; */
+}
+/* END PASSWORD RESET EMAIL SENT PAGE */
 /*--------------------*/
 
 

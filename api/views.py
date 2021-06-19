@@ -630,7 +630,7 @@ class UnauthenticatedChangePasswordView(APIView):
     def post(self, request):
         if not request.data.get('token'):
             return JsonResponse({
-                'error':'token is required'
+                'error':'Token is required'
                 }, status=403)
         
         if not request.data.get('new_password'):
@@ -642,17 +642,20 @@ class UnauthenticatedChangePasswordView(APIView):
             token = models.Token.objects.get(token_hash=request.data['token'])
         except models.Token.DoesNotExist:
             return JsonResponse({
-                'error':'invalid token'
+                'error':'Invalid token',
+                'code': 1
                 }, status=403)
 
         if token.is_expired():
             return JsonResponse({
-                'error':'token expired'
+                'error':'Token expired',
+                'code': 2
                 }, status=403)
 
         user = token.user
         user.password = make_password(request.data.get('new_password'))
         user.save()
+        token.delete()
             
         return JsonResponse({}, status=204)
 

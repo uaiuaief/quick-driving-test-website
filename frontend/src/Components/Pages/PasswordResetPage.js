@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import BlueButton2 from "../Buttons/BlueButton2"
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Formik } from 'formik';
 
 
 class PasswordResetPage extends Component {
+    state = {
+        redirect: false
+    }
+
     componentDidMount() {
-        document.querySelector('#password-reset-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     render() {
         return (
+            this.state.redirect
+            ?
+            <Redirect to="/password-reset-email-sent"/>
+            :
             <section id="password-reset-page">
                 <div className="inner-container">
                     <div id="password-reset-box" className="auth-box">
@@ -31,6 +39,10 @@ class PasswordResetPage extends Component {
                                         'X-CSRFToken': window.getCookie('csrftoken')
                                     },
                                     body: JSON.stringify(values)
+                                })
+
+                                this.setState({
+                                    redirect: true
                                 })
                             }}
                         >

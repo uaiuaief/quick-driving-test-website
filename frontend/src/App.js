@@ -6,6 +6,7 @@ import LoginPage from "./Components/Pages/LoginPage"
 import NewPasswordPage from './Components/Pages/NewPasswordPage';
 import PasswordResetPage from './Components/Pages/PasswordResetPage';
 import PasswordResetSuccessPage from './Components/Pages/PasswordResetSuccessPage';
+import PasswordResetEmailSentPage from './Components/Pages/PasswordResetEmailSentPage';
 import SignupPage from './Components/Pages/SignupPage';
 import ProfilePage from './Components/Pages/ProfilePage';
 import PageNotFound from './Components/Pages/PageNotFound';
@@ -23,44 +24,9 @@ function App() {
         <Route path="/choose-new-password" exact component={NewPasswordPage} />
         <Route path="/password-reset" exact component={PasswordResetPage} />
         <Route path="/password-reset-success" exact component={PasswordResetSuccessPage} />
+        <Route path="/password-reset-email-sent" exact component={PasswordResetEmailSentPage} />
         <Route path="/signup" exact component={SignupPage} />
         <Route path="/account" exact component={ProfilePage} />
-
-        <Route path="/checkout" exact render={() => {
-          return (
-            <>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <button
-                onClick={async (e) => {
-                  const ENDPOINT = "/api/create-checkout-session/"
-
-                    let res = await fetch(ENDPOINT, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': window.getCookie('csrftoken')
-                        }
-                    })
-
-                    let session = await res.json();
-                    
-                    const stripe = await window.stripePromise
-                    
-                    const result = await stripe.redirectToCheckout({
-                      sessionId: session.id
-                    })
-
-                    if (result.error){
-                      alert('error')
-                    }
-                }}
-              >checkout</button>
-            </>
-          )
-        }} />
         <Route path="/" component={PageNotFound} />
 
 

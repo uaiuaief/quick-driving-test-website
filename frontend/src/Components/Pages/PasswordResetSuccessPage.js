@@ -15,9 +15,9 @@ class PasswordResetSuccessPage extends Component {
                     <div id="password-reset-success-box" className="auth-box">
                         <h1>Your password was reset successfully!</h1>
                         <Link
-                            to="/profile" 
+                            to="/login" 
                             className="blue-button-2">
-                            Go to account
+                            Login
                         </Link>
                     </div>
                 </div>
