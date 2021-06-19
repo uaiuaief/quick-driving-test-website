@@ -1,6 +1,8 @@
 import smtplib
 import os
+import datetime
 from django.conf import settings
+from django.utils import timezone
 from django.template import loader
 
 
@@ -43,6 +45,17 @@ def profile_update_required_email(receiver, user_name):
         'header': "Please Update your profile!",
         'name': user_name,
         'link': "http://localhost:3000/account"
+    })
+
+def test_found_email(receiver, user_name, test_time, test_date, test_center):
+    subject = "We've found your new test!"
+    send_email(subject, receiver, 'test_found.html', {
+        'header': "We've found your new test!",
+        'name': user_name,
+        'date_found': timezone.now().date().strftime("%d-%m-%Y"),
+        'test_time': test_time.strftime("%I:%M %p") ,
+        'test_date': test_date.strftime("%d-%m-%Y"),
+        'test_center': test_center,
     })
 
 def send_email(subject, receiver, template, params):

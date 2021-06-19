@@ -465,10 +465,15 @@ class LoginView(APIView):
 
 class SendMessageView(APIView):
     def get(self, request):
-        email_sender.profile_update_required_email(
+        email_sender.test_found_email(
                 'receiver',
                 'João da Silva',
+                datetime.datetime.now().time(),
+                datetime.datetime.now().date(),
+                'Westdidsbury'
                 )
+
+
         return HttpResponse('asd',status=200)
         """
         TO BE IMPLEMENTED SENDING EMAILS
@@ -499,6 +504,11 @@ class SendMessageView(APIView):
                 'error': "Please fill in the forms to send a message",
                 'code': 2
                 }, status=401)
+
+
+class TestFoundView(APIView):
+    def post(self, request):
+        pass
 
 
 stripe.api_key = settings.STRIPE_SK

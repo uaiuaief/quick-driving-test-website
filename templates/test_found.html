@@ -1,0 +1,49 @@
+{% extends "base_email.html" %}
+{% block content %}
+
+<p style="margin: 0; color: #7B7B7B;">
+	Hello {{name}}. We've found your new cancellation date.
+</p>
+
+<div style="margin: 20px auto 0 auto ; color: #7B7B7B;">
+	<div style="display: inline-block; margin: 0 30px 0 0; width: 100px">
+		<p style="margin: 0; font-weight: 600;">Was found in</p>
+		<p style="margin: 0;">{{ date_found }}</p>
+	</div>
+	<div style="display: inline-block; width: 100px">
+		<p style="margin: 0; font-weight: 600;">Test time</p>
+		<p style="margin: 0;">{{ test_time }}</p>
+	</div>
+</div>
+<div style="margin: auto; color: #7B7B7B;">
+	<div style="display: inline-block; margin: 0 30px 0 0; width: 100px">
+		<p style="margin: 14px auto 0 auto; font-weight: 600;">Test date</p>
+		<p style="margin: 0;">{{test_date}}</p>
+	</div>
+	<div style="display: inline-block;">
+		<p style="margin: 14px auto 0 auto; font-weight: 600; width: 100px">Test centre</p>
+		<p style="margin: 0;">{{ test_center }}</p>
+	</div>
+</div>
+<div style="margin: 20px auto 0 auto">
+	<p style="font-weight: 600; text-align: center; color: #7B7B7B;">Status</p>
+	<div style="width: 100px; margin: auto; background-color:#0AE520; color: #FFFFFF; border-radius: 8px; padding: 5px 20px">Booked</div>
+</div>
+
+<!-- <a href="{{link}}" style="
+		display: block;
+		margin: auto;
+		text-decoration: none;
+		padding: .3rem 1rem;
+		border-radius: 5px;
+		font-weight: 500;
+		width: 200px;
+		font-size: 24px;
+		line-height: 46px;
+		background-color:#FFC700;
+		color: #FFFFFF;">
+	My Account
+</a> -->
+
+
+{% endblock %}
