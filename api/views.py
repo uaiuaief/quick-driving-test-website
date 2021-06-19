@@ -16,7 +16,7 @@ from rest_framework.renderers import JSONRenderer
 from django.db.utils import IntegrityError
 from . import models, serializers
 from pprint import pprint
-from email_sender import send_email
+import email_sender
 
 
 class UserCreationMixin():
@@ -295,13 +295,7 @@ class UserProfileView(APIView, UserCreationMixin):
                 'error': "You must be logged in to view this page"
                 }, status=401)
 
-        data = self._translate_request_data(request.data)
-        #data, errors = self.validate_data(request.data)
-#        if errors:
-#            return JsonResponse({
-#                'error': errors
-#                }, status=400)
-#
+        data = self._translate_data_for_account(request.data)
         
         self._update_profile(user, data)
 
@@ -309,15 +303,30 @@ class UserProfileView(APIView, UserCreationMixin):
             'message': 'User updated successfully'
             }, status=200)
 
-    def _validate_data(self, data):
+    def _translate_data_for_account(self, data):
+        data = self._translate_request_data(data)
+        translated_data = {}
+
+        for k in data:
+            if k == 'email':
+                continue
+            elif k == 'password':
+                continue
+            else:
+                translated_data[k] = data[k]
+
+        return translated_data
+
+    def _translate_data_for_dashboard(self, data):
         pass
 
     def _update_profile(self, user, data):
         for each in user.profile.test_centers.all():
             user.profile.test_centers.remove(each)
         
-        for each in data.pop('test_centers'):
-            user.profile.test_centers.add(each)
+        if data.get('test_centers'):
+            for each in data.pop('test_centers'):
+                user.profile.test_centers.add(each)
 
         profile = models.Profile.objects.get(user=user)
         for attr in data:
@@ -455,8 +464,13 @@ class LoginView(APIView):
 
 
 class SendMessageView(APIView):
-    def post(self, request):
-
+    def get(self, request):
+        email_sender.send_password_recovery_email(
+                'receiver',
+                'João da Silva',
+                'http://localhost:3000/choose-new-password?token=12903012938091283'
+                )
+        return HttpResponse('asd',status=200)
         """
         TO BE IMPLEMENTED SENDING EMAILS
         """
@@ -578,10 +592,17 @@ class RecoverPasswordView(APIView):
                 'error':'There is no user with that email'
                 }, status=404)
 
-        send_email(
-                to=request.data['email'],
-                subject="Password Recovery",
-                body=f"http://localhost:3000/choose-new-password?token={token_hash}"
+        #send_email(
+        #        to=request.data['email'],
+        #        subject="Password Recovery",
+        #        body=f"http://localhost:3000/choose-new-password?token={token_hash}"
+        #        )
+
+        user = models.User.objects.get(email=request.data['email'])
+        email_sender.send_password_recovery_email(
+                'receiver',
+                user.profile.first_name,
+                f'http://localhost:3000/choose-new-password?token={token_hash}'
                 )
 
         return JsonResponse({'msg':'success'}, status=200)
