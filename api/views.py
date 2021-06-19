@@ -21,7 +21,7 @@ from email_sender import send_email
 
 class UserCreationMixin():
     def _create_user(self, data):
-        pprint(data)
+        #pprint(data)
         email = data.pop('email')
         password = data.pop('password')
 
@@ -83,7 +83,7 @@ class UserCreationMixin():
             else:
                 translated_data[k] = data[k]
 
-        pprint(translated_data)
+        #pprint(translated_data)
         return translated_data
 
 
@@ -279,7 +279,7 @@ def get_user_view(request):
     return JsonResponse({'user': str(request.user)})
 
 
-class UserProfileView(APIView):
+class UserProfileView(APIView, UserCreationMixin):
     def get(self, request):
         if not request.user.is_authenticated:
             return JsonResponse({
@@ -313,6 +313,12 @@ class UserProfileView(APIView):
         pass
 
     def _update_profile(self, user, data):
+        for each in user.profile.test_centers.all():
+            user.profile.test_centers.remove(each)
+        
+        for each in data.pop('test_centers'):
+            user.profile.test_centers.add(each)
+
         profile = models.Profile.objects.get(user=user)
         for attr in data:
             if hasattr(profile, attr):
@@ -321,42 +327,6 @@ class UserProfileView(APIView):
                 raise KeyError(f'Profile has no attribute {attr}')
         
         profile.save()
-
-    def _create_test_center(self, test_center_name):
-        try:
-            main_test_center =  models.TestCenter.objects.get(name=test_center_name)
-
-        except models.TestCenter.DoesNotExist as e:
-            main_test_center = models.TestCenter(name=test_center_name)
-            main_test_center.save()
-            
-        return main_test_center
-
-    def _translate_request_data(self, data):
-        translated_data = {}
-
-        for k in data:
-            if data[k] == '':
-                continue
-            elif k == 'confirm_password':
-                continue
-            elif k == 'password':
-                continue
-            elif k == 'email':
-                continue
-            elif k == 'phone_number':
-                translated_data['mobile_number'] = data[k]
-            elif k == 'test_after':
-                translated_data['earliest_test_date'] = data[k]
-            elif k == 'test_before':
-                translated_data['latest_test_date'] = data[k]
-            elif k == 'desired_test_center':
-                translated_data['main_test_center'] = self._create_test_center(data[k])
-            else:
-                translated_data[k] = data[k]
-
-        return translated_data
-
 
 class ChangeEmailView(APIView):
     def post(self, request):

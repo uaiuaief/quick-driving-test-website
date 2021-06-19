@@ -44,8 +44,6 @@ class DashBoard extends Component {
                     }}
 
                     onSubmit={async (values, actions) => {
-                        alert(JSON.stringify(values, null, 2))
-                        return
                         const ENDPOINT = "/api/user-profile/"
 
                         let res = await fetch(ENDPOINT, {
