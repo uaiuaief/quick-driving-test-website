@@ -4,16 +4,22 @@ import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import TestCenterOptions from '../SmallerComponents/TestCenterOptions';
 import BlueButton2 from "../Buttons/BlueButton2"
+import RoundButton from "../Buttons/RoundButton"
 import SubInputButton from "../Buttons/SubInputButton"
 import Sidebar from "../Sidebar"
-
 import ChangePassword from '../Forms/ChangePassword';
 import ChangeEmail from '../Forms/ChangeEmail';
 
 
 class DashBoard extends Component {
     render() {
-        const { parentState, setParentState, fetchUserData } = this.props;
+        const {
+            parentState, setParentState,
+            fetchUserData, addTestCenter,
+            removeTestCenter
+        } = this.props;
+
+        const { test_center_count } = parentState;
 
         return (
             parentState.isLoading
@@ -31,10 +37,15 @@ class DashBoard extends Component {
                         earliest_time: parentState.earliest_time,
                         latest_time: parentState.latest_time,
                         recent_failure: parentState.recent_failure,
-                        desired_test_center: parentState.desired_test_center
+                        desired_test_center_1: parentState.desired_test_center_1,
+                        desired_test_center_2: parentState.desired_test_center_2,
+                        desired_test_center_3: parentState.desired_test_center_3,
+                        desired_test_center_4: parentState.desired_test_center_4,
                     }}
 
                     onSubmit={async (values, actions) => {
+                        alert(JSON.stringify(values, null, 2))
+                        return
                         const ENDPOINT = "/api/user-profile/"
 
                         let res = await fetch(ENDPOINT, {
@@ -64,8 +75,8 @@ class DashBoard extends Component {
                             errors.driving_licence_number = 'Must 30 be characters or less';
                         }
 
-                        if (!values.desired_test_center) {
-                            errors.desired_test_center = 'This field is required';
+                        if (!values.desired_test_center_1) {
+                            errors.desired_test_center_1 = 'This field is required';
                         }
 
                         if (values.theory_test_number) {
@@ -255,20 +266,77 @@ class DashBoard extends Component {
                                             </input>
                                             {props.touched.recent_failure && props.errors.recent_failure ? <div className="input-error">{props.errors.recent_failure}</div> : null}
                                         </div>
-                                        <div className="form-item">
-                                            <label htmlFor="desired_test_center">Desired test centre</label>
-                                            <select
-                                                required
-                                                id="desired_test_center"
-                                                name="desired_test_center"
-                                                type="text"
-                                                value={props.values.desired_test_center}
-                                                onChange={props.handleChange}
-                                                onBlur={props.handleBlur}
-                                            >
-                                                <TestCenterOptions />
-                                            </select>
-                                            {props.touched.desired_test_center && props.errors.desired_test_center ? <div className="input-error">{props.errors.desired_test_center}</div> : null}
+                                        <div className="test-center-group">
+                                            <div className="test-center-item">
+                                                <div className="form-item">
+                                                    <label htmlFor="desired_test_center_1">Desired test centres</label>
+                                                    <select
+                                                        required
+                                                        id="desired_test_center_1"
+                                                        name="desired_test_center_1"
+                                                        type="text"
+                                                        value={props.values.desired_test_center_1}
+                                                        onChange={props.handleChange}
+                                                        onBlur={props.handleBlur}
+                                                    >
+                                                        <TestCenterOptions />
+                                                    </select>
+                                                    <RoundButton
+                                                        className="remove-button"
+                                                        text="-"
+                                                        onClick={e => {
+                                                            if (test_center_count <= 1) return
+                                                            props.setFieldValue(`desired_test_center_${test_center_count}`, "")
+                                                            removeTestCenter()
+                                                        }}
+                                                    />
+                                                    <RoundButton
+                                                        className="add-button"
+                                                        text="+"
+                                                        onClick={e => addTestCenter()}
+                                                    />
+                                                </div>
+                                                {props.touched.desired_test_center_1 && props.errors.desired_test_center_1 ? <div className="input-error">{props.errors.desired_test_center_1}</div> : null}
+                                            </div>
+                                            <div className="form-item">
+                                                <select
+                                                    className={test_center_count >= 2 ? "" : "select-hidden"}
+                                                    id="desired_test_center_2"
+                                                    name="desired_test_center_2"
+                                                    type="text"
+                                                    value={props.values.desired_test_center_2}
+                                                    onChange={props.handleChange}
+                                                    onBlur={props.handleBlur}
+                                                >
+                                                    <TestCenterOptions />
+                                                </select>
+                                            </div>
+                                            <div className="form-item">
+                                                <select
+                                                    className={test_center_count >= 3 ? "" : "select-hidden"}
+                                                    id="desired_test_center_3"
+                                                    name="desired_test_center_3"
+                                                    type="text"
+                                                    value={props.values.desired_test_center_3}
+                                                    onChange={props.handleChange}
+                                                    onBlur={props.handleBlur}
+                                                >
+                                                    <TestCenterOptions />
+                                                </select>
+                                            </div>
+                                            <div className="form-item">
+                                                <select
+                                                    className={test_center_count >= 4 ? "" : "select-hidden"}
+                                                    id="desired_test_center_4"
+                                                    name="desired_test_center_4"
+                                                    type="text"
+                                                    value={props.values.desired_test_center_4}
+                                                    onChange={props.handleChange}
+                                                    onBlur={props.handleBlur}
+                                                >
+                                                    <TestCenterOptions />
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                     <BlueButton2
@@ -514,7 +582,7 @@ class Support extends Component {
                             },
                             body: JSON.stringify(values)
                         })
-    
+
                         if (String(res.status).slice(0, 1) == 2) {
                             setParentState({ highlighted: 'success-password' })
                         }
@@ -524,9 +592,9 @@ class Support extends Component {
                         }
                     }}
 
-                    // validate={values => {
+                // validate={values => {
 
-                    // }}
+                // }}
                 >
                     {props => {
                         return (
@@ -575,6 +643,7 @@ class Success extends Component {
 
 class ProfilePage extends Component {
     state = {
+        test_center_count: 1,
         highlighted: 'dashboard',
         redirect: false,
         isLoading: true,
@@ -592,7 +661,15 @@ class ProfilePage extends Component {
         earliest_time: "",
         latest_time: "",
         recent_failure: "",
-        desired_test_center: "",
+        desired_test_center_1: "",
+        desired_test_center_2: "",
+        desired_test_center_3: "",
+        desired_test_center_4: "",
+    }
+
+    componentDidMount() {
+        document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.fetchUserData()
     }
 
     fetchUserData() {
@@ -616,11 +693,12 @@ class ProfilePage extends Component {
                 earliest_time,
                 latest_time,
                 recent_failure,
-                main_test_center
+                test_centers
 
             } = data.profile
 
             this.setState({
+                test_center_count: test_centers.length,
                 isLoading: false,
 
                 email: email,
@@ -631,21 +709,35 @@ class ProfilePage extends Component {
 
                 driving_licence_number: driving_licence_number,
                 test_ref: test_ref,
-                theory_test_number: theory_test_number,
+                theory_test_number: theory_test_number ? theory_test_number : "",
                 test_after: earliest_test_date ? earliest_test_date : "",
                 test_before: latest_test_date ? latest_test_date : "",
                 earliest_time: earliest_time ? earliest_time.slice(0, 5) : "",
                 latest_time: latest_time ? latest_time.slice(0, 5) : "",
                 recent_failure: recent_failure ? recent_failure : "",
-                desired_test_center: main_test_center.name,
+                desired_test_center_1: typeof test_centers[0] !== 'undefined' ? test_centers[0].name : "",
+                desired_test_center_2: typeof test_centers[1] !== 'undefined' ? test_centers[1].name : "",
+                desired_test_center_3: typeof test_centers[2] !== 'undefined' ? test_centers[2].name : "",
+                desired_test_center_4: typeof test_centers[3] !== 'undefined' ? test_centers[3].name : "",
+
+                // desired_test_center: main_test_center.name,
             });
         })
 
     }
 
-    componentDidMount() {
-        document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        this.fetchUserData()
+    addTestCenter = () => {
+        if (this.state.test_center_count >= 4) return
+        this.setState({
+            test_center_count: this.state.test_center_count + 1
+        })
+    }
+
+    removeTestCenter = () => {
+        if (this.state.test_center_count <= 1) return
+        this.setState({
+            test_center_count: this.state.test_center_count - 1
+        })
     }
 
     getMenu(name) {
@@ -659,6 +751,8 @@ class ProfilePage extends Component {
                         setParentState={(e) => this.setState(e)}
                         parentState={this.state}
                         fetchUserData={() => this.fetchUserData()}
+                        addTestCenter={() => this.addTestCenter()}
+                        removeTestCenter={() => this.removeTestCenter()}
                     />
 
                 </>

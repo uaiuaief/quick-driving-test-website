@@ -1160,7 +1160,7 @@ footer .footer-column li {
 #profile-page .form-inputs {
   margin-top: 1.2rem;
   padding: 2.0rem 0;
-  height: 550px;
+  /* height: 550px; */
   /* position: relative; */
 }
 
@@ -1201,6 +1201,24 @@ footer .footer-column li {
   position: relative;
 }
 
+#profile-page .test-center-group > div:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+#profile-page .test-center-item {
+  position: relative;
+}
+
+#profile-page .test-center-item .add-button {
+  position: absolute;
+  right: -70px;
+}
+
+#profile-page .test-center-item .remove-button {
+  position: absolute;
+  right: -15px;
+}
+
 #profile-page .input-error{
   font-family: 'Catamaran', sans-serif;
   font-weight: 300;
@@ -1210,8 +1228,16 @@ footer .footer-column li {
   color: red;
 }
 
+#profile-page .test-center-group .input-error{
+  bottom: -24px;
+}
+
 #profile-page select {
   padding: 0.5rem .7rem;
+}
+
+#profile-page .select-hidden {
+  display: none;
 }
 
 #profile-page #current-menu {
@@ -1284,7 +1310,7 @@ footer .footer-column li {
 /* SIDEBAR */
 #sidebar {
   background-color: var(--dark-color-1);
-  height: 900px;
+  height: 950px;
   flex-basis: 270px;
   flex-shrink: 0;
 }

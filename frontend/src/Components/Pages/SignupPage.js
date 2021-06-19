@@ -601,7 +601,7 @@ class TestForm extends Component {
     }
 
     removeTestCenter = () => {
-        if (this.state.test_center_count <= 0) return
+        if (this.state.test_center_count <= 1) return
         this.setState({
             test_center_count: this.state.test_center_count - 1
         })
