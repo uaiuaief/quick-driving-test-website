@@ -6,7 +6,7 @@ class ContactForm extends Component {
         return (
             <form id="contact-form">
                 <div className="inner-container">
-                    <div>
+                    <div className="form-row-1">
                         <input
                             id="name-field"
                             placeholder="Your Name"

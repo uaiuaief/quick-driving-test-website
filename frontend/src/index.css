@@ -530,6 +530,10 @@ a {
   max-height: 650px;
   border-radius: 20px;
   position: relative;
+
+  margin-left: -3px;
+  border: 3px solid var(--primary-color);
+  box-shadow: -3px 4px 7px 5px rgba(0, 0, 0, 0.25);
 }
 
 #pricing .price-card.recommended::after {
@@ -567,12 +571,6 @@ a {
   top: -38px;
   left: 50%;
   transform: translateX(-50%);
-}
-
-#pricing .price-card:nth-child(2) {
-  margin-left: -3px;
-  border: 3px solid var(--primary-color);
-  box-shadow: -3px 4px 7px 5px rgba(0, 0, 0, 0.25);
 }
 
 #pricing .price-card h2 {
@@ -1405,7 +1403,7 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
     --xl-3: 55px; /**/
   
     /* OTHER */
-    --max-inner-width: 1220px;
+    --max-inner-width: 700px;
   }
 
   
@@ -1428,25 +1426,13 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
   }
 
   .buy-button {
-    display: block;
-    font-family: 'Fresca', sans-serif;
-    font-size: var(--md-3);
-    color: var(--primary-color);
-    background-color: var(--light-bg-3);
-    border: 1px solid var(--primary-color);
     border-radius: 30px;
-    padding: .67rem 2.45em;
+    padding: .67rem 1rem !important;
+    width: 180px;
   }
 
   .buy-button:hover {
     cursor: pointer;
-  }
-
-  .recommended .buy-button {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    color: var(--light-text);
-    background-color: var(--primary-color);
-    border: none;
   }
 
   .blue-button-1 {
@@ -1607,13 +1593,6 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
 
   /*--------------------*/
   /* CTA */
-  #CTA {
-    /* padding-top: 63px;
-    background: url("assets/cta-bg.png") no-repeat;
-    background-size: 100% 80%;
-    text-align: center; */
-  }
-
   #CTA-inner {
     padding: 1.5rem 0 0 0;
   }
@@ -1735,6 +1714,7 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
 
   .tutorial-image {
     height: 240px;
+    width: 100%;
     margin-top: 1rem;
     padding-top: 1.0rem;
     order: 2;
@@ -1752,6 +1732,211 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
   }
 
   /* END TUTORIAL */
+  /*--------------------*/
+
+
+
+  /* PRICING SECTION */
+  #pricing {
+    padding-top: 1.5rem;
+    padding-bottom: 6.0rem;
+  }
+
+  #pricing h2 {
+    margin-top: 0.5rem;
+  }
+
+  #price-cards {
+    margin-top: 0rem;
+    flex-direction: column;
+  }
+  
+  #pricing .price-card {
+    margin-top: 3.5rem;
+    padding: 2rem 2rem;
+    width: 315px;
+    box-shadow: none
+  }
+
+  #pricing .price-card.recommended {
+    padding: 2rem 2rem;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid var(--primary-color);
+    box-shadow: none;
+    border-radius: 17px;
+  }
+  
+  #pricing .price-card h2 {
+    margin: 0;
+  }
+
+  #pricing .price-card h1 {
+    margin-top: 1.8rem;
+    margin-bottom: 1.8rem;
+  }
+
+  #pricing .price-card li {
+    margin-top: .9rem;
+
+  }
+
+  #pricing .price-card a.buy-button {
+    margin: auto;
+    margin-top: 3.0rem;
+  }
+  
+  #pricing .recommended .buy-button {
+    box-shadow: none;
+  }
+  /* END PRICING SECTION */
+  /*--------------------*/
+
+
+
+  /* FAQ SECTION */
+  #faq {
+    padding: 1rem 0;
+    padding-bottom: 1.5rem;
+  }
+
+  #faq .inner-container{
+    padding: 0 .7rem;
+  }
+
+  #faq-title {
+    margin-bottom: 1rem;
+  }
+
+  #questions {
+    z-index: 3;
+    margin: auto;
+  }
+
+  .question-dropdown {
+    width: 100%;
+    min-height: 60px;
+    margin: auto;
+    margin-bottom: 0.65rem;
+    border-radius: 10px;
+    padding: .5rem 0.5rem;
+  }
+
+  .question-dropdown .question-row .arrow{
+    margin-right: .5rem;
+  }
+
+  .question-dropdown h2 {
+    font-size: var(--very-sm-2)
+  }
+
+  .question-dropdown p {
+    margin: .7rem .5rem .7rem 1.8rem;
+    font-size: var(--sm-1);
+  }
+
+  /* END FAQ SECTION */
+  /*--------------------*/
+
+
+
+  /* CONTACT US SECTION */
+  #contact-us {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    min-height: 95vh;
+  }
+
+  #contact-us h2 {
+    margin-top: 0.5rem;
+    margin-bottom: 1.0rem;
+  }
+
+  #contact-form .inner-container{
+    border-radius: 15px;
+    padding: 0.6rem;
+    width: fit-content;
+    margin: auto;
+  }
+
+  #contact-form .inner-container div:nth-child(1){
+    margin-bottom: .6rem;
+  }
+  
+  #contact-form input{
+    padding: .6rem 1rem;
+    font-size: 18px;
+    min-width: 319px;
+    width: 100%;
+  }
+  
+  #contact-form input:nth-child(1){
+    margin-right: 0rem;
+  }
+  #contact-form input:not(:last-child){
+    margin-bottom: .6rem;
+  }
+
+  #contact-form textarea{
+    padding: .6rem 1rem;
+    font-size: 18px;
+    width: 100%;
+    min-width: 319px;
+    min-height: 220px;
+  }
+
+  #contact-form button {
+    margin-top: 0.5rem;
+  }
+  /* END CONTACT US SECTION */
+  /*--------------------*/
+
+
+
+  /* FOOTER */
+
+  footer .inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1rem;
+    padding-bottom: 2.5rem;
+  }
+
+  footer .footer-logo-block .logo-container img {
+    margin: auto;
+  }
+
+  footer .footer-logo-block p {
+    font-size: var(--sm-2);
+    color: var(--light-text);
+    width: 100%;
+    margin-top: 2rem;
+    margin-right: 6em;
+    text-align: justify;
+  }
+
+  footer .footer-column {
+    margin-top: 2.4rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  footer .footer-column h1 {
+    margin-bottom: .1rem;
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 400;
+    font-size: var(--lg-1b);
+    color: var(--primary-color);
+  }
+
+  footer .footer-column li {
+    list-style-type: none;
+    font-size: var(--sm-2);
+    color: var(--light-text);
+  }
+
+  /* END FOOTER */
   /*--------------------*/
 
 
