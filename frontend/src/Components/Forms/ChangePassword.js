@@ -119,7 +119,7 @@ class ChangePassword extends Component {
                                     </div>
 
                                 </div>
-                                <div className="form-buttons">
+                                <div className="form-buttons flex">
                                 <BlueButton2
                                         onClick={() => {
                                             setParentState({

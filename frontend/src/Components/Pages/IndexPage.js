@@ -7,9 +7,9 @@ import ContactUs from "../ContactUs"
 
 
 class IndexPage extends Component {
-    componentDidMount(){
-        let hash = window.location.hash; 
-        if (hash){
+    componentDidMount() {
+        let hash = window.location.hash;
+        if (hash) {
             try {
                 document.getElementById(hash.replace('#', '')).scrollIntoView({ behavior: 'smooth', block: 'start' })
             } catch (TypeError) {
@@ -29,7 +29,6 @@ class IndexPage extends Component {
                 <Pricing />
                 <FAQ />
                 <ContactUs />
-                {/* <div style={{'height': '600px', 'backgroundColor': '#333'}}></div> */}
             </>
         );
     }

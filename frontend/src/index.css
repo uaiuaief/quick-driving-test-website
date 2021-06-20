@@ -180,8 +180,29 @@ a {
   font-size: var(--md-3);
 }
 
-.round-button {
+.round-button:hover {
   cursor: pointer;
+}
+
+.add-button::after {
+  position: absolute;
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 600;
+  content: "+";
+  font-size: var(--lg-1);
+  top: -3px;
+  left: 14px;
+
+}
+
+.remove-button::after {
+  position: absolute;
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 600;
+  content: "-";
+  font-size: var(--lg-1);
+  top: -3px;
+  left: 17px;
 }
 
 .auth-box {
@@ -1093,12 +1114,12 @@ footer .footer-column li {
 
 #signup-page .test-center-item .add-button {
   position: absolute;
-  right: -125px;
+  right: -105px;
 }
 
 #signup-page .test-center-item .remove-button {
   position: absolute;
-  right: -65px;
+  right: -55px;
 }
 
 #signup-page .select-hidden {
@@ -1382,6 +1403,7 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
   :root {
     /* TEXT */
     --very-sm-1: 10px; /**/
+    --very-sm-1b: 12px; /**/
     --very-sm-2: 14px; /**/
     --very-sm-3: 16px;
   
@@ -1391,6 +1413,7 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
     
     --md-1: 20px; /**/
     --md-2: 20px; /**/
+    --md-2b: 24px; /**/
     --md-3: 28px; /**/
     
     --lg-1: 25px; /**/
@@ -1458,7 +1481,7 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
     border: none;
     border-radius: 7px;
     padding: .44rem 0;
-    font-size: var(--sm-1);
+    font-size: var(--very-sm-2);
     width: 110px;
   }
 
@@ -1488,75 +1511,76 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
   }
 
   .round-button {
+    position: absolute;
     font-family: 'Catamaran', sans-serif;
     font-weight: 600;
     background-color: var(--dark-color-1);
     color: var(--primary-color);
     border: none;
     border-radius: 50%;
-    width: 43px;
-    height: 43px;
-    padding: 0 0 .5rem 0;
+    width: 33px;
+    height: 33px;
+    padding: 0 0 10px 0;
     font-size: var(--md-3);
   }
 
-  .round-button {
+  .round-button:hover {
     cursor: pointer;
   }
 
+  .add-button::after {
+    position: absolute;
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 600;
+    content: "+";
+    font-size: var(--md-3);
+    top: -6px;
+    left: 9px;
+
+  }
+
+  .remove-button::after {
+    position: absolute;
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 600;
+    content: "-";
+    font-size: var(--md-3);
+    top: -6px;
+    left: 12px;
+  }
+
+
   .auth-box {
-    text-align: center;
     margin: auto;
-    margin-top: 185px;
-    width: 445px;
-    height: 476px;
-    background-color: var(--light-bg-3);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-top: 54px;
+    width: 281px;
+    height: 356px;
   }
 
   .auth-box {
-    padding-top: 3.3rem;
+    padding-top: 1.8rem;
     position: relative;
   }
 
   .auth-box h1 {
-    font-family: 'Catamaran', sans-serif;
-    font-weight: 600;
-    font-size: var(--lg-1);
-    color: var(--dark-text-2)
+    font-size: var(--md-1);
   }
 
   .auth-box input[type="email"],
   .auth-box input[type="password"] {
-    width: 340px;
-    height: 47px;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-    border: none;
+    width: 248px;
+    height: 41px;
     padding: 1rem;
-    font-family: 'Catamaran', sans-serif;
-    font-weight: 400;
     font-size: var(--very-sm-3);
     line-height: 26px;
-    background-color: var(--light-bg-3);
-  }
-
-  .auth-box input[type="email"]::placeholder,
-  .auth-box input[type="password"]::placeholder {
-    color: var(--gray-text-1);
-    font-weight: 600;
   }
 
   .auth-box .auth-footer {
     font-size: var(--very-sm-2);
-    font-family: 'Catamaran', sans-serif;
-    font-weight: 600;
     line-height: 23px;
-    color: var(--gray-text-3);
 
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 15px;
+    width: 100%;
   }
 
   .auth-box span a{
@@ -1569,23 +1593,79 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
 
 
   /* NAVBAR */
-
   #navbar-buttons {
     display: none;
   }
 
-  #mobile-navbar-buttons {
+  #mobile-navbar {
+    display: none;
+  }
+
+  #mobile-menu-icon-wrapper {
+    margin-top: 0.0rem;
+    margin-right: 1.0rem;
+  }
+
+  #mobile-menu-icon {
+    border: none;
+    background-color: transparent;
     display: block;
-    margin-right: 1.5rem;
-    transform: rotate(90deg);
-    font-size: var(--xl-2);
+    margin: auto;
+    width: 30px;
+    height: 30px;
+  }
+  
+  #mobile-menu-icon img {
+    height: 100%;
+    /* width: 100%; */
+  }
+
+  #mobile-menu-icon:hover {
+    cursor: pointer;
   }
 
   .logo {
+    margin-top: .1em;
+    margin-left: 1rem;
     width: 247px;
     height: 32px;
   }
 
+  #mobile-navbar-menu {
+    transition: all 300ms;
+    overflow: hidden;
+    word-wrap: nowrap;
+  }
+
+  #mobile-navbar-menu.closed {
+    position: fixed;
+    top: 62px;
+    left: 100%;
+    width: 100%;
+    padding: 0 0 2rem 0;
+  }
+
+  #mobile-navbar-menu.open {
+    position: fixed;
+    top: 62px;
+    left: 0;
+    width: 100%;
+    /* height: 320px; */
+    padding: 0 0 2rem 0;
+    background-color: var(--dark-color-1);
+    background-color: rgba(31, 42, 63, 0.96);
+    display: block;
+  }
+
+  #mobile-navbar-menu #navbar-buttons {
+    display: block ;
+  }
+
+  #mobile-navbar-menu #navbar-buttons li {
+    margin-top: 1rem;
+    padding: 0;
+    display: block ;
+  }
   /* END NAVBAR */
   /*--------------------*/
 
@@ -1940,4 +2020,528 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
   /*--------------------*/
 
 
+  
+  /* LOGIN PAGE */
+  #login-page {
+    height: 540px;
+    background: url("assets/cta-bg.png") no-repeat;
+    background-size: 100% 80%;
+    padding-top: 63px;
+  }
+
+  #login-box h1 {
+    margin-bottom: 1.7rem;
+  }
+
+  #login-page #login-error {
+    color: red;
+    font-size: var(--very-sm-1b);
+    font-family: 'Catamaran', sans-serif;
+    margin-top: -20px;
+    margin-bottom: 10px;
+  }
+
+  #login-box input[type="email"] {
+    margin-bottom: 1rem;
+  }
+
+  #login-box .form-row-2 {
+    margin: auto;
+    margin-top: .5rem;
+    width: 248px;
+  }
+
+  #login-box .form-row-2 div:nth-child(1) {
+    display: flex;
+    /* align-items: center; */
+  }
+
+  #login-box .form-row-2 a {
+    text-decoration: underline;
+    color: var(--primary-color);
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 600;
+    font-size: var(--very-sm-1);
+  }
+
+  #login-button {
+    margin-top: 2.3rem;
+  }
+  /* END LOGIN PAGE */
+  /*--------------------*/
+
+
+
+  /* PASSWORD RESET PAGE */
+  #password-reset-page {
+    height: 540px;
+    background: url("assets/cta-bg.png") no-repeat;
+    background-size: 100% 80%;
+    padding-top: 63px;
+  }
+
+  #password-reset-box h1 {
+    margin-bottom: 1.35rem;
+  }
+
+  #password-reset-box form p {
+    width: 260px;
+    font-size: var(--very-sm-2);
+    margin: auto;
+    margin-bottom: 1.8rem;
+  }
+
+  #send-email-button {
+    margin-top: 1.8rem;
+  }
+  /* END PASSWORD RESET PAGE */
+  /*--------------------*/
+
+
+
+  /* PASSWORD RESET EMAIL SENT PAGE */
+  #password-reset-email-sent-page {
+    height: 540px;
+    background: url("assets/cta-bg.png") no-repeat;
+    background-size: 100% 80%;
+    padding-top: 63px;
+  }
+
+  #password-reset-email-sent-box h1 {
+    margin-top: 2.7rem;
+    margin-bottom: 1.85rem;
+  }
+
+  #password-reset-email-sent-box p {
+    width: 260px;
+    font-size: var(--very-sm-3);
+    margin: auto;
+    margin-bottom: 3.3rem;
+  }
+
+  #password-reset-email-sent-box .blue-button-2 {
+    /* margin: auto;
+    margin-top: 4.0rem; */
+    padding: .44rem 1.4rem;
+    /* display: block; */
+  }
+  /* END PASSWORD RESET EMAIL SENT PAGE */
+  /*--------------------*/
+
+
+
+  /* CHOOSE NEW PASSWORD PAGE */
+  #choose-new-password-page {
+    height: 540px;
+    background: url("assets/cta-bg.png") no-repeat;
+    background-size: 100% 80%;
+    padding-top: 63px;
+  }
+
+  #choose-new-password-box input {
+    margin-bottom: 1rem;
+  }
+
+  #choose-new-password-box h1 {
+    margin-bottom: 2.3rem;
+  }
+
+  #password-reset-button {
+    margin-top: 1.5rem;
+  }
+
+  #choose-new-password-page .input-error{
+    font-size: var(--very-sm-1b);
+    position: absolute;
+    top: 200px;
+    left: 1.1rem;
+  }
+
+  #choose-new-password-page .form-error{
+    font-size: var(--very-sm-1b);
+    position: absolute;
+    top: 75px;
+  }
+  /* END CHOOSE NEW PASSWORD PAGE */
+  /*--------------------*/
+
+
+
+  
+  /* SIGN UP PAGE */
+  #signup-page {
+    background-size: 100% 80%;
+    padding-top: 63px;
+    padding-bottom: 4rem;
+  }
+
+  #signup-form h1 {
+    margin-top: 1.8rem;
+    text-align: center;
+  }
+  
+  #signup-form p {
+    text-align: center;
+    margin-top: 1.4rem;
+    padding: 0rem 1rem;
+    color: var(--dark-color-1);
+    font-size: var(--sm-3);
+    font-weight: 400;
+  }
+
+  #signup-form .form-inputs {
+    margin-top: 0rem;
+    padding: 2.6rem 1rem;
+    padding-bottom: 0.6rem;
+  }
+
+  #signup-form .form-inputs::before {
+    content: "";
+    background-color: var(--light-bg-2);
+    /* background-color: #7b7b7b; */
+    z-index: -1;
+    position: absolute;
+    top: 290px;
+    left: 0;
+    width: 99vw;
+    height: 550px;
+    overflow: hidden;
+  }
+
+  #signup-page label {
+    display: block;
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 600;
+    font-size: var(--very-sm-3);
+    color: var(--gray-text-2);
+  }
+
+  #signup-page .form-row {
+    flex-direction: column;
+    margin-bottom: 0rem;
+  }
+
+  #signup-page .form-row:last-child{
+    margin-bottom: 0rem;
+  }
+
+  #signup-page .test-center-group > div:not(:first-child){
+    margin-top: 2rem;
+  }
+
+  #signup-page .test-center-item {
+    position: relative;
+  }
+
+  #signup-page .test-center-item .add-button {
+    position: absolute;
+    right: 0px;
+    top: -40px;
+  }
+  
+  #signup-page .test-center-item .remove-button {
+    position: absolute;
+    right: 40px;
+    top: -40px;
+  }
+
+  #signup-page .select-hidden {
+    display: none;
+  }
+
+  #signup-form input,
+  #signup-form select {
+    max-width: 336px;
+    width: 100%;
+    height: 46px;
+    padding: 1rem;
+  }
+
+  #signup-form .form-item {
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  #signup-form .input-error{
+    bottom: -24px;
+    font-size: var(--very-sm-1b);
+  }
+
+  #signup-form select {
+    padding: 0.5rem .7rem;
+  }
+
+  #signup-page .form-buttons .blue-button-2:first-child {
+    margin-right: 1rem;
+  }
+
+  #signup-page .form-buttons{
+    display: flex;
+    justify-content: center;
+  }
+
+  #signup-page .blue-button-2 {
+    margin-left: 0rem;
+    margin-top: 0rem;
+    display: block;
+  }
+
+  /* END SIGN UP PAGE */
+  /*--------------------*/
+
+
+    
+  /* PROFILE PAGE */
+  #profile-page {
+    padding-top: 62px;
+    /* padding-bottom: 3rem; */
+  }
+
+  #profile-page .inner-container {
+    display: block;
+  }
+
+  #profile-page h1 {
+    color: var(--dark-text-2);
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 500;
+    line-height: 49px;
+    font-size: var(--md-2b);
+    margin-top: 0.2rem;
+    border-bottom: 2px solid #f0f0f0;
+    
+    display: flex;
+    align-items: center;
+
+  }
+
+  #profile-page .form-inputs {
+    margin-top: 0.0rem;
+    padding: 2.0rem 0;
+  }
+
+  #profile-page .form-inputs .blue-button-2{
+    margin: auto;
+    display: block;
+  }
+
+  #profile-page .form-inputs .flex {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  #profile-page .form-inputs .flex .blue-button-2 {
+    margin-left: .5rem;
+    margin-right: .5rem;
+  }
+
+  #profile-page label {
+    display: block;
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 600;
+    font-size: var(--very-sm-3);
+    color: var(--gray-text-2);
+  }
+
+  #profile-page .form-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 0;
+  }
+
+  #profile-page input,
+  #profile-page select {
+    width: 100%;
+    height: 46px;
+    border: none;
+    background: #FFFFFF;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+    font-size: var(--very-sm-3);
+    font-family: 'Catamaran', sans-serif;
+    margin-right: 3rem;
+  }
+
+  #profile-page input:disabled,
+  #profile-page select:disabled {
+    background-color: #eee;
+  }
+
+  #profile-page .form-item {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  #profile-page .test-center-group > div:not(:last-child) {
+    margin-bottom: 1.5rem;
+  }
+
+  #profile-page .test-center-item {
+    position: relative;
+  }
+
+  #profile-page .test-center-item .add-button {
+    position: absolute;
+    right: 0px;
+    top: -15px;
+  }
+  
+  #profile-page .test-center-item .remove-button {
+    position: absolute;
+    right: 40px;
+    top: -15px;
+  }
+
+  #profile-page .input-error{
+    font-size: var(--very-sm-1b);
+    bottom: -24px;
+  }
+
+  #profile-page .test-center-group .input-error{
+    bottom: -24px;
+  }
+
+  #profile-page select {
+    padding: 0.5rem .7rem;
+  }
+
+  #profile-page .select-hidden {
+    display: none;
+  }
+
+  #profile-page #current-menu {
+    margin-left: 0rem;
+    padding: 1rem;
+    width: 100%;
+    min-height: 420px;
+  }
+
+  #profile-page .form-buttons {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  #profile-page .form-buttons button {
+    margin-right: 1rem;
+  }
+
+  #success-back-button {
+    margin-top: 2rem;
+  }
+
+  #profile-page #account-plan {
+    padding-bottom: 2rem;
+  }
+  
+  #profile-page #account-plan h2{
+    color: var(--gray-text-2);
+    font-size: var(--sm-2);
+    margin-top: 2rem;
+  }
+
+  #profile-page #account-plan h3{
+    color: var(--gray-text-2);
+    font-size: var(--md-1);
+    font-weight: 500;
+    margin-top: .6rem;
+  }
+
+  #profile-page #account-plan .blue-button-2{
+    margin: auto;
+    display: block;
+    margin-top: 2rem;
+  }
+
+  #profile-page #support-menu {
+    margin-top: 1.8rem;
+    padding-bottom: 2rem;
+  }
+
+  #profile-page #support-menu p{
+    color: var(--gray-text-2);
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 400;
+    font-size: var(--sm-2);
+    /* padding-right: 2rem; */
+  }
+
+  #profile-page #support-menu textarea{
+    background: var(--light-bg-3);
+    border: none;
+    margin-top: 1rem;
+    padding: .5rem 1rem;
+    width: 100%;
+    height: 250px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    resize: none;
+    font-size: var(--sm-2);
+    color: var(--dark-text-2);
+    font-family: 'Catamaran', sans-serif;
+  }
+
+  #profile-page #support-menu textarea::placeholder{
+    color: var(--gray-text-2);
+  }
+
+  #profile-page #support-menu .blue-button-2{
+    margin: auto;
+    display: block;
+    margin-top: 1rem;
+  }
+
+  /* SIDEBAR */
+  #sidebar {
+    /* display: none; */
+    background-color: var(--dark-color-1);
+    height: 79px;
+    flex-basis: 2px;
+    flex-shrink: 0;
+  }
+
+  #sidebar .inner-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0.0rem;
+  }
+
+  #sidebar .sidebar-button .img-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    margin: auto;
+    margin-bottom: .3rem;
+    width: 30px;
+  }
+
+  #sidebar .sidebar-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    color: var(--light-text);
+    font-family: 'Catamaran', sans-serif;
+    font-weight: 400;
+    font-size: var(--very-sm-1b);
+    /* margin: auto; */
+    width: 100%;
+    margin: .9rem 0;
+    cursor: pointer;
+  }
+
+  #sidebar .sidebar-button.highlighted {
+    color: var(--primary-color)
+  }
+
+  #sidebar .sidebar-button.highlighted img{
+  filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) contrast(101%);
+  }
+
+  /* END PROFILE PAGE */
+  /*--------------------*/
 }

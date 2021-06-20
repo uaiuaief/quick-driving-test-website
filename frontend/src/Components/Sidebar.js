@@ -7,7 +7,7 @@ import supportIcon from '../assets/support-icon.png';
 class Sidebar extends Component {
     render() {
         const { highlighted, setParentState } = this.props
-        
+
         return (
             <div id="sidebar">
                 <div className="inner-container">
@@ -25,7 +25,10 @@ class Sidebar extends Component {
                             {/* <img src={dashboardIcon} /> */}
                             <img src={dashboardIcon} />
                         </div>
+                        <div>
+
                         My Dashboard
+                        </div>
                     </div>
                     <div
                         className={highlighted === 'account'

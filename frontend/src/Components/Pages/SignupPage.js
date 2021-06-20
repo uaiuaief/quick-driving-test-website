@@ -200,7 +200,7 @@ class StepOne extends Component {
                                     </select>
                                     <RoundButton
                                         className="remove-button"
-                                        text="-"
+                                        text=""
                                         onClick={e => {
                                             setFieldValue(`desired_test_center_${this.props.test_center_count}`, "")
                                             removeTestCenter()
@@ -208,7 +208,7 @@ class StepOne extends Component {
                                     />
                                     <RoundButton
                                         className="add-button"
-                                        text="+"
+                                        text=""
                                         onClick={e => addTestCenter()}
                                     />
                                 </div>

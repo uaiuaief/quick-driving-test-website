@@ -8,7 +8,7 @@ class RoundButton extends Component {
                 onClick={this.props.onClick}
                 type={this.props.type ? this.props.type : "button"}
             >
-                {this.props.text}
+            
             </button>
         );
     }
