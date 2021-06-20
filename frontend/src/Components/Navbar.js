@@ -98,6 +98,7 @@ class Navbar extends Component {
 
                         }   
                     </ul>
+                    <div id="mobile-navbar-buttons">|||</div>
             </div>
             </div >
 

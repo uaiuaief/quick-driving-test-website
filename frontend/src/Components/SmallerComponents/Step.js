@@ -14,6 +14,14 @@ class Step extends Component {
                     <h1>{this.props.step}</h1>
                     <div className="dotted-line"></div>
                 </div>
+                <div className="tutorial-delimiter mobile">
+                    <div className="dotted-line"></div>
+                    <div className="delimiter-text">
+                        <h2>STEP</h2>
+                        <h1>{this.props.step}</h1>
+                    </div>
+                    <div className="dotted-line"></div>
+                </div>
                 <div className="tutorial-image image-wrapper">
                     <img src={this.props.image} />
                 </div>
