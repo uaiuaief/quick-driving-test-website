@@ -7,12 +7,12 @@ class FooterBlock extends Component {
             <div className="footer-column">
                 <h1>{this.props.title}</h1>
                 <ul>
-                    {this.props.items.map(each => {
+                    {this.props.items.map((each, index) => {
                         let {url, hash} = each;
                         let destination = hash ? url + "#" + hash : url
 
                         return (
-                            <li>
+                            <li key={index}>
                                 <Link 
                                 onClick={() => window.smoothScroll(hash)} 
                                 to={destination}>

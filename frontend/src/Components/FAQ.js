@@ -60,9 +60,10 @@ class FAQ extends Component {
                 <div className="inner-container">
                     <h1 id="faq-title">FAQ</h1>
                     <div id="questions">
-                        {this.questions.map(each => {
+                        {this.questions.map((each, index) => {
                             return (
                                 <QuestionDropdown
+                                    key={index}
                                     open={false}
                                     question={each.question}
                                     answer={each.answer}

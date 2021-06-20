@@ -11,19 +11,17 @@ class Footer extends Component {
                 <div className="inner-container">
                     <div className="footer-logo-block">
                         <div className="logo-container">
-                            <Link 
-                            onClick={() => window.smoothScroll("CTA")} 
-                            to="/">
+                            <Link
+                                onClick={() => window.smoothScroll("CTA")}
+                                to="/">
                                 <img className="logo" src={logo} alt="logo"></img>
                             </Link>
                         </div>
                         <p>
-                            Lorem ipsum dolor sit amet,
-                            consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore
-                            magna
+                            This service is in no way associated or affiliated
+                            with the DVSA, DVLA or any government agencies.
+                            You can book and change driving test dates for no
+                            extra fee with the DVSA.
                         </p>
                     </div>
                     <FooterBlock

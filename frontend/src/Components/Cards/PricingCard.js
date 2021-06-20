@@ -3,21 +3,21 @@ import BuyButton from '../Buttons/BuyButton'
 
 class PricingCard extends Component {
     render() {
-        let cls = this.props.recommended ? "price-card recommended" : "price-card"
-
         return (
-            <div className={cls}>
+            <div className={this.props.className ? `price-card ${this.props.className}` : "price-card"}>
                 <div className="inner-container">
                     <h2>{this.props.title}</h2>
                     <h1>{this.props.price}</h1>
                     <ul>
-                        {this.props.features.map(each => {
+                        {this.props.features.map((each, index) => {
                             return (
-                                <li>{each}</li>
+                                <li key={index}>{each}</li>
                             )
                         })}
                     </ul>
-                    <BuyButton text="Buy"/>
+                    <BuyButton 
+                        disabled={this.props.disabled}
+                        text="Buy"/>
                 </div>
             </div>
         );

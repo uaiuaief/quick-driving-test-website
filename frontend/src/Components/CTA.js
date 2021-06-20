@@ -16,18 +16,18 @@ class CTA extends Component {
                     </div>
                     <div id="cards">
                         <SquareCard
-                            title="€ 100.00"
-                            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                            title="£ 100.00"
+                            description="Average money you will save"
                             image={moneyIcon}
                         />
                         <SquareCard
                             title="10 weeks"
-                            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                            description="How many weeks earlier we move your test on average"
                             image={clockIcon}
                             />
                         <SquareCard
                             title="50 tests"
-                            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                            description="How many tests we find per day on average"
                             image={testIcon}
                         />
                     </div>

@@ -5,7 +5,7 @@ class BuyButton extends Component {
     render() {
         return (
             <Link
-                to="signup"
+                to={this.props.disabled ? "#" : "signup"}
                 className="buy-button"
             >
                 {this.props.text}

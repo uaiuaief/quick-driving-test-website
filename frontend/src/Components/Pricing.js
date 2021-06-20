@@ -10,28 +10,28 @@ class Pricing extends Component {
                     <h2>We’ll find you a cancellation within three days! Sit tight - We’ve got this!</h2>
                     <div id="price-cards">
                         <PricingCard
+                            className="coming-soon"
+                            disabled={true}
                             title="Plan I"
-                            price="€ 0.00"
+                            price="£ 0.00"
                             features={[
-                                'lorem ipsum',
-                                'lorem ipsum',
-                                'lorem ipsum',
-                                'lorem ipsum',
-                                'lorem ipsum',
-                                'lorem ipsum',
+                                'Free trial',
+                                'Upgrade at any time',
+                                'Unreserved test dates',
+                                'Customer service',
+                                'Single test center search'
                             ]}
                         />
                         <PricingCard
-                            recommended={true}
+                            className="recommended"
                             title="Plan II"
-                            price="€ 49.00"
+                            price="£ 19.00"
                             features={[
-                                'lorem ipsum',
-                                'lorem ipsum',
-                                'lorem ipsum',
-                                'lorem ipsum',
-                                'lorem ipsum',
-                                'lorem ipsum',
+                                'Unlimited notifications',
+                                'Money back guarantee',
+                                'One test usage',
+                                'Automatic booking',
+                                'Search up to 4 test centers'
                             ]}
                         />
                     </div>

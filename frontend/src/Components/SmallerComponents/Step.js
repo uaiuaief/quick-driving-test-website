@@ -5,15 +5,8 @@ class Step extends Component {
         return (
             <div className="tutorial-step">
                 <div className="tutorial-text">
-                    <h1>Lorem Ipsum Adore</h1>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit, sed do eiusmod tempor
-                        incididunt ut labore et dolore magna Lorem
-                        ipsum dolor sit amet, consectetur adipiscing
-                        elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna
-                    </p>
+                    <h1>{this.props.title}</h1>
+                    <p>{this.props.text}</p>
                     <div className="dotted-line"></div>
                 </div>
                 <div className="tutorial-delimiter">
