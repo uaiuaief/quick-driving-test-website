@@ -191,7 +191,7 @@ class Proxy(BaseModel):
     is_banned = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.ip} - {self.last_used} {'- Banned' if self.is_banned else ''}"
+        return f"{self.ip} - {format(self.last_used, '%d-%m-%y, %H:%M:%S' )} {'- Banned' if self.is_banned else ''}"
 
 
 class Token(BaseModel):

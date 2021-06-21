@@ -169,114 +169,9 @@ class ProxyViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ProxySerializer
 
 
-class ProxyCustomerPairView(View):
+class GetUserView(APIView):
     def get(self, request):
-        data = self.find_usable_pair()
-
-        if not data:
-            return JsonResponse({
-                'error': 'There are no customers or proxies available'
-                }, status=200)
-        else:
-            return JsonResponse(data)
-
-    def find_usable_pair(self):
-        user = self.find_usable_user()
-        proxy = self.find_usable_proxy()
-
-        if user and proxy:
-            user.profile.last_crawled = datetime.datetime.now()
-            proxy.last_used = datetime.datetime.now()
-
-            user.profile.save()
-            proxy.save()
-
-            return {
-                    'customer': serializers.UserSerializer(user).data,
-                    'proxy': serializers.ProxySerializer(proxy).data
-                    }
-        else:
-            return None
-
-
-    def find_usable_user(self):
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
-        profile = models.Profile.objects.filter(
-                last_crawled__lte=time_limit,
-                info_validation='valid').order_by('last_crawled').first()
-
-        if profile:
-            return profile.user
-        else:
-            return None
-
-    def find_usable_proxy(self):
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
-        usable_proxy = models.Proxy.objects.order_by('last_used').filter(
-                last_used__lte=time_limit,
-                is_banned=False).first()
-
-        return usable_proxy
-
-
-def test_view(request):
-    return HttpResponse('hello world')
-
-
-@csrf_exempt
-def add_available_date_view(request, test_center_name):
-    if request.method != "POST":
-        return HttpResponse(status=405)
-
-    dates = json.loads(request.body).get('dates')
-    print('@@@@@@@@@@@@', dates)
-    if not dates:
-        return HttpResponse(status=400)
-
-    test_center = models.TestCenter.objects.filter(name=test_center_name).first()
-    print(dates)
-
-    for k in dates:
-        y, m , d = k.split('-')
-        date_model = models.AvailableDate(
-                date=datetime.date(int(y), int(m), int(d)),
-                test_center=test_center
-                )
-
-        date_model.save() 
-
-        for time in dates[k]:
-            dt = datetime.datetime.strptime(time, "%H:%M")
-            time_model = models.AvailableTime(date=date_model, time=dt.time())
-            time_model.save()
-
-
-    return HttpResponse(status=201)
-
-def customer_view(request, pk):
-    customer = models.User.objects.filter(id=pk).first()
-
-    time_ranges = []
-    for each in customer.acceptable_time_ranges.all():
-        time_ranges.append({
-            'start_time': each.start_time,
-            'end_time': each.end_time
-            })
-    
-    dict_ = { 
-            "driving_licence_number": customer.driving_licence_number,
-            "test_ref": customer.test_ref,
-            "main_test_center": customer.main_test_center.name,
-            "earliest_test_date": customer.earliest_test_date,
-            "latest_test_date": customer.latest_test_date,
-            "time_ranges": time_ranges
-            }
-
-    return JsonResponse(dict_)
-
-
-def get_user_view(request):
-    return JsonResponse({'user': str(request.user)})
+        return JsonResponse({'user': str(request.user)})
 
 
 class UserProfileView(APIView, UserCreationMixin):
@@ -336,6 +231,7 @@ class UserProfileView(APIView, UserCreationMixin):
                 raise KeyError(f'Profile has no attribute {attr}')
         
         profile.save()
+
 
 class ChangeEmailView(APIView):
     def post(self, request):
@@ -506,11 +402,6 @@ class SendMessageView(APIView):
                 }, status=401)
 
 
-class TestFoundView(APIView):
-    def post(self, request):
-        pass
-
-
 stripe.api_key = settings.STRIPE_SK
 endpoint_secret = settings.ENDPOINT_SECRET
 
@@ -658,6 +549,102 @@ class UnauthenticatedChangePasswordView(APIView):
         token.delete()
             
         return JsonResponse({}, status=204)
+
+
+""" CRAWLER VIEWS """
+class ProxyCustomerPairView(View):
+    def get(self, request):
+        data = self.find_usable_pair()
+
+        if not data:
+            return JsonResponse({
+                'error': 'There are no customers or proxies available'
+                }, status=200)
+        else:
+            return JsonResponse(data)
+
+    def find_usable_pair(self):
+        user = self.find_usable_user()
+        proxy = self.find_usable_proxy()
+
+        if user and proxy:
+            user.profile.last_crawled = datetime.datetime.now()
+            proxy.last_used = datetime.datetime.now()
+
+            user.profile.save()
+            proxy.save()
+
+            return {
+                    'customer': serializers.UserSerializer(user).data,
+                    'proxy': serializers.ProxySerializer(proxy).data
+                    }
+        else:
+            return None
+
+
+    def find_usable_user(self):
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
+        profile = models.Profile.objects.filter(
+                last_crawled__lte=time_limit,
+                info_validation='valid').order_by('last_crawled').first()
+
+        if profile:
+            return profile.user
+        else:
+            return None
+
+    def find_usable_proxy(self):
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
+        usable_proxy = models.Proxy.objects.order_by('last_used').filter(
+                last_used__lte=time_limit,
+                is_banned=False).first()
+
+        return usable_proxy
+
+class UserInfoValidationView(APIView):
+    def post(self, request):
+        error = self._get_request_errors(request)
+        if error:
+            return error
+
+        try:
+            user = models.User.objects.get(id=request.data['user_id'])
+        except models.User.DoesNotExist:
+            return JsonResponse({
+                'error': 'User with that ID does not exist'
+                }, status=404)
+
+        profile = user.profile
+        profile.info_validation = request.data['info_validation']
+        profile.save()
+
+        return JsonResponse({}, status=200)
+
+    def _get_request_errors(self, request):
+        if not request.data.get('user_id'):
+            return JsonResponse({
+                'error': 'Must provide `user_id`'
+                }, status=400)
+        elif not request.data.get('info_validation'):
+            return JsonResponse({
+                'error': 'Must provide `info_validation`'
+                }, status=400)
+        elif request.data.get('info_validation') not in ['valid', 'invalid']:
+            return JsonResponse({
+                'error': f"`{request.data['info_validation']}` is not a valid value for info_validation, must be either `valid` or `invalid`"
+                }, status=400)
+        
+        return None
+
+
+class ProxyValidationView(APIView):
+    def post(self, request):
+        pass
+        
+
+class TestFoundView(APIView):
+    def post(self, request):
+        pass
 
 
 

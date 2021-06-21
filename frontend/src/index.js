@@ -42,7 +42,7 @@ window.getCookie = (name) => {
 }
 
 window.getUser = async () => {
-  let res = await fetch("/api/get_user/", {
+  let res = await fetch("/api/get-user/", {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
