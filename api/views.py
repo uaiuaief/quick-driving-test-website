@@ -637,10 +637,31 @@ class UserInfoValidationView(APIView):
         return None
 
 
-class ProxyValidationView(APIView):
+class BanProxyView(APIView):
     def post(self, request):
-        pass
+        error = self._get_request_errors(request)
+        if error:
+            return error
+
+        try:
+            proxy = models.Proxy.objects.get(ip=request.data['ip'])
+        except models.Proxy.DoesNotExist:
+            return JsonResponse({
+                'error': 'Proxy with that IP does not exist'
+                }, status=404)
+
+        proxy.is_banned = True
+        proxy.save()
+
+        return JsonResponse({}, status=200)
         
+    def _get_request_errors(self, request):
+        if not request.data.get('ip'):
+            return JsonResponse({
+                'error': 'Must provide `ip`'
+                }, status=400)
+        
+        return None
 
 class TestFoundView(APIView):
     def post(self, request):
