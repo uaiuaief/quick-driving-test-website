@@ -289,6 +289,12 @@ a {
   display: none;
 }
 
+#mobile-menu-icon,
+#mobile-navbar-menu {
+  display: none;
+}
+
+
 #navbar .inner-container {
   display: flex;
   justify-content: space-between;
@@ -314,6 +320,49 @@ a {
 }
 
 /* END NAVBAR */
+/*--------------------*/
+
+
+
+/* PAGE NOT FOUND */
+#page-not-found {
+  padding-top: 153px;
+  text-align: center;
+  height: 840px;
+}
+
+#page-not-found img{
+  margin: auto;
+}
+
+#page-not-found h1{
+  font-family: 'Catamaran' sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 100px;
+  line-height: 164px;
+}
+
+#page-not-found h2{
+  font-family: 'Catamaran' sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--lg-2);
+  line-height: 59px;
+  color: var(--gray-text-2);
+}
+
+#page-not-found p {
+  width: 607px;
+  font-family: 'Catamaran' sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--sm-2);
+  color: var(--gray-text-2);
+  margin: auto;
+  margin-top: 2rem;
+}
+/* END PAGE NOT FOUND */
 /*--------------------*/
 
 
@@ -458,6 +507,10 @@ a {
   color: var(--light-text);  
   font-weight: 300;
   
+}
+
+.tutorial-delimiter.mobile {
+  display: none;
 }
 
 .tutorial-delimiter h1{
@@ -1588,6 +1641,52 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
   }
 
   /* END COMMON CLASSES */
+  /*--------------------*/
+
+
+  
+  /* PAGE NOT FOUND */
+  #page-not-found {
+    padding-top: 153px;
+    text-align: center;
+    height: 600px;
+  }
+
+  #page-not-found img{
+    width: 221px;
+    height: 93px;
+    margin: auto;
+  }
+
+  #page-not-found h1{
+    margin-top: 0.5rem;
+    font-family: 'Catamaran' sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 60px;
+    line-height: 68px;
+  }
+
+  #page-not-found h2{
+    font-family: 'Catamaran' sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 36px;
+    color: var(--gray-text-2);
+  }
+
+  #page-not-found p {
+    width: 295px;
+    font-family: 'Catamaran' sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    color: var(--gray-text-2);
+    margin: auto;
+    margin-top: .5rem;
+  }
+  /* END PAGE NOT FOUND */
   /*--------------------*/
 
 
