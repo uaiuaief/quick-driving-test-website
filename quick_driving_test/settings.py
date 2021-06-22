@@ -88,21 +88,21 @@ DATABASES = {
     'default': {
         # DEVELOPMENT
 
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     
         # PRODUCTION
 
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': '5432',
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'NAME':os.environ.get('DB_NAME'),
+        #'USER': os.environ.get('DB_USER'),
+        #'PASSWORD': os.environ.get('DB_PASSWORD'),
+        #'HOST': os.environ.get('DB_HOST'),
+        #'PORT': '5432',
 
-        'DATABASE_OPTIONS': {
-            'connect_timeout': 5.
-        }
+        #'DATABASE_OPTIONS': {
+        #    'connect_timeout': 5.
+        #}
     }
 }
 
@@ -166,7 +166,10 @@ REST_FRAMEWORK = {
         'DEFAULT_AUTHENTICATION_CLASSES': [
             'rest_framework.authentication.BasicAuthentication',
             'rest_framework.authentication.SessionAuthentication',
-        ]
+        ],
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.IsAdminUser',
+        ],
 }
 
 STRIPE_SK = os.environ.get('STRIPE_SK')

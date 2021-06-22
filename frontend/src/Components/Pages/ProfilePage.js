@@ -591,10 +591,6 @@ class Support extends Component {
                             alert(data.error)
                         }
                     }}
-
-                // validate={values => {
-
-                // }}
                 >
                     {props => {
                         return (
@@ -609,9 +605,9 @@ class Support extends Component {
                                     onBlur={props.handleBlur}
                                 />
                                 <BlueButton2                             
-                                    text={props.isSubmitting ? "Submiting...": "Submit"}
+                                    text={props.isSubmitting ? "Submitting...": "Submit"}
                                     type="submit"
-                                    disabled={!props.dirty}
+                                    disabled={!props.dirty || props.isSubmitting}
                                 />
                             </form>
                         )

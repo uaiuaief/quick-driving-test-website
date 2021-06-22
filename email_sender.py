@@ -68,8 +68,8 @@ def test_found_email(receiver, user_name, test_time, test_date, test_center):
         'header': "We've found your new test!",
         'name': user_name,
         'date_found': timezone.now().date().strftime("%d-%m-%Y"),
-        'test_time': test_time.strftime("%I:%M %p") ,
-        'test_date': test_date.strftime("%d-%m-%Y"),
+        'test_time': test_time,
+        'test_date': test_date,
         'test_center': test_center,
     })
 

@@ -25,13 +25,25 @@ class ContactForm extends Component {
                     })
 
                     if (String(res.status).slice(0, 1) == 2) {
-                        // alert(JSON.stringify(values));
-                        alert("Message sent successfully");
+                        actions.resetForm();
                     }
                     else if (String(res.status).slice(0, 1) == 4) {
                         let data = await res.json()
                         
                     }
+                }}
+
+                validate={values => {
+                    let errors = {};
+
+                    if (!values.email) {
+                        errors.email = 'This field is required';
+                    }
+                    else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                        errors.email = 'Invalid email address';
+                    }
+
+                    return errors;
                 }}
             >
                 {props => (
@@ -73,7 +85,8 @@ class ContactForm extends Component {
                             ></textarea>
                         </div>
                         <BlueButton1
-                            // text={props.isSubmitting ? "Submiting...": "Submit"}
+                            text={props.isSubmitting ? "Submiting...": "Submit"}
+                            disabled={!props.isValid || !props.dirty || props.isSubmitting}
                             text="Submit"
                         />
                     </form>

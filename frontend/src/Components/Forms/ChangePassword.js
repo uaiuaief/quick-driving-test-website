@@ -132,7 +132,7 @@ class ChangePassword extends Component {
                                     <BlueButton2
                                         text={props.isSubmitting ? "Saving...": "Save"}
                                         type="submit"
-                                        disabled={!props.isValid || !props.dirty}
+                                        disabled={!props.isValid || !props.dirty || props.isSubmitting}
                                     />
                                 </div>
                             </div>

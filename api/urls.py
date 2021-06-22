@@ -38,6 +38,7 @@ urlpatterns = [
         name='unauthenticated_change_password'),
 
     #Crawler urls
+    path('test-found/', views.TestFoundView.as_view(), name='test_found'),
     path('ban-proxy/', views.BanProxyView.as_view(), name='ban_proxy'),
     path('proxy-customer-pair/', views.ProxyCustomerPairView.as_view(), name='proxy_customer_pair'),
     path('set-user-info-validation/', views.UserInfoValidationView.as_view(), name='info-validation'),

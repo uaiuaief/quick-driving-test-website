@@ -41,6 +41,8 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_admin', True)
+        extra_fields.setdefault('is_staff', True)
 
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
@@ -52,10 +54,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     last_login = models.DateTimeField(_('date joined'), auto_now=True)
-    is_admin = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     objects = UserManager()
 
@@ -86,11 +88,6 @@ class Profile(BaseModel):
     )
     
     test_centers = models.ManyToManyField('TestCenter', blank=True)
-
-    #main_test_center = models.ForeignKey(
-    #        'TestCenter',
-    #        on_delete=models.PROTECT
-    #)
 
     recent_test_failure = models.DateField(null=True, blank=True)
 
@@ -151,6 +148,9 @@ class Profile(BaseModel):
 
     def __str__(self):
         return f'{self.user} - {self.driving_licence_number} - {self.info_validation}'
+
+    def get_full_name(self):
+        return f'{self.first_name} {self.last_name}'
 
 
 class TestCenter(BaseModel):

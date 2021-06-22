@@ -10,7 +10,7 @@ from django.contrib.auth.hashers import make_password
 from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.renderers import JSONRenderer
 from django.db.utils import IntegrityError
@@ -88,6 +88,7 @@ class UserCreationMixin():
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAdminUser]
     queryset = models.User.objects.all()
     serializer_class = serializers.UserSerializer
 
@@ -160,21 +161,27 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class TestCenterViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAdminUser]
     queryset = models.TestCenter.objects.all()
     serializer_class = serializers.TestCenterSerializer
 
 
 class ProxyViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAdminUser]
     queryset = models.Proxy.objects.all()
     serializer_class = serializers.ProxySerializer
 
 
 class GetUserView(APIView):
+    permission_classes = [permissions.AllowAny]
+    #permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request):
         return JsonResponse({'user': str(request.user)})
 
 
 class UserProfileView(APIView, UserCreationMixin):
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         if not request.user.is_authenticated:
             return JsonResponse({
@@ -234,6 +241,8 @@ class UserProfileView(APIView, UserCreationMixin):
 
 
 class ChangeEmailView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def post(self, request):
         data = request.data
         user = request.user
@@ -291,6 +300,8 @@ class ChangeEmailView(APIView):
 
 
 class ChangePasswordView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    
     def post(self, request):
         data = request.data
         user = request.user
@@ -339,6 +350,8 @@ class ChangePasswordView(APIView):
 
 
 class LogoutView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self, request):
         logout(request)
 
@@ -346,6 +359,8 @@ class LogoutView(APIView):
 
 
 class LoginView(APIView):
+    permission_classes = [permissions.AllowAny]
+
     def post(self, request):
         email = request.data.get('email')
         password = request.data.get('password')
@@ -360,12 +375,16 @@ class LoginView(APIView):
 
 
 class SendMessageView(APIView):
+    permission_classes = [permissions.AllowAny]
     def post(self, request):
         error = self.get_request_errors(request)
         if error:
             return error
 
-        subject = f'Name: {request.data["name"]} - Email: {request.data["email"]}'
+        name = request.data.get('name') or request.user.profile.get_full_name()
+        email = request.data.get('email') or request.user.email
+        
+        subject = f'Name: {name} - Email: {email}'
         body = request.data['message']
         email_sender.send_simple_email(
                 'support@quickdrivingtest.co.uk',
@@ -400,6 +419,8 @@ stripe.api_key = settings.STRIPE_SK
 endpoint_secret = settings.ENDPOINT_SECRET
 
 class SignupView(APIView, UserCreationMixin):
+    permission_classes = [permissions.AllowAny]
+
     def post(self, request):
         try:
             self._validate_user(request)
@@ -442,6 +463,8 @@ class SignupView(APIView, UserCreationMixin):
 
 
 class StripeWebhookView(APIView, UserCreationMixin):
+    permission_classes = [permissions.AllowAny]
+
     def post(self, request):
         payload = request.body
         sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
@@ -473,6 +496,8 @@ class StripeWebhookView(APIView, UserCreationMixin):
 
 
 class RecoverPasswordView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
     def post(self, request):
         if not request.data.get('email'):
             return JsonResponse({
@@ -512,6 +537,8 @@ class RecoverPasswordView(APIView):
 
 
 class UnauthenticatedChangePasswordView(APIView):
+    permission_classes = [permissions.AllowAny]
+
     def post(self, request):
         if not request.data.get('token'):
             return JsonResponse({
@@ -546,8 +573,11 @@ class UnauthenticatedChangePasswordView(APIView):
 
 
 """ CRAWLER VIEWS """
-class ProxyCustomerPairView(View):
+class ProxyCustomerPairView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
     def get(self, request):
+        print(request.data)
         data = self.find_usable_pair()
 
         if not data:
@@ -596,6 +626,8 @@ class ProxyCustomerPairView(View):
         return usable_proxy
 
 class UserInfoValidationView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
     def post(self, request):
         error = self._get_request_errors(request)
         if error:
@@ -632,6 +664,8 @@ class UserInfoValidationView(APIView):
 
 
 class BanProxyView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
     def post(self, request):
         error = self._get_request_errors(request)
         if error:
@@ -658,8 +692,52 @@ class BanProxyView(APIView):
         return None
 
 class TestFoundView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
     def post(self, request):
-        pass
+        error = self._get_request_errors(request)
+        if error:
+            return error
 
+        try:
+            user = models.User.objects.get(id=request.data['user_id'])
+        except models.User.DoesNotExist:
+            return JsonResponse({
+                'error': f'user with id {request.data["user_id"]} does not exist'
+            }, status=404)
 
+        try:
+            test_center = models.TestCenter.objects.get(id=request.data['test_center_id'])
+        except models.TestCenter.DoesNotExist:
+            return JsonResponse({
+                'error': f'test center with id {request.data["test_center_id"]} does not exist'
+            }, status=404)
+
+        email_sender.test_found_email(
+                user.email,
+                user.profile.get_full_name(),
+                request.data['test_time'],
+                request.data['test_date'],
+                test_center.name
+        )
+
+        return JsonResponse({}, status=200)
+
+    def _get_request_errors(self, request):
+        if not request.data.get('user_id'):
+            return JsonResponse({
+                'error': 'Must provide `user_id`'
+                }, status=400)
+        elif not request.data.get('test_center_id'):
+            return JsonResponse({
+                'error': 'Must provide `test_center_id`'
+                }, status=400)
+        elif not request.data.get('test_time'):
+            return JsonResponse({
+                'error': 'Must provide `test_time`'
+                }, status=400)
+        elif not request.data.get('test_date'):
+            return JsonResponse({
+                'error': 'Must provide `test_date`'
+                }, status=400)
 

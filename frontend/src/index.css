@@ -119,7 +119,7 @@ a {
   font-family: 'Catamaran', sans-serif;
   font-weight: 400;
   background-color: var(--dark-color-1);
-  color: var(--light-text);
+  color: var(--primary-color);
   border: none;
   border-radius: 11px;
   padding: .34rem 2.2rem;

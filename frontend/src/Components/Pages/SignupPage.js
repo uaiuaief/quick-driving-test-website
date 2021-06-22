@@ -739,9 +739,10 @@ class TestForm extends Component {
                                     <BlueButton2
                                         onClick={e => this.nextStep()}
                                         id=""
-                                        text="Next"
+                                        // text="Submit"
+                                        text={props.isSubmitting ? "Submitting...": "Submit"}
                                         type="submit"
-                                        disabled={!this.state.stepTwoValid ? true : false}
+                                        disabled={!this.state.stepTwoValid || props.isSubmitting}
                                     />
                                 </div>
                             </>
