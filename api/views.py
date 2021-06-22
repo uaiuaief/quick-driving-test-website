@@ -360,45 +360,39 @@ class LoginView(APIView):
 
 
 class SendMessageView(APIView):
-    def get(self, request):
-        email_sender.test_found_email(
-                'receiver',
-                'João da Silva',
-                datetime.datetime.now().time(),
-                datetime.datetime.now().date(),
-                'Westdidsbury'
-                )
-
-
-        return HttpResponse('asd',status=200)
-        """
-        TO BE IMPLEMENTED SENDING EMAILS
-        """
-
+    def post(self, request):
         error = self.get_request_errors(request)
         if error:
             return error
-    
 
-        return JsonResponse({
-            'error': "Feature not yet implemented",
-            'code': 3
-            }, status=503)
+        subject = f'Name: {request.data["name"]} - Email: {request.data["email"]}'
+        body = request.data['message']
+        email_sender.send_simple_email(
+                'support@quickdrivingtest.co.uk',
+                subject,
+                body,
+        )
+
+        return JsonResponse({}, status=200)
 
     def get_request_errors(self, request):
         data = request.data
         user = request.user
 
-        if not user.is_authenticated:
+        if not (user.is_authenticated or data.get('email')):
             return JsonResponse({
-                'error': "You must be logged in to view this page",
+                'error': "Please provide your email to send a message",
                 'code': 1
                 }, status=401)
-
+        if data.get('email') and not data.get('name'):
+            return JsonResponse({
+                'error': "Please provide your name to send a message",
+                'code': 2
+                }, status=401)
         if not data.get('message'):
             return JsonResponse({
                 'error': "Please fill in the forms to send a message",
-                'code': 2
+                'code': 3
                 }, status=401)
 
 

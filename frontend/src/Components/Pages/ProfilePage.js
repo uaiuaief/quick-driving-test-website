@@ -9,6 +9,7 @@ import SubInputButton from "../Buttons/SubInputButton"
 import Sidebar from "../Sidebar"
 import ChangePassword from '../Forms/ChangePassword';
 import ChangeEmail from '../Forms/ChangeEmail';
+import loadingGif from '../../assets/loading.gif';
 
 
 class DashBoard extends Component {
@@ -24,7 +25,7 @@ class DashBoard extends Component {
         return (
             parentState.isLoading
                 ?
-                null
+                <img src={loadingGif}/>
                 :
                 <Formik
                     enableReinitialize={true}
@@ -339,7 +340,7 @@ class DashBoard extends Component {
                                     </div>
                                     <BlueButton2
                                         id=""
-                                        text="Save"
+                                        text={props.isSubmitting ? "Saving...": "Save"}
                                         type="submit"
                                         disabled={!props.isValid || !props.dirty}
                                     />
@@ -523,7 +524,7 @@ class Account extends Component {
                                     </div>
                                     <BlueButton2
                                         id=""
-                                        text="Save"
+                                        text={props.isSubmitting ? "Saving...": "Save"}
                                         type="submit"
                                         disabled={!props.isValid || !props.dirty}
                                     />
@@ -540,10 +541,11 @@ class Plan extends Component {
     render() {
         return (
             <div id="account-plan">
-                <h2>Plan I</h2>
-                <h3>$ 49.00</h3>
+                <h2>Plan II</h2>
+                <h3>$ 19.00</h3>
                 <BlueButton2
                     onClick={e => alert("not working yet")}
+                    disabled={true}
                     text="Upgrade"
                     type="button"
                 />
@@ -606,8 +608,8 @@ class Support extends Component {
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                 />
-                                <BlueButton2
-                                    text="Submit"
+                                <BlueButton2                             
+                                    text={props.isSubmitting ? "Submiting...": "Submit"}
                                     type="submit"
                                     disabled={!props.dirty}
                                 />

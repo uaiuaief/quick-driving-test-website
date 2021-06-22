@@ -13,12 +13,12 @@ class StepOne extends Component {
 
     render() {
         const {
-            setFieldValue, addTestCenter, 
-            removeTestCenter, handleChange, handleBlur, 
+            setFieldValue, addTestCenter,
+            removeTestCenter, handleChange, handleBlur,
             values, touched, errors
         } = this.props;
 
-        let { 
+        let {
             driving_licence_number, theory_test_number,
             test_ref, test_after,
             test_before, earliest_time,
@@ -26,17 +26,16 @@ class StepOne extends Component {
             desired_test_center_1,
             desired_test_center_2,
             desired_test_center_3,
-            desired_test_center_4 
+            desired_test_center_4
         } = values;
 
         return (
             <>
                 <h1>Signup it's very quick</h1>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    nisi ut aliquip ex ea commodo consequat.
+                    You can signup to Quick Driving Test entirely from your current device.
+                    You'll just need to know which date you'd like, and have a way to pay
+                    (credit card or debit card).
                 </p>
                 <div className="form-inputs">
                     <div className="form-row form-row-1">
@@ -278,10 +277,8 @@ class StepTwo extends Component {
             <>
                 <h1>One more step...</h1>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                    nisi ut aliquip ex ea commodo consequat.
+                    A few more details, such as where we should send your cancellations, 
+                    and what your information is.
                 </p>
                 <div className="form-inputs">
                     <div className="form-row form-row-1">

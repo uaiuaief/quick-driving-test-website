@@ -25,10 +25,7 @@ class Sidebar extends Component {
                             {/* <img src={dashboardIcon} /> */}
                             <img src={dashboardIcon} />
                         </div>
-                        <div>
-
                         My Dashboard
-                        </div>
                     </div>
                     <div
                         className={highlighted === 'account'

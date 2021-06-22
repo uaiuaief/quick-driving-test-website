@@ -137,7 +137,7 @@ class ChangeEmail extends Component {
                                         type="button"
                                     />
                                     <BlueButton2
-                                        text="Save"
+                                        text={props.isSubmitting ? "Saving...": "Save"}
                                         type="submit"
                                         disabled={!props.isValid || !props.dirty}
                                     />

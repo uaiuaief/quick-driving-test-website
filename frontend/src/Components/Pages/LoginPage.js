@@ -1,29 +1,16 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik'
 import BlueButton2 from "../Buttons/BlueButton2";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 
 class LoginPage extends Component {
+    state = {
+        redirect: false
+    }
     componentDidMount() {
         document.querySelector('body').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-
-    // handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     const URL = "/api/login/"
-
-    //     let res = await fetch(URL, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'X-CSRFToken': window.getCookie('csrftoken')
-    //         },
-    //         body: JSON.stringify(this.state)
-    //     })
-
-    // }
-    // }
 
     render() {
         return (
@@ -50,7 +37,7 @@ class LoginPage extends Component {
                                 })
 
                                 if (String(res.status).slice(0, 1) == 2) {
-                                    window.location.href = '/account'
+                                    window.location = '/account'
                                 }
                                 else if (String(res.status).slice(0, 1) == 4) {
                                     let data = await res.json()

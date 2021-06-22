@@ -150,7 +150,7 @@ class Profile(BaseModel):
             raise ValidationError(errors)
 
     def __str__(self):
-        return f'{self.user} - {self.driving_licence_number} {"- Invalid" if (self.info_validation == "invalid") else ""}'
+        return f'{self.user} - {self.driving_licence_number} - {self.info_validation}'
 
 
 class TestCenter(BaseModel):

@@ -28,8 +28,6 @@ function App() {
         <Route path="/signup" exact component={SignupPage} />
         <Route path="/account" exact component={ProfilePage} />
         <Route path="/" component={PageNotFound} />
-
-
       </Switch>
       <Footer />
     </BrowserRouter>
