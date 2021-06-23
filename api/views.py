@@ -585,7 +585,6 @@ class ProxyCustomerPairView(APIView):
     permission_classes = [permissions.IsAdminUser]
 
     def get(self, request):
-        print(request.data)
         data = self.find_usable_pair()
 
         if not data:
@@ -615,7 +614,8 @@ class ProxyCustomerPairView(APIView):
 
 
     def find_usable_user(self):
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
+        minutes = settings.USER_CRAWL_INTERVAL
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=minutes)
         profile = models.Profile.objects.filter(
                 last_crawled__lte=time_limit,
                 info_validation='valid').order_by('last_crawled').first()
@@ -626,12 +626,54 @@ class ProxyCustomerPairView(APIView):
             return None
 
     def find_usable_proxy(self):
+        minutes = settings.PROXY_CRAWL_INTERVAL
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=minutes)
+        usable_proxy = models.Proxy.objects.order_by('last_used').filter(
+                last_used__lte=time_limit,
+                is_banned=False).first()
+
+        return usable_proxy
+
+
+class GetValidProxyView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request):
+        proxy = self.find_usable_proxy()
+        proxy.last_used = datetime.datetime.now()
+        proxy.save()
+
+        if not proxy:
+            return JsonResponse({
+                'error': 'There are no proxies available'
+                }, status=204)
+        else:
+            return JsonResponse({
+                'proxy': serializers.ProxySerializer(proxy).data
+                }, status=200)
+
+    def find_usable_proxy(self):
         time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
         usable_proxy = models.Proxy.objects.order_by('last_used').filter(
                 last_used__lte=time_limit,
                 is_banned=False).first()
 
         return usable_proxy
+
+
+class UncheckedCustomersView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request):
+        profiles = models.Profile.objects.filter(info_validation='unchecked').all()
+        users = [serializers.UserSerializer(profile.user).data for profile in profiles]
+
+        if not users:
+            return JsonResponse({
+                'error': 'There are no unchecked customers'
+                }, status=204)
+        else:
+            return JsonResponse({'customers': users}, status=200)
 
 
 class UserInfoValidationView(APIView):

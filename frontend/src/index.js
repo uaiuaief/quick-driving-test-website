@@ -71,7 +71,8 @@ window.fetchUserProfile = async () => {
   return data;
 }
 
-window.stripePromise = loadStripe("pk_test_51J2l6tB7wZYk7wVwRyHPLYOqKIqSrwmJzlnxZDrQgIWMwkuahlMZKhus4mNAUJT4ZwiZ6hCrJNsIIMzBZGlcVLtj00nCUlq5eI")
+// window.stripePromise = loadStripe("pk_test_51J2l6tB7wZYk7wVwRyHPLYOqKIqSrwmJzlnxZDrQgIWMwkuahlMZKhus4mNAUJT4ZwiZ6hCrJNsIIMzBZGlcVLtj00nCUlq5eI")
+window.stripePromise = loadStripe("pk_test_85ZCj0BL04HCxx9dtE0ZAddN")
 // window.fetchUserProfile();
 
 ReactDOM.render(
