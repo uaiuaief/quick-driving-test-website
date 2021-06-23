@@ -8,11 +8,11 @@ class PaymentSuccessPage extends Component {
     }
 
     componentDidMount(){
-        // setTimeout(() => {
-        //     this.setState({
-        //         redirect: true
-        //     })
-        // }, 3000);
+        setTimeout(() => {
+            this.setState({
+                redirect: true
+            })
+        }, 3000);
     }
 
     render() {
