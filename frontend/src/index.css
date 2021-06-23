@@ -805,6 +805,13 @@ a {
   color: var(--dark-text-1);
 }
 
+#contact-us-success {
+  font-family: 'Catamaran', sans-serif;
+  font-weight: 400;
+  font-size: var(--md-2);
+  color: var(--primary-color);
+}
+
 #contact-form .inner-container{
   background-color: var(--dark-color-1);
   border-radius: 15px;
@@ -1098,6 +1105,29 @@ footer .footer-column li {
   /* display: block; */
 }
 /* END PASSWORD RESET EMAIL SENT PAGE */
+/*--------------------*/
+
+
+
+/* PAYMENT SUCCESS PAGE */
+#payment-success-page {
+  padding-top: 63px;
+  text-align: center;
+  height: 940px;
+}
+
+#payment-success-page .inner-container {
+  margin-top: 280px;
+}
+
+#payment-success-page h1 {
+  font-family: 'Catamaran' sans-serif;
+  font-weight: 600;
+  font-size: var(--lg-2);
+  line-height: 59px;
+  margin-top: 1rem;
+}
+/* END PAYMENT SUCCESS PAGE */
 /*--------------------*/
 
 
@@ -2270,6 +2300,22 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
   /*--------------------*/
 
 
+  /* PAYMENT SUCCESS PAGE */
+  #payment-success-page {
+    height: 540px;
+  }
+
+  #payment-success-page .inner-container {
+    margin-top: 120px;
+  }
+
+  #payment-success-page h1 {
+    font-size: var(--sm-2);
+    line-height: 59px;
+    margin-top: .5rem;
+  }
+  /* END PAYMENT SUCCESS PAGE */
+  /*--------------------*/
 
   
   /* SIGN UP PAGE */

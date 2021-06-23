@@ -10,6 +10,7 @@ import PasswordResetEmailSentPage from './Components/Pages/PasswordResetEmailSen
 import SignupPage from './Components/Pages/SignupPage';
 import ProfilePage from './Components/Pages/ProfilePage';
 import PageNotFound from './Components/Pages/PageNotFound';
+import PaymentSuccessPage from './Components/Pages/PaymentSuccessPage';
 import Stripe from 'stripe';
 // import { loadStripe } from "@stripe/stripe-js";
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/password-reset-email-sent" exact component={PasswordResetEmailSentPage} />
         <Route path="/signup" exact component={SignupPage} />
         <Route path="/account" exact component={ProfilePage} />
+        <Route path="/success" exact component={PaymentSuccessPage} />
         <Route path="/" component={PageNotFound} />
       </Switch>
       <Footer />

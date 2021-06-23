@@ -85,7 +85,7 @@ class LoginPage extends Component {
                                                 id="keep-me-logged-in"
                                                 type="checkbox"
                                             />
-                                            <label for="keep-me-logged-in">Keep me logged in</label>
+                                            <label htmlFor="keep-me-logged-in">Keep me logged in</label>
                                         </div>
                                         <Link to="/password-reset">Forgot password?</Link>
                                     </div>
