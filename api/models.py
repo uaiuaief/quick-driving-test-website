@@ -76,10 +76,7 @@ class Profile(BaseModel):
             #validators=[MinLengthValidator(16)]
     )
 
-    test_ref = models.CharField(
-            max_length=8,
-            validators=[MinLengthValidator(8)]
-    )
+    test_ref = models.CharField(max_length=30)
 
     theory_test_number = models.CharField(
             null=True,

@@ -181,7 +181,7 @@ class GetUserView(APIView):
 
 
 class UserProfileView(APIView, UserCreationMixin):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
     def get(self, request):
         if not request.user.is_authenticated:
             return JsonResponse({
@@ -446,8 +446,8 @@ class SignupView(APIView, UserCreationMixin):
                         }
                     ],
                     mode='payment',
-                    success_url="http://localhost:3000/",
-                    cancel_url="http://localhost:3000/",
+                    success_url="http://localhost:3000/success",
+                    cancel_url="http://localhost:3000/signup",
                     metadata=request.data
             )
             return JsonResponse({'id': checkout_session.id})
@@ -492,7 +492,15 @@ class StripeWebhookView(APIView, UserCreationMixin):
 
     def fulfill_order(self, session):
         data = self._translate_request_data(session.get('metadata'))
+        email = data.get('email')
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        
+        full_name = f"{first_name} {last_name}"
+        email_sender.welcome_email(email, full_name)
+
         self._create_user(data)
+
 
 
 class RecoverPasswordView(APIView):
@@ -625,6 +633,7 @@ class ProxyCustomerPairView(APIView):
 
         return usable_proxy
 
+
 class UserInfoValidationView(APIView):
     permission_classes = [permissions.IsAdminUser]
 
@@ -690,6 +699,7 @@ class BanProxyView(APIView):
                 }, status=400)
         
         return None
+
 
 class TestFoundView(APIView):
     permission_classes = [permissions.IsAdminUser]

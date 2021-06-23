@@ -73,5 +73,10 @@ def test_found_email(receiver, user_name, test_time, test_date, test_center):
         'test_center': test_center,
     })
 
-
+def welcome_email(receiver, user_name):
+    subject = f"Welcome {user_name}"
+    send_email(subject, receiver, 'welcome_email.html', {
+        'header': f"Welcome {user_name}",
+        'link': "http://localhost:3000/account"
+    })
 

@@ -1549,7 +1549,7 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
     font-family: 'Catamaran', sans-serif;
     font-weight: 400;
     background-color: var(--dark-color-1);
-    color: var(--light-text);
+    color: var(--primary-color);
     border: none;
     border-radius: 11px;
     padding: .34rem 2.2rem;
@@ -1737,7 +1737,7 @@ filter: invert(31%) sepia(59%) saturate(738%) hue-rotate(0deg) brightness(105%) 
   #mobile-menu-icon-wrapper {
     display: block;
     margin-top: 0.0rem;
-    margin-right: 1.0rem;
+    margin-right: 0.5rem;
   }
 
   #mobile-menu-icon {
