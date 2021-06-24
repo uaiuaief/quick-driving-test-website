@@ -177,6 +177,8 @@ STRIPE_SK = os.environ.get('STRIPE_SK')
 ENDPOINT_SECRET = os.environ.get('ENDPOINT_SECRET')
 EMAIL = os.environ.get('EMAIL')
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+DOMAIN_NAME = os.environ.get('DOMAIN_NAME')
+
 USER_CRAWL_INTERVAL = int(os.environ.get('USER_CRAWL_INTERVAL'))
 PROXY_CRAWL_INTERVAL = int(os.environ.get('PROXY_CRAWL_INTERVAL'))
 
