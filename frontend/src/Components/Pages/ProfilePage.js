@@ -25,7 +25,7 @@ class DashBoard extends Component {
         return (
             parentState.isLoading
                 ?
-                <img src={loadingGif}/>
+                <img src={loadingGif} />
                 :
                 <Formik
                     enableReinitialize={true}
@@ -342,7 +342,7 @@ class DashBoard extends Component {
                                     </div>
                                     <BlueButton2
                                         id=""
-                                        text={props.isSubmitting ? "Saving...": "Save"}
+                                        text={props.isSubmitting ? "Saving..." : "Save"}
                                         type="submit"
                                         disabled={!props.isValid || !props.dirty}
                                     />
@@ -529,7 +529,7 @@ class Account extends Component {
                                     </div>
                                     <BlueButton2
                                         id=""
-                                        text={props.isSubmitting ? "Saving...": "Save"}
+                                        text={props.isSubmitting ? "Saving..." : "Save"}
                                         type="submit"
                                         disabled={!props.isValid || !props.dirty}
                                     />
@@ -566,10 +566,7 @@ class Support extends Component {
         return (
             <div id="support-menu">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna  Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit, sed do eiusmod tempor incididunt ut.
+                    Please fill out the form and we will be in touch with lightning speed
                 </p>
                 <Formik
                     initialValues={{
@@ -609,8 +606,8 @@ class Support extends Component {
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                 />
-                                <BlueButton2                             
-                                    text={props.isSubmitting ? "Submitting...": "Submit"}
+                                <BlueButton2
+                                    text={props.isSubmitting ? "Submitting..." : "Submit"}
                                     type="submit"
                                     disabled={!props.dirty || props.isSubmitting}
                                 />
