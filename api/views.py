@@ -448,7 +448,7 @@ class SignupView(APIView, UserCreationMixin):
                     ],
                     mode='payment',
                     success_url=f'{settings.DOMAIN_NAME}/success',
-                    cancel_url="{settings.DOMAIN_NAME}/signup",
+                    cancel_url=f"{settings.DOMAIN_NAME}/signup",
                     metadata=request.data
             )
             return JsonResponse({'id': checkout_session.id})
