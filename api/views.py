@@ -66,6 +66,8 @@ class UserCreationMixin():
                 continue
             elif k == 'confirm_password':
                 continue
+            elif k == 'recent_failure':
+                translated_data['recent_test_failure'] = data[k]
             elif k == 'phone_number':
                 translated_data['mobile_number'] = data[k]
             elif k == 'test_after':

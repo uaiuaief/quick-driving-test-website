@@ -81,7 +81,7 @@ class Profile(BaseModel):
     theory_test_number = models.CharField(
             null=True,
             blank=True,
-            max_length=16, 
+            max_length=30, 
     )
     
     test_centers = models.ManyToManyField('TestCenter', blank=True)
