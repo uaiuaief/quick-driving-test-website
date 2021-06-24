@@ -636,14 +636,14 @@ class GetValidProxyView(APIView):
 
     def get(self, request):
         proxy = self.find_usable_proxy()
-        proxy.last_used = datetime.datetime.now()
-        proxy.save()
 
         if not proxy:
             return JsonResponse({
                 'error': 'There are no proxies available'
                 }, status=204)
         else:
+            proxy.last_used = datetime.datetime.now()
+            proxy.save()
             return JsonResponse({
                 'proxy': serializers.ProxySerializer(proxy).data
                 }, status=200)
