@@ -94,6 +94,7 @@ class NewPasswordPage extends Component {
                                             type="password"
                                             id="new-password-field"
                                             minLength="8"
+                                            maxLength="150"
                                             onChange={props.handleChange}
                                             onBlur={props.handleBlur}
                                         />
@@ -106,6 +107,7 @@ class NewPasswordPage extends Component {
                                             type="password"
                                             id="confirm-new-password-field"
                                             minLength="8"
+                                            maxLength="150"
                                             onChange={props.handleChange}
                                             onBlur={props.handleBlur}
                                         />

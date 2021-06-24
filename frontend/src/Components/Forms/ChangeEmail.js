@@ -88,6 +88,7 @@ class ChangeEmail extends Component {
                                             id="new_email"
                                             name="new_email"
                                             type="email"
+                                            maxLength="150"
                                             value={props.values.new_email}
                                             onChange={props.handleChange}
                                             onBlur={props.handleBlur}
@@ -102,7 +103,8 @@ class ChangeEmail extends Component {
                                         <input
                                             id="confirm_email"
                                             name="confirm_email"
-                                            type="email"
+                                            type="email" 
+                                            maxLength="150"
                                             value={props.values.confirm_email}
                                             onChange={props.handleChange}
                                             onBlur={props.handleBlur}

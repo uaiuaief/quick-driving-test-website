@@ -80,7 +80,8 @@ class ChangePassword extends Component {
                                         <input
                                             id="current_password"
                                             name="current_password"
-                                            type="password"
+                                            type="password"                                            
+                                            maxLength="150"
                                             value={props.values.current_password}
                                             onChange={props.handleChange}
                                             onBlur={props.handleBlur}
@@ -96,6 +97,7 @@ class ChangePassword extends Component {
                                             id="new_password"
                                             name="new_password"
                                             type="password"
+                                            maxLength="150"
                                             value={props.values.new_password}
                                             onChange={props.handleChange}
                                             onBlur={props.handleBlur}
@@ -111,6 +113,7 @@ class ChangePassword extends Component {
                                             id="confirm_new_password"
                                             name="confirm_new_password"
                                             type="password"
+                                            maxLength="150"
                                             value={props.values.confirm_new_password}
                                             onChange={props.handleChange}
                                             onBlur={props.handleBlur}
