@@ -446,8 +446,8 @@ class SignupView(APIView, UserCreationMixin):
                         }
                     ],
                     mode='payment',
-                    success_url="http://localhost:3000/success",
-                    cancel_url="http://localhost:3000/signup",
+                    success_url=f'{settings.DOMAIN_NAME}/success',
+                    cancel_url="{settings.DOMAIN_NAME}/signup",
                     metadata=request.data
             )
             return JsonResponse({'id': checkout_session.id})
@@ -519,17 +519,12 @@ class RecoverPasswordView(APIView):
                 'error':'There is no user with that email'
                 }, status=404)
 
-        #send_email(
-        #        to=request.data['email'],
-        #        subject="Password Recovery",
-        #        body=f"http://localhost:3000/choose-new-password?token={token_hash}"
-        #        )
 
         user = models.User.objects.get(email=request.data['email'])
         email_sender.send_password_recovery_email(
                 'receiver',
                 user.profile.first_name,
-                f'http://localhost:3000/choose-new-password?token={token_hash}'
+                f'{settings.DOMAIN_NAME}/choose-new-password?token={token_hash}'
                 )
 
         return JsonResponse({'msg':'success'}, status=200)

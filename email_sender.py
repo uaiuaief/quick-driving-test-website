@@ -59,7 +59,7 @@ def profile_update_required_email(receiver, user_name):
     send_email(subject, receiver, 'profile_update_required.html', {
         'header': "Please Update your profile!",
         'name': user_name,
-        'link': "http://localhost:3000/account"
+        'link': f"{settings.DOMAIN_NAME}/account"
     })
 
 def test_found_email(receiver, user_name, test_time, test_date, test_center):
@@ -77,6 +77,6 @@ def welcome_email(receiver, user_name):
     subject = f"Welcome {user_name}"
     send_email(subject, receiver, 'welcome_email.html', {
         'header': f"Welcome {user_name}",
-        'link': "http://localhost:3000/account"
+        'link': f"{settings.DOMAIN_NAME}/account"
     })
 
