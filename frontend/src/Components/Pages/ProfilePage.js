@@ -25,7 +25,7 @@ class DashBoard extends Component {
         return (
             parentState.isLoading
                 ?
-                <img src={loadingGif}/>
+                <img src={loadingGif} />
                 :
                 <Formik
                     enableReinitialize={true}
@@ -143,6 +143,7 @@ class DashBoard extends Component {
                                                 id="theory_test_number"
                                                 name="theory_test_number"
                                                 type="text"
+                                                maxLength="30"
                                                 value={props.values.theory_test_number}
                                                 onChange={props.handleChange}
                                                 onBlur={props.handleBlur}
@@ -158,6 +159,7 @@ class DashBoard extends Component {
                                                 id="test_ref"
                                                 name="test_ref"
                                                 type="text"
+                                                maxLength="30"
                                                 value={props.values.test_ref}
                                                 onChange={props.handleChange}
                                                 onBlur={props.handleBlur}
@@ -340,7 +342,7 @@ class DashBoard extends Component {
                                     </div>
                                     <BlueButton2
                                         id=""
-                                        text={props.isSubmitting ? "Saving...": "Save"}
+                                        text={props.isSubmitting ? "Saving..." : "Save"}
                                         type="submit"
                                         disabled={!props.isValid || !props.dirty}
                                     />
@@ -421,8 +423,8 @@ class Account extends Component {
                             if (!/^[0-9]+$/i.test(values.phone_number)) {
                                 errors.phone_number = 'Phone number can only have numbers';
                             }
-                            else if (values.phone_number.length !== 10) {
-                                errors.phone_number = 'Must have exactly 10 digits';
+                            else if (values.phone_number.length !== 11) {
+                                errors.phone_number = 'Must have exactly 11 digits';
                             }
                         }
 
@@ -440,6 +442,7 @@ class Account extends Component {
                                                 id="first_name"
                                                 name="first_name"
                                                 type="text"
+                                                maxLength="30"
                                                 value={props.values.first_name}
                                                 onChange={props.handleChange}
                                                 onBlur={props.handleBlur}
@@ -453,6 +456,7 @@ class Account extends Component {
                                                 id="last_name"
                                                 name="last_name"
                                                 type="text"
+                                                maxLength="30"
                                                 value={props.values.last_name}
                                                 onChange={props.handleChange}
                                                 onBlur={props.handleBlur}
@@ -468,8 +472,9 @@ class Account extends Component {
                                             <input
                                                 id="phone_number"
                                                 name="phone_number"
+                                                maxLength="11"
                                                 type=""
-                                                placeholder="Eg: 7912345678"
+                                                placeholder="Eg: 79123456789"
                                                 value={props.values.phone_number}
                                                 onChange={props.handleChange}
                                                 onBlur={props.handleBlur}
@@ -524,7 +529,7 @@ class Account extends Component {
                                     </div>
                                     <BlueButton2
                                         id=""
-                                        text={props.isSubmitting ? "Saving...": "Save"}
+                                        text={props.isSubmitting ? "Saving..." : "Save"}
                                         type="submit"
                                         disabled={!props.isValid || !props.dirty}
                                     />
@@ -561,10 +566,7 @@ class Support extends Component {
         return (
             <div id="support-menu">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing
-                    elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna  Lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit, sed do eiusmod tempor incididunt ut.
+                    Please fill out the form and we will be in touch with lightning speed
                 </p>
                 <Formik
                     initialValues={{
@@ -604,8 +606,8 @@ class Support extends Component {
                                     onChange={props.handleChange}
                                     onBlur={props.handleBlur}
                                 />
-                                <BlueButton2                             
-                                    text={props.isSubmitting ? "Submitting...": "Submit"}
+                                <BlueButton2
+                                    text={props.isSubmitting ? "Submitting..." : "Submit"}
                                     type="submit"
                                     disabled={!props.dirty || props.isSubmitting}
                                 />

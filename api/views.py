@@ -67,6 +67,8 @@ class UserCreationMixin():
                 continue
             elif k == 'confirm_password':
                 continue
+            elif k == 'recent_failure':
+                translated_data['recent_test_failure'] = data[k]
             elif k == 'phone_number':
                 translated_data['mobile_number'] = data[k]
             elif k == 'test_after':
@@ -505,7 +507,7 @@ class StripeWebhookView(APIView, UserCreationMixin):
 
 
 class RecoverPasswordView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         if not request.data.get('email'):

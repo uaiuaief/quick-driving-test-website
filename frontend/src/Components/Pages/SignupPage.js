@@ -47,6 +47,7 @@ class StepOne extends Component {
                                 name="driving_licence_number"
                                 type="text"
                                 value={driving_licence_number}
+                                maxLength="30"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             >
@@ -59,6 +60,7 @@ class StepOne extends Component {
                                 id="theory_test_number"
                                 name="theory_test_number"
                                 type="text"
+                                maxLength="30"
                                 value={theory_test_number}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -75,6 +77,7 @@ class StepOne extends Component {
                                 id="test_ref"
                                 name="test_ref"
                                 type="text"
+                                maxLength="30"
                                 value={test_ref}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -288,6 +291,7 @@ class StepTwo extends Component {
                                 required
                                 id="first_name"
                                 name="first_name"
+                                maxLength="30"
                                 type="text"
                                 value={first_name}
                                 onChange={handleChange}
@@ -302,6 +306,7 @@ class StepTwo extends Component {
                                 required
                                 id="last_name"
                                 name="last_name"
+                                maxLength="30"
                                 type="text"
                                 value={last_name}
                                 onChange={handleChange}
@@ -318,6 +323,7 @@ class StepTwo extends Component {
                                 required
                                 id="email"
                                 name="email"
+                                maxLength="150"
                                 type="email"
                                 value={email}
                                 onChange={handleChange}
@@ -332,6 +338,7 @@ class StepTwo extends Component {
                                 id="mobile_number"
                                 name="mobile_number"
                                 type=""
+                                maxLength="11"
                                 placeholder="Eg: 7912345678"
                                 value={mobile_number}
                                 onChange={handleChange}
@@ -348,6 +355,7 @@ class StepTwo extends Component {
                                 required
                                 id="password"
                                 name="password"
+                                maxLength="150"
                                 type="password"
                                 value={password}
                                 onChange={handleChange}
@@ -364,6 +372,7 @@ class StepTwo extends Component {
                                 required
                                 id="confirm_password"
                                 name="confirm_password"
+                                maxLength="150"
                                 type="password"
                                 value={confirm_password}
                                 onChange={handleChange}
@@ -534,8 +543,8 @@ class TestForm extends Component {
             if (!/^[0-9]+$/i.test(values.mobile_number)) {
                 errors.mobile_number = 'Phone number can only have numbers';
             }
-            else if (values.mobile_number.length !== 10) {
-                errors.mobile_number = 'Must have exactly 10 digits';
+            else if (values.mobile_number.length !== 11) {
+                errors.mobile_number = 'Must have exactly 11 digits';
             }
         }
 
