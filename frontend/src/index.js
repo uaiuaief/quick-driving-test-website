@@ -72,7 +72,7 @@ window.fetchUserProfile = async () => {
 }
 
 // window.stripePromise = loadStripe("pk_test_51J2l6tB7wZYk7wVwRyHPLYOqKIqSrwmJzlnxZDrQgIWMwkuahlMZKhus4mNAUJT4ZwiZ6hCrJNsIIMzBZGlcVLtj00nCUlq5eI")
-window.stripePromise = loadStripe("pk_test_85ZCj0BL04HCxx9dtE0ZAddN")
+window.stripePromise = loadStripe("pk_live_isCL9o6X1nZrSNYng1bhR4uG")
 // window.fetchUserProfile();
 
 ReactDOM.render(
