@@ -3,6 +3,7 @@ import datetime
 import stripe
 import os
 from django.utils.crypto import get_random_string
+from django.utils.decorators import method_decorator
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout

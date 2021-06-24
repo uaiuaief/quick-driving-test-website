@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-n0nwg)wmkw^j@sls$4h(f@hxluijq34l95guvt15tj)ktfk$a9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,21 +88,21 @@ DATABASES = {
     'default': {
         # DEVELOPMENT
 
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': BASE_DIR / 'db.sqlite3',
     
         # PRODUCTION
 
-        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        #'NAME':os.environ.get('DB_NAME'),
-        #'USER': os.environ.get('DB_USER'),
-        #'PASSWORD': os.environ.get('DB_PASSWORD'),
-        #'HOST': os.environ.get('DB_HOST'),
-        #'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': '5432',
 
-        #'DATABASE_OPTIONS': {
-        #    'connect_timeout': 5.
-        #}
+        'DATABASE_OPTIONS': {
+            'connect_timeout': 5.
+        }
     }
 }
 
@@ -144,6 +144,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'frontend/build/static'),
