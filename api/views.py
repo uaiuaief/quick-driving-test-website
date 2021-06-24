@@ -506,7 +506,7 @@ class StripeWebhookView(APIView, UserCreationMixin):
 
 
 class RecoverPasswordView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         if not request.data.get('email'):
