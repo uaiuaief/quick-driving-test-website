@@ -19,7 +19,7 @@ class PaymentSuccessPage extends Component {
         return (
             this.state.redirect
             ?
-            <Redirect to="login"/>
+            <Redirect to="/login"/>
             :
             <section id="payment-success-page">
                 <div className="inner-container">
