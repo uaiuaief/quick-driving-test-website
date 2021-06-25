@@ -616,6 +616,7 @@ class ProxyCustomerPairView(APIView):
         minutes = settings.USER_CRAWL_INTERVAL
         time_limit = timezone.now() - datetime.timedelta(minutes=minutes)
         profile = models.Profile.objects.filter(
+                test_booked=False,
                 last_crawled__lte=time_limit,
                 info_validation='valid').order_by('last_crawled').first()
 
@@ -782,6 +783,9 @@ class TestFoundView(APIView):
                 request.data['test_date'],
                 test_center.name
         )
+
+        user.profile.test_booked = True
+        user.profile.save()
 
         return JsonResponse({}, status=200)
 

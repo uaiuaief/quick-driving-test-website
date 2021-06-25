@@ -109,6 +109,8 @@ class Profile(BaseModel):
             default='unchecked'
     )
 
+    test_booked = models.BooleanField(default=False)
+
     first_name = models.CharField(
             max_length=30, 
             validators=[MinLengthValidator(1)]
