@@ -4,6 +4,7 @@ import stripe
 import os
 from django.utils.crypto import get_random_string
 from django.utils.decorators import method_decorator
+from django.utils import timezone
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login, logout
@@ -597,8 +598,8 @@ class ProxyCustomerPairView(APIView):
         proxy = self.find_usable_proxy()
 
         if user and proxy:
-            user.profile.last_crawled = datetime.datetime.now()
-            proxy.last_used = datetime.datetime.now()
+            user.profile.last_crawled = timezone.now()
+            proxy.last_used = timezone.now()
 
             user.profile.save()
             proxy.save()
@@ -613,7 +614,7 @@ class ProxyCustomerPairView(APIView):
 
     def find_usable_user(self):
         minutes = settings.USER_CRAWL_INTERVAL
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=minutes)
+        time_limit = timezone.now() - datetime.timedelta(minutes=minutes)
         profile = models.Profile.objects.filter(
                 last_crawled__lte=time_limit,
                 info_validation='valid').order_by('last_crawled').first()
@@ -644,14 +645,15 @@ class GetValidProxyView(APIView):
                 'error': 'There are no proxies available'
                 }, status=204)
         else:
-            proxy.last_used = datetime.datetime.now()
+            proxy.last_used = timezone.now()
             proxy.save()
             return JsonResponse({
                 'proxy': serializers.ProxySerializer(proxy).data
                 }, status=200)
 
     def find_usable_proxy(self):
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=1)
+        minutes = settings.PROXY_CRAWL_INTERVAL
+        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=minutes)
         usable_proxy = models.Proxy.objects.order_by('last_used').filter(
                 last_used__lte=time_limit,
                 is_banned=False).first()
