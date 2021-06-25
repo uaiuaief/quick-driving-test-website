@@ -438,8 +438,8 @@ class SignupView(APIView, UserCreationMixin):
                     line_items=[
                         {
                             'price_data': {
-                                'currency': 'usd',
-                                'unit_amount': 3000,
+                                'currency': 'gbp',
+                                'unit_amount': 2000,
                                 'product_data': {
                                     'name': 'Plan I'
                                 },
