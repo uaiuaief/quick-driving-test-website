@@ -96,7 +96,7 @@ class Profile(BaseModel):
     latest_time = models.TimeField(
             blank=True, default=datetime.datetime.strptime("18:00", "%H:%M"))
 
-    last_crawled = models.DateTimeField(blank=True, default=datetime.datetime.now)
+    last_crawled = models.DateTimeField(blank=True, default=timezone.now)
     automatic_booking = models.BooleanField(default=False)
 
     info_validation = models.CharField(
@@ -184,7 +184,7 @@ class AvailableTime(BaseModel):
 
 class Proxy(BaseModel):
     ip = models.CharField(max_length=80, unique=True)
-    last_used = models.DateTimeField(default=datetime.datetime.now)
+    last_used = models.DateTimeField(default=timezone.now)
     is_banned = models.BooleanField(default=False)
 
     def __str__(self):
