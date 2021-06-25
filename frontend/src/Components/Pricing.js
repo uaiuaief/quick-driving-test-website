@@ -25,7 +25,7 @@ class Pricing extends Component {
                         <PricingCard
                             className="recommended"
                             title="Plan II"
-                            price="£ 19.00"
+                            price="£ 20.00"
                             features={[
                                 'Unlimited notifications',
                                 'Money back guarantee',
