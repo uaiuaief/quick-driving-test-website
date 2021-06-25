@@ -25,16 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-n0nwg)wmkw^j@sls$4h(f@hxluijq34l95guvt15tj)ktfk$a9'
-SECRET_KEY = os.environ.get('DJANGO_SK')
+SECRET_KEY = 'django-insecure-n0nwg)wmkw^j@sls$4h(f@hxluijq34l95guvt15tj)ktfk$a9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.quickdrivingtest.co.uk']
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT= True
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -148,7 +144,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'frontend/build/static'),
@@ -186,4 +181,3 @@ DOMAIN_NAME = os.environ.get('DOMAIN_NAME')
 USER_CRAWL_INTERVAL = int(os.environ.get('USER_CRAWL_INTERVAL'))
 PROXY_CRAWL_INTERVAL = int(os.environ.get('PROXY_CRAWL_INTERVAL'))
 
-ALI_EMAIL = os.environ.get('ALI_EMAIL')

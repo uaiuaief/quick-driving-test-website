@@ -765,8 +765,18 @@ class TestFoundView(APIView):
                 'error': f'test center with id {request.data["test_center_id"]} does not exist'
             }, status=404)
 
+        """ Email for customer """
         email_sender.test_found_email(
                 user.email,
+                user.profile.get_full_name(),
+                request.data['test_time'],
+                request.data['test_date'],
+                test_center.name
+        )
+
+        """ Email for Ali Omar """
+        email_sender.test_found_email(
+                settings.ALI_EMAIL,
                 user.profile.get_full_name(),
                 request.data['test_time'],
                 request.data['test_date'],
