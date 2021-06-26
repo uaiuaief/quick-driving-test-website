@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('DJANGO_SK')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['www.quickdrivingtest.co.uk']
+ALLOWED_HOSTS = ['www.quickdrivingtest.co.uk', 'localhost']
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT= True

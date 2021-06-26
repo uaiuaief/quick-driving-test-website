@@ -696,6 +696,9 @@ class UserInfoValidationView(APIView):
         profile.info_validation = request.data['info_validation']
         profile.save()
 
+        if request.data['info_validation'] == 'invalid':
+            email_sender.profile_update_required_email(user.email, profile.get_full_name())
+
         return JsonResponse({}, status=200)
 
     def _get_request_errors(self, request):
@@ -806,4 +809,14 @@ class TestFoundView(APIView):
             return JsonResponse({
                 'error': 'Must provide `test_date`'
                 }, status=400)
+
+
+
+""" TEST VIEWS """
+class ViewForTesting(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def get(self, request):
+        email_sender.test()
+        return HttpResponse(status=200)
 
