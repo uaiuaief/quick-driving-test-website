@@ -600,6 +600,7 @@ class ProxyCustomerPairView(APIView):
         if user and proxy:
             user.profile.last_crawled = timezone.now()
             proxy.last_used = timezone.now()
+            proxy.use_count = proxy.use_count + 1
 
             user.profile.save()
             proxy.save()
@@ -647,6 +648,7 @@ class GetValidProxyView(APIView):
                 }, status=204)
         else:
             proxy.last_used = timezone.now()
+            proxy.use_count = proxy.use_count + 1
             proxy.save()
             return JsonResponse({
                 'proxy': serializers.ProxySerializer(proxy).data
