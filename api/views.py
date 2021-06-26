@@ -820,6 +820,9 @@ class ViewForTesting(APIView):
     permission_classes = [permissions.IsAdminUser]
 
     def get(self, request):
-        email_sender.test()
+        user = models.User.objects.get(id=63)
+        email_sender.profile_update_required_email(user.email, user.profile.get_full_name())
+        email_sender.profile_update_required_email(settings.ALI_EMAIL, user.profile.get_full_name())
+        #email_sender.test()
         return HttpResponse(status=200)
 

@@ -181,3 +181,5 @@ DOMAIN_NAME = os.environ.get('DOMAIN_NAME')
 USER_CRAWL_INTERVAL = int(os.environ.get('USER_CRAWL_INTERVAL'))
 PROXY_CRAWL_INTERVAL = int(os.environ.get('PROXY_CRAWL_INTERVAL'))
 
+ALI_EMAIL = os.environ.get('ALI_EMAIL')
+

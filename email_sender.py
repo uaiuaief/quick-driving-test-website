@@ -63,7 +63,7 @@ def profile_update_required_email(receiver, user_name):
     send_email(subject, receiver, 'profile_update_required.html', {
         'header': "Please update your profile",
         'name': user_name,
-        'link': '{settings.DOMAIN_NAME}/account'
+        'link': f'{settings.DOMAIN_NAME}/account'
     })
 
 
