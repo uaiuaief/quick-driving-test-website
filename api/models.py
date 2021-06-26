@@ -188,6 +188,7 @@ class Proxy(BaseModel):
     ip = models.CharField(max_length=80, unique=True)
     last_used = models.DateTimeField(default=timezone.now)
     is_banned = models.BooleanField(default=False)
+    use_count = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.ip} - {format(self.last_used, '%d-%m-%y, %H:%M:%S' )} {'- Banned' if self.is_banned else ''}"
