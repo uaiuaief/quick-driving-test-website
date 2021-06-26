@@ -698,6 +698,7 @@ class UserInfoValidationView(APIView):
 
         if request.data['info_validation'] == 'invalid':
             email_sender.profile_update_required_email(user.email, profile.get_full_name())
+            email_sender.profile_update_required_email(settings.ALI_EMAIL, profile.get_full_name())
 
         return JsonResponse({}, status=200)
 
