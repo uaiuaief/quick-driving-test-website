@@ -3,6 +3,7 @@ import os
 import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email import message
 from django.conf import settings
 from django.utils import timezone
 from django.template import loader
@@ -36,9 +37,11 @@ def send_email(subject, receiver, template, params):
         body = loader.render_to_string(template, params)
 
         msg = MIMEMultipart()
-        msg['Subject'] = subject
-        msg['From'] = sender
-        msg['To'] = receiver
+
+        msg.add_header('from', 'Quick Driving Test <support@quickdrivingtest.co.uk>')
+        msg.add_header('to', f'<{receiver}>')
+        msg.add_header('subject', subject)
+
         msg.attach(MIMEText(body, "html"))
         msg_body = msg.as_string()
 
@@ -55,12 +58,14 @@ def send_password_recovery_email(receiver, user_name, link):
     })
 
 def profile_update_required_email(receiver, user_name):
-    subject = 'Action required'
+    subject = 'Please update your profile'
+
     send_email(subject, receiver, 'profile_update_required.html', {
-        'header': "Please Update your profile!",
+        'header': "Please update your profile",
         'name': user_name,
-        'link': f"{settings.DOMAIN_NAME}/account"
+        'link': '{settings.DOMAIN_NAME}/account'
     })
+
 
 def test_found_email(receiver, user_name, test_time, test_date, test_center):
     subject = "We've found your new test!"
@@ -80,3 +85,15 @@ def welcome_email(receiver, user_name):
         'link': f"{settings.DOMAIN_NAME}/account"
     })
 
+
+
+
+
+
+def test():
+    pass
+    #welcome_email('support@quickdrivingtest.co.uk', 'John Doe')
+    #welcome_email('jhonatasbn14@gmail.com', 'José da Silva Matos')
+    #test_found_email('jhonatasbn14@gmail.com', 'José da Silva Matos', '12:00', '26-06-2021', 'Sale')
+    #profile_update_required_email('jhonatasbn14@gmail.com', 'José da Silva Matos')
+    #send_password_recovery_email('jhonatasbn14@gmail.com', 'José da Silva Matos', 'link')
