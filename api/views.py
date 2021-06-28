@@ -814,6 +814,42 @@ class TestFoundView(APIView):
                 }, status=400)
 
 
+class SetCurrentTestDateView(APIView):
+    #permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        pprint(request.data)
+        error = self._get_request_errors(request)
+        if error:
+            return error
+
+        try:
+            user = models.User.objects.get(id=request.data['user_id'])
+        except models.User.DoesNotExist:
+            return JsonResponse({
+                'error': f'user with id {request.data["user_id"]} does not exist'
+            }, status=404)
+
+        #Format = dd-mm-YYYY HH:MM
+        datetime_ = request.data['datetime']
+        current_date = datetime.datetime.strptime(datetime_, "%d-%m-%Y %H:%M")
+
+        user.profile.current_test_date = current_date
+        user.profile.save()
+
+        return JsonResponse({}, status=200)
+
+    def _get_request_errors(self, request):
+        if not request.data.get('datetime'):
+            return JsonResponse({
+                'error': 'Must provide `datetime`'
+                }, status=400)
+        if not request.data.get('user_id'):
+            return JsonResponse({
+                'error': 'Must provide `user_id`'
+                }, status=400)
+
 
 """ TEST VIEWS """
 class ViewForTesting(APIView):

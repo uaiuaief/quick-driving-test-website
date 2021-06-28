@@ -109,6 +109,7 @@ class Profile(BaseModel):
             default='unchecked'
     )
 
+    current_test_date = models.DateTimeField(null=True, blank=True)
     test_booked = models.BooleanField(default=False)
 
     first_name = models.CharField(

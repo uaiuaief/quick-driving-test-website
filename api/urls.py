@@ -51,7 +51,8 @@ urlpatterns = [
     path('test-found/', views.TestFoundView.as_view(), name='test_found'),
     path('ban-proxy/', views.BanProxyView.as_view(), name='ban_proxy'),
     path('proxy-customer-pair/', views.ProxyCustomerPairView.as_view(), name='proxy_customer_pair'),
-    path('set-user-info-validation/', views.UserInfoValidationView.as_view(), name='info-validation'),
+    path('set-user-info-validation/', views.UserInfoValidationView.as_view(), name='info_validation'),
+    path('set-current-test-date/', views.SetCurrentTestDateView.as_view(), name='set_current_test_date'),
 
 
     #Urls for tests
