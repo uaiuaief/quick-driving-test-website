@@ -815,8 +815,8 @@ class TestFoundView(APIView):
 
 
 class SetCurrentTestDateView(APIView):
-    #permission_classes = [permissions.IsAdminUser]
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAdminUser]
+    #permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         pprint(request.data)

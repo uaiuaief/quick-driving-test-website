@@ -29,6 +29,8 @@ class ProfileSerializer(serializers.ModelSerializer):
                 'latest_time',
                 'last_crawled',
                 'automatic_booking',
+                'test_booked',
+                'current_test_date',
                 'info_validation',
         ]
 
