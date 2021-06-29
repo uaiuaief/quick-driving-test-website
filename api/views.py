@@ -628,7 +628,7 @@ class ProxyCustomerPairView(APIView):
 
     def find_usable_proxy(self):
         minutes = settings.PROXY_CRAWL_INTERVAL
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=minutes)
+        time_limit = timezone.now() - datetime.timedelta(minutes=minutes)
         usable_proxy = models.Proxy.objects.order_by('last_used').filter(
                 last_used__lte=time_limit,
                 is_banned=False).first()
@@ -656,7 +656,7 @@ class GetValidProxyView(APIView):
 
     def find_usable_proxy(self):
         minutes = settings.PROXY_CRAWL_INTERVAL
-        time_limit = datetime.datetime.now() - datetime.timedelta(minutes=minutes)
+        time_limit = timezone.now() - datetime.timedelta(minutes=minutes)
         usable_proxy = models.Proxy.objects.order_by('last_used').filter(
                 last_used__lte=time_limit,
                 is_banned=False).first()
