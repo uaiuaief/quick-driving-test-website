@@ -57,6 +57,6 @@ urlpatterns = [
 
 
     #Urls for tests
-    path('test1/', views.ViewForTesting.as_view(), name='test1'),
+    #path('test1/', views.ViewForTesting.as_view(), name='test1'),
 
 ]

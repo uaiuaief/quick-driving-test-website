@@ -750,10 +750,10 @@ class BanProxyView(APIView):
         return None
 
 
-"""
-Use when customer's test is non-refundable
-"""
 class SetTestBookedView(APIView):
+    """
+    Use when customer's test is non-refundable
+    """
     permission_classes = [permissions.IsAdminUser]
 
     def post(self, request):
@@ -884,11 +884,13 @@ class SetCurrentTestDateView(APIView):
 """ TEST VIEWS """
 class ViewForTesting(APIView):
     permission_classes = [permissions.IsAdminUser]
+    #permission_classes = [permissions.AllowAny]
 
     def get(self, request):
-        user = models.User.objects.get(id=63)
-        email_sender.profile_update_required_email(user.email, user.profile.get_full_name())
-        email_sender.profile_update_required_email(settings.ALI_EMAIL, user.profile.get_full_name())
-        #email_sender.test()
+        #user = models.User.objects.get(id=63)
+        #email_sender.profile_update_required_email(user.email, user.profile.get_full_name())
+        #email_sender.profile_update_required_email(settings.ALI_EMAIL, user.profile.get_full_name())
+
+        email_sender.test()
         return HttpResponse(status=200)
 
