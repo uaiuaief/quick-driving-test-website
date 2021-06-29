@@ -750,6 +750,36 @@ class BanProxyView(APIView):
         return None
 
 
+"""
+Use when customer's test is non-refundable
+"""
+class SetTestBookedView(APIView):
+    permission_classes = [permissions.IsAdminUser]
+
+    def post(self, request):
+        error = self._get_request_errors(request)
+        if error:
+            return error
+
+        try:
+            user = models.User.objects.get(id=request.data['user_id'])
+        except models.User.DoesNotExist:
+            return JsonResponse({
+                'error': f'user with id {request.data["user_id"]} does not exist'
+            }, status=404)
+
+        user.profile.test_booked = True
+        user.profile.save()
+
+        return JsonResponse({}, status=200)
+
+    def _get_request_errors(self, request):
+        if not request.data.get('user_id'):
+            return JsonResponse({
+                'error': 'Must provide `user_id`'
+                }, status=400)
+
+
 class TestFoundView(APIView):
     permission_classes = [permissions.IsAdminUser]
 

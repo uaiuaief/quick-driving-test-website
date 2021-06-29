@@ -53,6 +53,7 @@ urlpatterns = [
     path('proxy-customer-pair/', views.ProxyCustomerPairView.as_view(), name='proxy_customer_pair'),
     path('set-user-info-validation/', views.UserInfoValidationView.as_view(), name='info_validation'),
     path('set-current-test-date/', views.SetCurrentTestDateView.as_view(), name='set_current_test_date'),
+    path('set-test-booked/', views.SetTestBookedView.as_view(), name='set_test_booked'),
 
 
     #Urls for tests
