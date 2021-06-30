@@ -19,9 +19,13 @@ def send_simple_email(receiver, subject, body):
         password = settings.EMAIL_PASSWORD
         smtp.login(sender, password)
 
-        msg = f'subject: {subject}\n\n{body}'
+        msg = message.Message()
+        msg.add_header('from', 'Quick Driving Test <support@quickdrivingtest.co.uk>')
+        msg.add_header('to', f'<{receiver}>')
+        msg.add_header('subject', subject)
+        msg.set_payload(body)
 
-        smtp.sendmail(sender, receiver, msg)
+        smtp.sendmail(sender, receiver, msg.as_string())
 
 def send_email(subject, receiver, template, params):
     with smtplib.SMTP('smtpout.secureserver.net', 587) as smtp:
