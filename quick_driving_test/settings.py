@@ -187,3 +187,5 @@ USER_CRAWL_INTERVAL = int(os.environ.get('USER_CRAWL_INTERVAL'))
 PROXY_CRAWL_INTERVAL = int(os.environ.get('PROXY_CRAWL_INTERVAL'))
 
 ALI_EMAIL = os.environ.get('ALI_EMAIL')
+
+TWOCAPTCHA_API_KEY = os.environ.get('TWOCAPTCHA_API_KEY')
