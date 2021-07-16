@@ -97,7 +97,7 @@ def welcome_email(receiver, user_name):
 def test():
     pass
     #welcome_email('support@quickdrivingtest.co.uk', 'John Doe')
-    #welcome_email('jhonatasbn14@gmail.com', 'José da Silva Matos')
-    #test_found_email('jhonatasbn14@gmail.com', 'José da Silva Matos', '12:00', '26-06-2021', 'Sale')
+    #welcome_email('jhonatasbn14@gmail.com', 'José da Silva Matos Alcantara Pereira Dias Brum')
+    #test_found_email('jhonatasbn14@gmail.com', 'José da Silva Matos', '12:00', '26-06-2021', 'Birmingham (Cocks Moors Woods)')
     #profile_update_required_email('jhonatasbn14@gmail.com', 'José da Silva Matos')
     #send_password_recovery_email('jhonatasbn14@gmail.com', 'José da Silva Matos', 'link')
