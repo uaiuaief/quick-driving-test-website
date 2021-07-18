@@ -244,6 +244,7 @@ class UserProfileView(APIView, UserCreationMixin):
             else:
                 raise KeyError(f'Profile has no attribute {attr}')
         
+        profile.info_validation = 'unchecked'
         profile.full_clean()
         profile.save()
 
