@@ -28,6 +28,7 @@ class UserCreationMixin():
         password = data.pop('password')
 
         user = models.User.objects.create_user(email=email, password=password)
+        user.full_clean()
         user.save()
 
         try:
@@ -38,6 +39,7 @@ class UserCreationMixin():
                     **data
             )
 
+            profile.full_clean()
             profile.save()
 
             for each in test_centers:
@@ -56,6 +58,7 @@ class UserCreationMixin():
             return test_center
         except models.TestCenter.DoesNotExist as e:
             test_center = models.TestCenter(name=test_center_name)
+            test_center.full_clean()
             test_center.save()
 
             return test_center
@@ -241,6 +244,7 @@ class UserProfileView(APIView, UserCreationMixin):
             else:
                 raise KeyError(f'Profile has no attribute {attr}')
         
+        profile.full_clean()
         profile.save()
 
 
@@ -256,6 +260,7 @@ class ChangeEmailView(APIView):
             return error
 
         user.email = data.get('new_email')
+        user.full_clean()
         user.save()
 
         logout(request)
@@ -315,6 +320,7 @@ class ChangePasswordView(APIView):
             return error
 
         user.password = make_password(data.get('new_password'))
+        user.full_clean()
         user.save()
 
         logout(request)
@@ -573,6 +579,7 @@ class UnauthenticatedChangePasswordView(APIView):
 
         user = token.user
         user.password = make_password(request.data.get('new_password'))
+        user.full_clean()
         user.save()
         token.delete()
             

@@ -172,18 +172,20 @@ class StepOne extends Component {
                         </div>
                     </div>
                     <div className="form-row form-row-5">
-                        <div className="form-item">
-                            <label htmlFor="recent_failure">Date of most recent failure (if any)</label>
-                            <input
-                                id="recent_failure"
-                                name="recent_failure"
-                                type="date"
-                                value={recent_failure}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                            {touched.recent_failure && errors.recent_failure ? <div className="input-error">{errors.recent_failure}</div> : null}
+                        <div>
+                            <div className="form-item">
+                                <label htmlFor="recent_failure">Date of most recent failure (if any)</label>
+                                <input
+                                    id="recent_failure"
+                                    name="recent_failure"
+                                    type="date"
+                                    value={recent_failure}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                >
+                                </input>
+                                {touched.recent_failure && errors.recent_failure ? <div className="input-error">{errors.recent_failure}</div> : null}
+                            </div>
                         </div>
                         <div className="test-center-group">
                             <div className="form-item">
@@ -280,7 +282,7 @@ class StepTwo extends Component {
             <>
                 <h1>One more step...</h1>
                 <p>
-                    A few more details, such as where we should send your cancellations, 
+                    A few more details, such as where we should send your cancellations,
                     and what your information is.
                 </p>
                 <div className="form-inputs">
@@ -491,7 +493,12 @@ class TestForm extends Component {
                 errors.earliest_time = `Time must be before ${values.latest_time}`;
                 errors.latest_time = `Time must be after ${values.earliest_time}`;
             }
+        }
 
+        if (values.recent_failure) {
+            if (new Date() < new Date(values.recent_failure)) {
+                errors.recent_failure = `Recent test failure must be in the past`;
+            }
         }
 
         if (window.isEmpty(errors)) {
@@ -500,7 +507,6 @@ class TestForm extends Component {
         else {
             this.setState({ stepOneValid: false })
         }
-
 
         return errors
     }
@@ -749,7 +755,7 @@ class TestForm extends Component {
                                         onClick={e => this.nextStep()}
                                         id=""
                                         // text="Submit"
-                                        text={props.isSubmitting ? "Submitting...": "Submit"}
+                                        text={props.isSubmitting ? "Submitting..." : "Submit"}
                                         type="submit"
                                         disabled={!this.state.stepTwoValid || props.isSubmitting}
                                     />

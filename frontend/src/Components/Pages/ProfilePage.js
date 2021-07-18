@@ -87,6 +87,12 @@ class DashBoard extends Component {
                             }
                         }
 
+                        if (values.recent_failure) {
+                            if (new Date() < new Date(values.recent_failure)) {
+                                errors.recent_failure = `Recent test failure must be in the past`;
+                            }
+                        }
+
                         if (!values.test_ref) {
                             errors.test_ref = 'This field is required';
                         }
@@ -254,18 +260,20 @@ class DashBoard extends Component {
                                         </div>
                                     </div>
                                     <div className="form-row form-row-5">
-                                        <div className="form-item">
-                                            <label htmlFor="recent_failure">Date of most recent failure (if any)</label>
-                                            <input
-                                                id="recent_failure"
-                                                name="recent_failure"
-                                                type="date"
-                                                value={props.values.recent_failure}
-                                                onChange={props.handleChange}
-                                                onBlur={props.handleBlur}
-                                            >
-                                            </input>
-                                            {props.touched.recent_failure && props.errors.recent_failure ? <div className="input-error">{props.errors.recent_failure}</div> : null}
+                                        <div>
+                                            <div className="form-item">
+                                                <label htmlFor="recent_failure">Date of most recent failure (if any)</label>
+                                                <input
+                                                    id="recent_failure"
+                                                    name="recent_failure"
+                                                    type="date"
+                                                    value={props.values.recent_failure}
+                                                    onChange={props.handleChange}
+                                                    onBlur={props.handleBlur}
+                                                >
+                                                </input>
+                                                {props.touched.recent_failure && props.errors.recent_failure ? <div className="input-error">{props.errors.recent_failure}</div> : null}
+                                            </div>
                                         </div>
                                         <div className="test-center-group">
                                             <div className="test-center-item">
@@ -547,7 +555,7 @@ class Plan extends Component {
         return (
             <div id="account-plan">
                 <h2>Plan II</h2>
-                <h3>$ 19.00</h3>
+                <h3>$ 20.00</h3>
                 <BlueButton2
                     onClick={e => alert("not working yet")}
                     disabled={true}
@@ -586,7 +594,9 @@ class Support extends Component {
                         })
 
                         if (String(res.status).slice(0, 1) == 2) {
-                            setParentState({ highlighted: 'success-password' })
+                            // console.log('success')
+                            actions.resetForm()
+                            setParentState({ highlighted: 'success-message' })
                         }
                         else if (String(res.status).slice(0, 1) == 5) {
                             let data = await res.json()
@@ -779,6 +789,7 @@ class ProfilePage extends Component {
                     <h1>Support</h1>
                     <Support
                         parentState={this.state}
+                        setParentState={e => this.setState(e)}
                         fetchUserData={() => this.fetchUserData()}
                     />
                 </>
