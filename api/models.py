@@ -147,7 +147,7 @@ class Profile(BaseModel):
             raise ValidationError(errors)
 
     def __str__(self):
-        return f'{self.user} - {self.driving_licence_number} - {self.info_validation} - {"BOOKED" if self.test_booked else ""}'
+        return f'{self.get_full_name()} - {self.info_validation} - {"BOOKED" if self.test_booked else ""}'
 
     def get_full_name(self):
         return f'{self.first_name} {self.last_name}'
