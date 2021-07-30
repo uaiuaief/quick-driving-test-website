@@ -195,11 +195,15 @@ class Proxy(BaseModel):
         return f"{self.ip}  |  {format(self.last_used, '%d/%m, %H:%M:%S' )}  {'|  Banned' if self.is_banned else ''}  |  use count: {self.use_count}"
 
 
+def get_expiration_time():
+    return timezone.now() + datetime.timedelta(minutes=60)
+
+
 class Token(BaseModel):
     token_hash = models.CharField(max_length=32, unique=True)
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     expiration = models.DateTimeField(
-            default=(timezone.now() + datetime.timedelta(minutes=60)),
+            default=get_expiration_time(),
             blank=True
             )
     
